@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        html, body {
+            height: 100%;
+            margin: 0;
+            padding: 0;
+            overflow: hidden;
+        }
+
+        .navigation {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 50px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between; /* 좌우 공간을 균등하게 분배 */
+            background-color: #97cbff;
+            border-bottom: 1px solid #ddd;
+            z-index: 2; /* 내비게이션 바가 사이드바와 article 위에 위치하도록 설정 */
+        }
+
+        .menu {
+            display: inline-block; /* 텍스트 영역만큼만 클릭 가능하도록 설정 */
+            padding: 10px 15px; /* 메뉴 텍스트 주변 여백 설정 */
+            cursor: pointer; /* 메뉴 클릭 가능하게 설정 */
+        }
+
+        .sitename {
+            flex-grow: 1; /* sitename이 중앙에 위치하도록 설정 */
+            text-align: center;
+        }
+
+        .user {
+            display: inline-block; /* 텍스트 영역만큼만 크기를 설정 */
+            padding: 10px 15px; /* 텍스트 주변 여백 설정 */
+        }
+
+        .main {
+            display: flex;
+            margin-top: 50px;
+        }
+
+        .sidebar {
+            position: fixed; /* 사이드바를 fixed로 설정 */
+            top: 50px; /* 내비게이션 바 바로 아래로 위치 */
+            left: 0;
+            width: 50px;
+            height: calc(100vh - 50px); /* 사이드바의 높이를 전체 높이에서 내비게이션 높이를 제외 */
+            background-color: rgba(251, 76, 76, 0.5);
+            transition: width 0.3s, display 0.3s; /* 애니메이션 추가 */
+            z-index: 1; /* 사이드바가 article 위에 위치하도록 설정 */
+        }
+
+        .sidebar.expanded {
+            width: 200px; /* 확장된 상태의 너비 */
+        }
+
+        .article {
+            margin-left: 50px;
+            flex: 1;
+            overflow: hidden; /* 콘텐츠가 넘치지 않도록 설정 */
+            z-index: 0; /* 사이드바 아래에 위치하도록 설정 */
+        }
+
+        .content {
+            background-color: aquamarine;
+        }
+
+        .footer {
+            background-color: #ffc0c0;
+        }
+
+        /* 모바일 화면에서 사이드바 동작 */
+        @media (max-width: 768px) {
+            .sidebar {
+                display: none; /* 사이드바와 그 안의 내용을 완전히 숨김 */
+            }
+
+            .sidebar.expanded {
+                display: block; /* 확장된 상태에서는 사이드바를 보이도록 설정 */
+                width: 100vw; /* 확장 시 화면 전체 너비로 설정 */
+                height: 100vh; /* 확장 시 전체 높이를 사용 */
+            }
+
+            .article {
+                margin-left: 0; /* 모바일에서는 기사 영역을 사이드바와 겹치지 않게 설정 */
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="navigation">
+        <div class="menu">
+            메뉴
+        </div>
+        <div class="sitename">
+            이름
+        </div>
+        <div class="user">
+            로그인
+        </div>
+    </div><!-- end navigation -->
+
+    <div class="main">
+        <div class="sidebar">
+            <div class="sidebar-content">
+
+                <img src="your-image-url" alt="."> <!-- 실제 이미지 URL로 대체 -->
+                <p class="description">이것은 악기입니다.</p>
+
+        </div>
+        </div>
+        <div class="article">
+            <div class="content">
+                콘텐트영역입니다…………….
+            </div>
+            <div class="footer">
+                푸터 영역
+            </div>
+        </div><!-- end article -->
+    </div><!-- end main -->
+
+    <script>
+        document.querySelector('.menu').addEventListener('click', function() {
+            var sidebar = document.querySelector('.sidebar');
+            sidebar.classList.toggle('expanded'); // 사이드바 확장/축소
+        });
+    </script>
+</body>
+</html>

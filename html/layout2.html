@@ -1,0 +1,385 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        @font-face {
+            font-family: 'GodoM';
+            src: url('./GodoM.ttf');
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+
+        html, body {
+            height: 100%;
+            margin: 0;
+            padding: 0;
+            overflow: hidden;
+            font-family: 'GodoM';
+        }
+
+        .navigation {
+            display: flex;
+            align-items: center;
+            justify-content:space-between; /* 중앙 정렬을 위해 수정 */
+            background-color: #c35050;
+            z-index: 2;
+            padding-left: 20px;
+            padding-right: 20px;
+            margin-bottom: 0;
+            /* height: 80px; */
+            
+        }
+
+        .menu {
+            display: inline-block;
+            cursor: pointer;
+        }
+
+        .menu-icon, .login-icon {
+            width: 30px;
+            height: 30px;
+            object-fit: cover;
+        }
+
+        .sitename {
+            position: absolute; /* 중앙 정렬을 위해 절대 위치 지정 */
+            left: 50%;
+            transform: translateX(-50%); /* 정확한 중앙 정렬 */
+            text-align: center;
+            font-size: 35px;
+        }
+
+        .user {
+            display: inline-block;
+            cursor: pointer;
+        }
+
+        .main {
+            background-color: #444;
+            display: flex;
+            margin-top: 0px;
+        }
+
+        .sidebar {
+            position: fixed;
+            
+            left: 0;
+            width: 80px;
+            height: calc(100vh - 55px);
+            background-color: rgb(69, 169, 116);
+            border-right: 1px solid #ddd;
+            z-index: 1;
+            overflow: hidden;
+            transition: width 0.3s;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            
+        }
+
+        .sidebar.expanded {
+            width: 300px;
+        }
+
+        .sidebar-item {
+            display: flex;
+            align-items: center;
+            justify-content: center; /* 기본 중앙 정렬 */
+            padding: 5px 0; /* 패딩 수정으로 중앙정렬 조정 */
+            transition: width 0.3s;
+            width: 100%;
+            margin-top: 20px;
+        }
+
+        .sidebar.expanded .sidebar-item {
+            justify-content: flex-start; /* 확장 시 왼쪽 정렬 */
+            padding-left: 10px; /* 확장 시 왼쪽 패딩 추가 */
+        }
+
+        .sidebar-icon {
+            width: 30px;
+            height: 30px;
+            margin-right: 0; /* 기본 마진 제거 */
+            cursor: pointer;
+        }
+
+        .sidebar-text {
+            display: none;
+            white-space: nowrap;
+        }
+
+        .sidebar.expanded .sidebar-text {
+            display: inline-block; /* 사이드바가 확장될 때 텍스트 보이기 */
+            margin-left: 10px; /* 확장 시 텍스트와 아이콘 간격 */
+            
+        }
+
+        .article {  
+            background-color: #ffffff;
+            margin-left: 80px;
+            flex: 1;
+            overflow: hidden;
+            z-index: 0;
+            padding: 0 20px;
+            
+        }
+
+        .searchbar {
+            background-color: #ffffff;
+            height: 80px;
+            display: flex;
+            align-items: center;
+            
+        }
+
+        .search-container {
+            display: flex;
+            align-items: center;
+            width: 100%;
+            
+            margin: 0 auto;
+            
+            position: relative; /* 아이콘을 입력창 내부에서 절대 위치로 배치하기 위해 필요 */
+        }
+
+        .search-container input {
+            border: 1px solid #000000;
+            outline: none;
+            padding: 10px 20px;
+            border-radius: 10px;
+            width: 100%;
+            font-size: 16px;
+            padding-left: 50px; /* 아이콘 크기에 맞춰 여백 추가 */
+        }
+
+        .search-container .search-icon {
+            position: absolute;
+            left: 15px; /* 오른쪽 여백 설정 */
+            top: 50%; /* 상단 기준 중앙 배치 */
+            transform: translateY(-50%); /* 수직 중앙 정렬 */
+            color: #007bff;
+            width: 24px; /* 아이콘의 적당한 크기 설정 */
+            height: 24px; /* 아이콘의 적당한 크기 설정 */
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            pointer-events: none; /* 클릭 이벤트를 차단하여 입력창이 클릭되는 것을 보장 */
+        }
+
+        
+
+        .content {
+            background-color: aquamarine;
+        }
+
+        .footer {
+            background-color: #ffc0c0;
+            
+        }
+
+        @media (max-width: 768px) {
+        
+            .sidebar {
+                display: none;
+            }
+
+            .sidebar.expanded {
+                display: block;
+                width: 100vw;
+                height: 100vh;
+            }
+
+            .article {
+                margin-left: 0;
+            }
+        }
+
+        .sidebar-content {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+
+            margin-top: 20px;
+            margin-bottom: 0;
+        }
+
+        .login-button {
+            display: none;
+            
+            font-size: 1rem;
+            padding: 8px 12px;
+            border: none;
+            border-radius: 5px;
+            background-color: #007bff;
+            color: white;
+            cursor: pointer;
+            
+        }
+
+        .login-button:hover {
+            background-color: #0056b3;
+        }
+
+        .profile-image {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            /* margin-bottom: 10px; */
+            /* transition: width 0.3s, height 0.3s; */
+        }
+
+        .sidebar.expanded .profile-image {
+            width: 120px; /* 확장 시 프로필 이미지 크기 증가 */
+            height: 120px;
+        }
+
+        .description {
+            display: none;
+            font-size: 1rem;
+        }
+
+        .sidebar.expanded .description {
+            display: block;
+        }
+
+        .sidebar.expanded .login-button {
+            display: block; /* 사이드바가 확장될 때 버튼 보이기 */
+        }   
+
+        .divider {
+            width: calc(100% - 20px); /* sidebar-item의 padding과 일치하도록 조정 */
+            border: 0;
+            border-top: 1px solid #ddd;
+           
+            margin-top: 20px;
+        }
+
+        .music-player {
+            position: fixed;
+            bottom: -100px;
+            left: 0;
+            right: 0;
+            height: 80px;
+            background-color: #333;
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: space-around;
+            transition: bottom 0.3s;
+            z-index: 3;
+        }
+
+        .music-player.visible {
+            bottom: 0;
+        }
+
+        .play-button {
+            cursor: pointer;
+            background-color: #444;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            color: white;
+        }
+    </style>
+</head>
+<body>
+    <div class="navigation">
+        <div class="menu">
+            <img class="menu-icon" src="./images/menu_24dp_5F6368_FILL0_wght400_GRAD0_opsz24.svg">
+        </div>
+        <div class="sitename">
+            사이트이름
+        </div>
+        <div class="user">
+            회원가입
+        
+        </div>
+    </div><!-- end navigation -->
+
+    <div class="main">
+        
+        <div class="sidebar">
+            <!-- 프로필 이미지는 항상 보이게 -->
+            <div class="sidebar-content">
+                <img src="./images/account_circle_24dp_5F6368_FILL0_wght400_GRAD0_opsz24.svg" alt="User Profile" class="profile-image">
+                <button class="login-button">로그인</button> 
+            </div>
+
+            <hr class="divider">
+
+            <div class="sidebar-item">
+                <img class="sidebar-icon" src="./images/music_note_24dp_5F6368_FILL0_wght400_GRAD0_opsz24.svg">
+                <span class="sidebar-text">곡</span> <!-- 확장 시 텍스트 표시 -->
+            </div>
+            <div class="sidebar-item">
+                <img class="sidebar-icon" src="./images/graphic_eq_24dp_5F6368_FILL0_wght400_GRAD0_opsz24.svg">
+                <span class="sidebar-text">효과음</span> <!-- 확장 시 텍스트 표시 -->
+            </div>
+
+            <hr class="divider">
+            
+            <div class="sidebar-item">
+                <img class="sidebar-icon" src="./images/help_24dp_5F6368_FILL0_wght400_GRAD0_opsz24.svg">
+                <span class="sidebar-text">문의</span> <!-- 확장 시 텍스트 표시 -->
+            </div>
+        </div>
+
+        <div class="article">
+            
+            <div class="searchbar">
+                <div class="search-container">
+                    <span class="search-icon">
+                        <img src="./images/search_24dp_5F6368_FILL0_wght400_GRAD0_opsz24.svg" alt="Search Icon">
+                    </span>
+                    <input type="text" placeholder="검색...">
+                </div>
+            </div>
+
+            <div class="content">
+                콘텐트영역입니다…………….<br>
+                <span class="play-trigger" style="cursor: pointer; color: blue;">재생</span>
+            </div>
+            <div class="footer">
+                푸터 영역
+            </div>
+        </div><!-- end article -->
+    </div><!-- end main -->
+
+    <div class="music-player" id="musicPlayer">
+        <button class="play-button">▶ Play</button>
+        <span>현재 재생 중: Example Song</span>
+        <button class="play-button">⏸ Pause</button>
+    </div>
+
+    <script>
+        document.querySelector('.menu').addEventListener('click', function() {
+        var sidebar = document.querySelector('.sidebar');
+        var menuIcon = document.querySelector('.menu-icon');
+        
+        sidebar.classList.toggle('expanded');
+
+        // 사이드바가 확장된 경우
+        if (sidebar.classList.contains('expanded')) {
+            menuIcon.src = './images/close_24dp_5F6368_FILL0_wght400_GRAD0_opsz24.svg';
+        } else { // 사이드바가 축소된 경우
+            menuIcon.src = './images/menu_24dp_5F6368_FILL0_wght400_GRAD0_opsz24.svg';
+        }
+    });
+
+        document.querySelector('.play-trigger').addEventListener('click', function() {
+            var musicPlayer = document.getElementById('musicPlayer');
+            musicPlayer.classList.toggle('visible');
+        });
+    </script>
+</body>
+</html>

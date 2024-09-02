@@ -1,0 +1,369 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link href="./layout.css" rel="stylesheet">
+</head>
+<body>
+    <div class="main">
+
+        <div class="sidebar">
+            <div class="menu">
+                <img class="menu-icon" src="./images/menu_24dp_5F6368_FILL0_wght400_GRAD0_opsz24.svg">
+            </div>
+
+            <hr class="divider">
+            
+            <div class="profile">
+                <img src="./images/account_circle_24dp_5F6368_FILL0_wght400_GRAD0_opsz24.svg" alt="User Profile" class="profile-image">
+                <button class="primary-button none-display">로그인</button> 
+            </div>
+
+            <hr class="divider">
+
+            <div class="sidebar-item">
+                <img class="sidebar-icon" src="./images/music_note_24dp_5F6368_FILL0_wght400_GRAD0_opsz24.svg">
+                <span class="sidebar-text">곡</span>
+            </div>
+            <div class="sidebar-item">
+                <img class="sidebar-icon" src="./images/graphic_eq_24dp_5F6368_FILL0_wght400_GRAD0_opsz24.svg">
+                <span class="sidebar-text">효과음</span>
+            </div>
+
+            <hr class="divider">
+            
+            <div class="sidebar-item">
+                <img class="sidebar-icon" src="./images/help_24dp_5F6368_FILL0_wght400_GRAD0_opsz24.svg">
+                <span class="sidebar-text">문의</span>
+            </div>
+        </div> <!-- end sidebar -->
+
+        <div class="article">
+            
+            <div class="navigation">
+                <div class="navigation-menu">
+                    <img class="navigation-menu-icon" src="./images/menu_24dp_5F6368_FILL0_wght400_GRAD0_opsz24.svg">
+                </div>
+                <div class="sitename">사이트이름</div>
+                <div class="user">회원가입</div>
+            </div><!-- end navigation -->
+
+            <div class="searchbar">
+                <div class="searchbar-container">
+                    <span class="searchbar-icon">
+                        <img src="./images/search_24dp_5F6368_FILL0_wght400_GRAD0_opsz24.svg" alt="Search Icon">
+                    </span>
+                    <input type="text" placeholder="검색...">
+                </div>
+            </div><!-- end searchbar -->
+
+            <div class="content">
+                콘텐트영역입니다…………….<br>
+                <span class="play-trigger" style="cursor: pointer; color: blue;">재생</span>
+            </div><!-- end content -->
+
+            <div class="footer">
+                푸터 영역
+            </div><!-- end footer -->
+
+        </div><!-- end article -->
+
+    </div><!-- end main -->
+
+    <!-- <div class="music-player" id="musicPlayer">
+        <button class="play-button">▶ Play</button>
+        <span>현재 재생 중: Example Song</span>
+        <button class="play-button">⏸ Pause</button>
+    </div> -->
+
+    <style>
+        .music-player {
+            position: fixed;
+            bottom: -100px;
+            left: 0;
+            right: 0;
+            height: 80px;
+            background-color: #333;
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 20px;
+            transition: bottom 0.3s;
+            z-index: 3;
+        }
+
+        .music-player.visible {
+            bottom: 0;
+        }
+
+        /* 그룹화된 섹션 */
+        .music-player-section {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+        }
+
+        /* 1. 앨범이미지, 곡정보, 시작버튼 */
+        .player-left {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .music-player-img img {
+            width: 50px;
+            height: 50px;
+            border-radius: 5px;
+        }
+
+        .music-player-info { 
+            display: flex;
+            flex-direction: column;
+        }
+
+        .music-player-info-title {
+            font-weight: bold;
+        }
+
+        .music-player-info-writer {
+            font-size: 12px;
+            color: rgb(187, 185, 185);
+        }
+
+        .music-player-play {
+            cursor: pointer;
+            border: none;
+            background: none;
+            padding: 0;
+        }
+
+        /* 2. 러닝타임, 웨이브파형 */
+        .player-middle {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .music-player-time {
+            font-size: 14px;
+            white-space: nowrap;
+        }
+
+        .music-player-waveform {
+            font-size: 12px;
+            color: rgb(187, 185, 185);
+        }
+
+        /* 3. 다운로드, 좋아요 */
+        .player-right {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .music-player-download img,
+        .music-player-favorite img,
+        .music-player-copy img {
+            width: 24px;
+            height: 24px;
+            cursor: pointer;
+        }
+        .music-player-volume {
+            display: flex;
+            align-items: center;
+            margin-left: 20px;
+            position: relative;
+        }
+
+        .volume-slider {
+            width: 100px;
+            margin-left: 10px;
+            background-color: #444;
+            border-radius: 5px;
+            height: 10px;
+        }
+        .copy-notification {
+            display: none;
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            background-color: #444;
+            color: #fff;
+            padding: 10px;
+            border-radius: 5px;
+            box-shadow: 0 0 10px rgba(0,0,0,0.2);
+            z-index: 4;
+        }
+        /* .music-player-volume:hover .volume-slider {
+            display: block; 
+        } */
+
+        /* 일반적인 웹사이트 큐 바 스타일 */
+        @media (max-width: 768px) {
+            .music-player {
+                padding-left: 0px;
+                height: 80px;
+            }
+            .music-player-img img {
+                display: none;
+            }
+            .music-player-play img{
+                width: 32px;
+                height: 32px;
+            }
+            .music-player-time {
+                margin-left: 10px;
+                font-size: 16px;
+            }
+            .player-middle .music-player-waveform {
+                display: none; /* 모바일에서 웨이브폼 숨기기 */
+            }
+            
+            .music-player-volume img {
+                display: none; /* 모바일에서 볼륨 아이콘 숨기기 */
+            }
+            
+            .music-player-slider {
+                margin-left: 0; /* 슬라이더를 볼륨 아이콘과 겹치지 않게 하기 */
+            }
+        }
+    </style>
+    
+    <div class="music-player" id="musicPlayer">
+
+        <!-- 1. 앨범이미지, 곡정보, 시작버튼 -->
+        <div class="player-left">
+            <div class="music-player-img">
+                <img src="library_add_check_50dp_32ADE6_FILL0_wght400_GRAD0_opsz48.svg" alt="앨범이미지">
+            </div>
+
+            <div class="music-player-info">
+                <span class="music-player-info-title">Henglias</span>
+                <span class="music-player-info-writer">Jonsi</span>
+            </div>
+
+            <div class="music-player-play" id="playButton">
+                <img src="play_circle_50dp_5F6368_FILL0_wght400_GRAD0_opsz48.svg" alt="플레이">
+            </div>
+        </div>
+
+        <!-- 2. 러닝타임, 웨이브파형 -->
+        <div class="player-middle">
+            <div class="music-player-time">
+                02:47/03:43
+            </div>
+
+            <div class="music-player-waveform">
+                <span>(Song WaveForm)</span>
+            </div>
+        </div>
+
+        <!-- 3. 다운로드, 좋아요, 음량, 복사 -->
+        <div class="player-right">
+            <div class="music-player-volume">
+                <img src="volume_up_50dp_5F6368_FILL0_wght400_GRAD0_opsz48.svg" alt="볼륨">
+            </div>
+
+            <div class="music-player-slider">
+                <input type="range" class="volume-slider" min="0" max="100" value="50">
+            </div>
+
+            <div class="music-player-download">
+                <img src="download_50dp_32ADE6_FILL0_wght400_GRAD0_opsz48.svg" alt="다운로드">
+            </div>
+
+            <div class="music-player-favorite">
+                <img src="heart_plus_50dp_32ADE6_FILL0_wght400_GRAD0_opsz48.svg" alt="좋아요">
+            </div>
+
+            <div class="music-player-copy">
+                <img src="link_50dp_5F6368_FILL0_wght400_GRAD0_opsz48.svg" alt="링크복사" id="copyLinkButton">
+            </div>
+
+            <div class="copy-notification" id="copyNotification">링크가 복사되었습니다!</div>
+        </div>
+    </div>
+    
+    <script>
+        // 플레이어 보이기/숨기기 트리거 (예: 다른 요소에 연결)
+        document.querySelector('.play-trigger')?.addEventListener('click', function() {
+            console.log("click play");
+            var musicPlayer = document.getElementById('musicPlayer');
+            musicPlayer.classList.toggle('visible');
+        });
+
+        // 재생/정지 버튼 토글
+        document.getElementById('playButton').addEventListener('click', function() {
+            var playButton = document.querySelector('#playButton img');
+            
+            if (playButton.src.includes('play_circle')) {
+                playButton.src = 'pause_circle_50dp_5F6368_FILL0_wght400_GRAD0_opsz48.svg';
+                playButton.alt = '정지';
+            } else {
+                playButton.src = 'play_circle_50dp_5F6368_FILL0_wght400_GRAD0_opsz48.svg';
+                playButton.alt = '플레이';
+            }
+        });
+        document.getElementById('copyLinkButton').addEventListener('click', function() {
+            // 복사할 링크 예시
+            const linkToCopy = 'https://example.com/music/track';
+
+            // 클립보드에 텍스트 복사
+            navigator.clipboard.writeText(linkToCopy).then(function() {
+                // 복사 완료 후 메시지 표시
+                const notification = document.getElementById('copyNotification');
+                notification.style.display = 'block';
+                
+                // 2초 후 메시지 숨기기
+                setTimeout(function() {
+                    notification.style.display = 'none';
+                }, 2000);
+            }).catch(function(error) {
+                console.error('복사 실패:', error);
+            });
+        });
+    </script>
+
+    <script>
+        document.querySelector('.menu').addEventListener('click', function() {
+            var sidebar = document.querySelector('.sidebar');
+            var menuIcon = document.querySelector('.menu-icon');
+            
+            sidebar.classList.toggle('expanded');
+
+            if (sidebar.classList.contains('expanded')) {
+                menuIcon.src = './images/close_24dp_5F6368_FILL0_wght400_GRAD0_opsz24.svg';
+            } else {
+                menuIcon.src = './images/menu_24dp_5F6368_FILL0_wght400_GRAD0_opsz24.svg';
+            }
+        });
+
+
+        // 모바일 환경에서 navigation-menu 클릭 시 sidebar 확장
+        document.querySelector('.navigation-menu').addEventListener('click', function() {
+            var sidebar = document.querySelector('.sidebar');
+            var menuIcon = document.querySelector('.menu-icon');
+
+            // 사이드바 확장/축소 토글
+            sidebar.classList.toggle('expanded');
+
+            // 확장 상태에 따라 메뉴 아이콘 변경
+            if (sidebar.classList.contains('expanded')) {
+                menuIcon.src = './images/close_24dp_5F6368_FILL0_wght400_GRAD0_opsz24.svg';
+            } else {
+                menuIcon.src = './images/menu_24dp_5F6368_FILL0_wght400_GRAD0_opsz24.svg';
+            }
+        });
+
+
+
+        // document.querySelector('.play-trigger').addEventListener('click', function() {
+        //     var musicPlayer = document.getElementById('musicPlayer');
+        //     musicPlayer.classList.toggle('visible');
+        // });
+    </script>
+</body>
+</html>
