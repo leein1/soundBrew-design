@@ -180,7 +180,7 @@ html, body {
     
     height: 55px;
     position: relative; /* sitename을 중앙에 배치하기 위한 기준 설정 */
-    font-size: 30px;
+    
 }
 
 .navigation-menu{
@@ -481,3 +481,4 @@ html, body {
         margin-left: 0; /* 슬라이더를 볼륨 아이콘과 겹치지 않게 하기 */
     }
 }
+
