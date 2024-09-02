@@ -1,7 +1,7 @@
 /*전체적용 ----------------------------------------------------- */
 @font-face {
     font-family: 'GodoM';
-    src: url('./GodoM.ttf');
+    src: url('../fonts/GodoM.ttf');
 }
 
 * {
