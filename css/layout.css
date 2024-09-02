@@ -261,36 +261,6 @@ html, body {
     background-color: #ffc0c0;
 }
 
-/* music player ----------------------------------------------------- */
-
-.music-player {
-    position: fixed;
-    bottom: -100px;
-    left: 0;
-    right: 0;
-    height: 80px;
-    background-color: #333;
-    color: white;
-    display: flex;
-    align-items: center;
-    justify-content: space-around;
-    transition: bottom 0.3s;
-    z-index: 3;
-}
-
-.music-player.visible {
-    bottom: 0;
-}
-
-.play-button {
-    cursor: pointer;
-    background-color: #444;
-    border: none;
-    padding: 10px 20px;
-    border-radius: 5px;
-    color: white;
-}
-
 /* media query ----------------------------------------------------- */
 
 @media (max-width: 768px) {
@@ -375,7 +345,7 @@ html, body {
     display: flex;
     align-items: center;
     justify-content: space-between;
-    padding: 0 20px;
+    padding: 0 100px;
     transition: bottom 0.3s;
     z-index: 3;
 }
