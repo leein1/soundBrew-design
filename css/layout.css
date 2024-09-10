@@ -256,10 +256,50 @@ html, body {
 .content {
     background-color: aquamarine;
 }
+/* footer ----------------------------------------------------- */
 
 .footer {
     background-color: #ffc0c0;
 }
+
+/* pagination ----------------------------------------------------- */
+
+.pagination {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 20px 0;
+    border: 1px solid black;
+}
+
+.page-link {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 40px; /* 버튼의 크기 */
+    height: 40px; /* 버튼의 크기 */
+    margin: 0 4px;
+    text-decoration: none;
+    color: #5F6368;
+    border: 1px solid #ddd;
+    border-radius: 50%; /* 원 모양을 위한 설정 */
+    transition: background-color 0.3s, color 0.3s;
+    font-size: 14px; /* 글씨 크기 */
+}
+
+.page-link:hover {
+    background-color: #e0e0e0;
+    color: #000;
+}
+
+.page-link.active {
+    background-color: #005da0;
+    color: #fff;
+    border: 1px solid #ddd;
+}
+
+
+
 
 /* media query ----------------------------------------------------- */
 
