@@ -13,7 +13,6 @@
 html, body {
     height: 100%;
     font-family: 'GodoM';
-    overflow: hidden;
 }
 
 /* main ----------------------------------------------------- */
@@ -254,7 +253,7 @@ html, body {
 }
 
 .content {
-    background-color: aquamarine;
+    /* background-color: aquamarine; */
 }
 
 .footer {
