@@ -4,7 +4,9 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
+    
     <link href="../css/layout.css" rel="stylesheet">
+    <link href="../css/darkmode.css" rel="stylesheet">
     <link href="../css/common.css" rel="stylesheet">
 </head>
 <body>
@@ -173,8 +175,8 @@
        document.addEventListener('DOMContentLoaded', function() {
             const darkModeToggle = document.getElementById('darkModeToggle');
             const sidebar = document.querySelector('.sidebar');
+            const musicPlayer = document.querySelector('.music-player');
             const content = document.querySelector('.content');
-            const navigation = document.querySelector('.navigation');
 
             // 다크 모드 상태를 토글하는 함수
             function toggleDarkMode() {
@@ -183,6 +185,8 @@
                 sidebar.classList.toggle('dark-mode');
                 // 사이드바에 'dark-mode' 클래스가 적용된 상태 확인
                 console.log(sidebar.classList.contains('dark-mode'));
+                musicPlayer.classList.toggle('dark-mode');
+                content.classList.toggle('custom-mode');
             }
 
             // 다크 모드 토글 버튼 클릭 시 다크 모드 상태를 변경

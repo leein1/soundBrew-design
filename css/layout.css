@@ -1,23 +1,10 @@
 :root {
-    --background-color-light: #FFFFFF;
+    --background-color-light: #ffffff;
     --text-color-light: #000000;
 
     --background-color-dark: #333333;
     --text-color-dark: #FFFFFF;
 }
-
-.dark-mode {
-    background-color: var(--background-color-dark); /* 다크 모드로 전환 */
-    color: var(--text-color-dark);
-    /* transition: background-color 0.3s, color 0.3s; */
-}
-
-/* .sidebar.dark-mode {
-    background-color: var(--background-color-dark);
-} */
-
-
-
 
 /*전체적용 ----------------------------------------------------- */
 @font-face {
@@ -55,7 +42,7 @@ html, body {
     left: 0;
     width: 80px;
     height: 100vh;
-    /* background-color: var(--background-color-light); */
+    background-color: var(--background-color-light);
     border-right: 1px solid #ddd;
     z-index: 2;
     overflow: hidden;
@@ -134,6 +121,7 @@ html, body {
     width: 100%;
     margin-top: 20px;
 }
+
 
 .sidebar-icon {
     width: 40px;
@@ -407,8 +395,8 @@ html, body {
     left: 0;
     right: 0;
     height: 80px;
-    background-color: #333;
-    color: white;
+    /* background-color: var(--background-color-light); */
+    /* color: var(--text-color-light); */
     display: flex;
     align-items: center;
     justify-content: space-between;
@@ -548,4 +536,8 @@ html, body {
         margin-left: 0; /* 슬라이더를 볼륨 아이콘과 겹치지 않게 하기 */
     }
 }
+
+
+
+
 

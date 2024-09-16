@@ -1,0 +1,23 @@
+/*      
+    모든 다크모드는 해당 영역 
+    클래스이름.dark-mode 
+    로 작성 
+*/
+
+/* body 태그용 */
+.dark-mode {
+    background-color: var(--background-color-dark); /* 다크 모드로 전환 */
+    color: var(--text-color-dark) ;
+    transition: background-color 2s, color 2s ;
+}
+
+.sidebar.dark-mode{
+    background-color: var(--background-color-dark); /* 다크 모드로 전환 */
+    color: var(--text-color-dark) ;
+    transition: background-color 2s, color 2s ;
+}
+
+
+
+
+
