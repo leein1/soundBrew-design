@@ -73,9 +73,47 @@
     .music-list {
         padding: 20px;
     }
-
-    .music-item,
+    
     .music-sort{
+        display: flex;
+        justify-content: right;
+        align-items: center;
+        margin-bottom: 5px;
+        color: #555;
+    }
+
+    .music-sort-menu {
+        display: none; /* 기본적으로 숨김 */
+        position: absolute;
+        background-color: #fff;
+        border: 1px solid #ddd;
+        box-shadow: 0 4px 8px #555;
+        z-index: 1;
+        bottom: 335px; /* 부모 요소에서 얼마나 떨어질지 */
+        right: 0; /* 오른쪽 정렬 */
+        min-width: 150px;
+    }
+
+    .music-sort-menu ul , .music-tag-sort-menu ul {
+        list-style: none;
+        padding: 0;
+        margin: 0;
+    }
+
+    .music-sort-menu ul li, .music-tag-sort-menu ul li {
+        padding: 10px;
+        cursor: pointer;
+        font-size: 14px;
+        border-bottom: 1px solid #ddd;
+        color: #555;
+    }
+
+    .music-sort-menu ul li:hover, .music-tag-sort-menu ul li:hover{
+        background-color: #f1f1f1;
+    }
+
+
+    .music-item{
         display: flex;
         justify-content: space-between;
         margin-top: 15px;
@@ -121,7 +159,9 @@
     }
 
     .music-play-btn img,
-    .music-actions img{
+    .music-actions img,
+    .music-sort img,
+    .music-tag-sort-list img{
         width: 20px;
         height: 20px;
     }
@@ -139,21 +179,123 @@
         align-items: center; /* 수직 가운데 정렬 */
         gap: 5px; /* 아이템 간격 조정 */
     }
+
+    .music-tag{
+        margin-bottom: 15px;
+    }
+    /* 기본 태그 스타일 */
+    .music-tag .tag {
+        display: inline-block;
+        padding: 5px;
+        border: 1px solid #ccc;
+        border-radius: 15px;
+        margin-top: 15px;
+        margin-right: 5px;
+        color: #555;
+        font-size: 12px;
+        cursor: pointer;
+    }
+
+    /* 태그 클릭 시 활성화 상태 스타일 */
+    .music-tag .tag.active {
+        background-color: #555;
+        color: white;
+        border-color: #555;
+    }
+
+    /* 드롭다운 기본 스타일: 숨김 상태 */
+    .music-tag-sort-menu {
+        display: none;
+        position: absolute;
+        z-index: 1;
+        background-color: #fff;
+        border: 1px solid #ddd;
+        box-shadow: 0 4px 8px 555;
+        width: 200px;
+    }
+
+    /* 드롭다운 항목 스타일 */
+    .music-tag-sort-menu span {
+        display: block;
+        margin-bottom: 5px;
+        cursor: pointer;
+    }
+
+    /* 드롭다운이 활성화될 때 보이게 설정 */
+    .music-tag-sort-menu.active {
+        display: block;
+    }
+
+    .music-tag-sort-list{
+        display: flex;
+        justify-content: left;
+        align-items: center;
+        color: #555;
+        border-bottom: 1px  solid #ddd;
+    }
+    .music-tag-sort-toggle{
+        border-radius: 5px;
+        padding: 5px;
+    }
+
 </style>
 <!-- ../images/album_48dp_5F6368_FILL0_wght400_GRAD0_opsz48.svg -->
                 <div class="content-header">
                     <div class="music-options">
-                        <div class="music-tag">
-                            <span data-tag="piano">피아노</span>
-                            <span data-tag="violin">바이올린</span>
-                            <span data-tag="happy">행복한</span>
-                            <span data-tag="sad">슬픈</span>
-                            <span data-tag="exciting">즐거운</span>
+                    <div class="music-tag-sort">
+                        <div class="music-tag-sort-list">
+                            <img src="../images/label_48dp_5F6368_FILL0_wght400_GRAD0_opsz48.svg" alt="태그">
+                            <span class="music-tag-sort-toggle" data-target="instrument">악기</span>
+                            <img src="../images/arrow_drop_down_48dp_5F6368_FILL0_wght400_GRAD0_opsz48.svg" alt="늘리기">
+                            <span class="music-tag-sort-toggle" data-target="mood">분위기</span>
+                            <img src="../images/arrow_drop_down_48dp_5F6368_FILL0_wght400_GRAD0_opsz48.svg" alt="늘리기">
+                            <span class="music-tag-sort-toggle" data-target="genre">장르</span>
+                            <img src="../images/arrow_drop_down_48dp_5F6368_FILL0_wght400_GRAD0_opsz48.svg" alt="늘리기">
                         </div>
+                        <!-- 드롭다운 콘텐츠 -->
+                        <div class="music-tag-sort-menu" id="instrument">
+                            <ul>
+                                <li data-tag="piano" class="tag">피아노</li>
+                                <li data-tag="violin" class="tag">바이올린</li>
+                            </ul>
+                        </div>
+
+                        <div class="music-tag-sort-menu" id="mood">
+                            <ul>
+                                <li data-tag="happy" class="tag">행복한</li>
+                                <li data-tag="sad" class="tag">슬픈</li>
+                                <li data-tag="exciting" class="tag">즐거운</li>
+                            </ul>
+                        </div>
+
+                        <div class="music-tag-sort-menu" id="genre">
+                            <ul>
+                                <li data-tag="classic" class="tag">클래식</li>
+                                <li data-tag="jazz" class="tag">재즈</li>
+                                <li data-tag="rock" class="tag">록</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <div class="music-tag">
+                        <span data-tag="piano" class="tag">피아노</span>
+                        <span data-tag="violin" class="tag">바이올린</span>
+                        <span data-tag="happy" class="tag">행복한</span>
+                        <span data-tag="sad" class="tag">슬픈</span>
+                        <span data-tag="exciting" class="tag">즐거운</span>
+                    </div>
                         <div class="music-sort">
-                            <div class="music-sort-left">정렬 : 다운로드 순</div>
-                            <div class="music-sort-center">정렬 : 다운로드 순</div>
-                            <div class="music-sort-right">정렬 : 다운로드 순</div>
+                            <span class="music-sort-left" id="sortKeyword">정렬</span>
+                            <img src="../images/swap_vert_48dp_5F6368_FILL0_wght400_GRAD0_opsz48.svg" alt="정렬" id="sortIcon"> 
+                            <!-- 정렬 드롭다운 -->
+                            <div class="music-sort-menu" id="musicSortMenu">
+                                <ul>
+                                    <li data-sort="download">다운로드순</li>
+                                    <li data-sort="name">이름순</li>
+                                    <li data-sort="length">길이순</li>
+                                </ul>
+                            </div>
+
                         </div>
                     </div>
                 </div>
@@ -382,6 +524,102 @@
             });
         });
 
+        // 정렬 버튼 클릭 시 드롭다운 메뉴 표시/숨기기
+        // #sortIcon과 #sortKeyword 둘 다 클릭 시 동일한 동작 적용
+        document.querySelectorAll('#sortIcon, #sortKeyword').forEach(function(element) {
+            element.addEventListener('click', function() {
+                var dropdown = document.getElementById('musicSortMenu');
+                
+                // 드롭다운 메뉴가 보이는 상태라면 숨기고, 숨겨져 있으면 보이게 함
+                if (dropdown.style.display === "none" || dropdown.style.display === "") {
+                    dropdown.style.display = "block";
+                } else {
+                    dropdown.style.display = "none";
+                }
+            });
+        });
+
+        // 드롭다운의 옵션 선택 시 정렬 작업을 수행할 수 있도록 설정
+        document.querySelectorAll('#musicSortMenu li').forEach(function(item) {
+            item.addEventListener('click', function() {
+                var sortType = this.getAttribute('data-sort');
+                console.log(sortType + " 정렬 선택됨");
+
+                // 여기에 정렬에 맞는 작업을 추가하면 됨 (예: 리스트 정렬)
+                
+                // 선택 후 드롭다운 메뉴 닫기
+                document.getElementById('musicSortMenu').style.display = 'none';
+            });
+        });
+        
+        // 모든 태그 span 요소들을 선택
+        const tags = document.querySelectorAll('.music-tag .tag');
+
+        // 각 태그에 클릭 이벤트 추가
+        tags.forEach(tag => {
+            tag.addEventListener('click', function() {
+                // 클릭된 태그의 활성화/비활성화 처리
+                this.classList.toggle('active');
+                
+                // 클릭된 태그의 데이터 값을 콘솔에 출력
+                const tagValue = this.getAttribute('data-tag');
+                console.log('클릭된 태그:', tagValue);
+                
+                // 여기서 필터링 기능을 추가하면 됨
+                // 예: searchResults(tagValue);
+            });
+        });
+
+        // 드롭다운을 여는 이벤트
+        document.querySelectorAll('.music-tag-sort-toggle').forEach(toggle => {
+            toggle.addEventListener('click', function() {
+                const targetId = this.getAttribute('data-target');
+                const dropdownMenu = document.getElementById(targetId);
+
+                // 모든 드롭다운을 닫기
+                document.querySelectorAll('.music-tag-sort-menu').forEach(menu => {
+                    if (menu !== dropdownMenu) {
+                        menu.classList.remove('active');
+                    }
+                });
+
+                // 클릭한 드롭다운 메뉴를 토글 (보이기/숨기기)
+                dropdownMenu.classList.toggle('active');
+            });
+        });
+
+        // 태그 클릭 시 선택 및 드롭다운 닫기
+        document.querySelectorAll('.music-tag-sort-menu .tag').forEach(tag => {
+            tag.addEventListener('click', function() {
+                // 선택된 태그의 data-tag 값
+                const tagValue = this.getAttribute('data-tag');
+                console.log('선택된 태그:', tagValue);
+
+                // 모든 드롭다운 닫기
+                document.querySelectorAll('.music-tag-sort-menu').forEach(menu => {
+                    menu.classList.remove('active');
+                });
+
+                // music-tag 영역에서 동일한 data-tag 값을 가진 태그 활성화
+                const correspondingTag = document.querySelector(`.music-tag .tag[data-tag="${tagValue}"]`);
+                if (correspondingTag) {
+                    correspondingTag.classList.add('active');  // 해당 태그를 활성화 (class="active" 추가)
+                }
+            });
+        });
+
+
+// 외부 클릭 시 드롭다운 닫기
+document.addEventListener('click', function(event) {
+    const isClickInsideMenu = event.target.closest('.music-tag-sort-toggle, .music-tag-sort-menu');
+
+    // 드롭다운 내부를 클릭하지 않은 경우에만 드롭다운 닫기
+    if (!isClickInsideMenu) {
+        document.querySelectorAll('.music-tag-sort-menu').forEach(menu => {
+            menu.classList.remove('active');
+        });
+    }
+});
     </script>
 </body>
 </html>
