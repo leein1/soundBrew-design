@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <title>다크 모드 토글</title>
+   
+    
+    <style>
+:root {
+    --background-color-light: #FFFFFF;
+    --text-color-light: #000000;
+
+    --background-color-dark: #333333;
+    --text-color-dark: #FFFFFF;
+}
+
+body {
+    background-color: var(--background-color-light); /* 기본값: 라이트 모드 */
+    color: var(--text-color-light);
+    transition: background-color 0.3s, color 0.3s;
+}
+
+
+.dark-mode {
+    background-color: var(--background-color-dark); /* 다크 모드로 전환 */
+    color: var(--text-color-dark);
+}
+    </style>
+</head>
+<body>
+    <!-- 다크 모드 토글 스위치 -->
+    <div class="toggle-switch">
+        <input type="checkbox" id="darkModeToggle" class="checkbox">
+    </div>
+    <div class="content">
+        <h1>다크 모드 테스트</h1>
+        <p>이 문장은 다크 모드와 라이트 모드에서 어떻게 보이는지 확인하기 위한 문장입니다.</p>
+    </div>
+    
+</body>
+</html>
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    const darkModeToggle = document.getElementById('darkModeToggle');
+
+    // 다크 모드 상태를 토글하는 함수
+    function toggleDarkMode() {
+        document.body.classList.toggle('dark-mode');
+    }
+
+    // 초기 상태는 기본적으로 라이트 모드
+    darkModeToggle.addEventListener('change', toggleDarkMode);
+});
+</script>
