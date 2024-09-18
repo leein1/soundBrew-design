@@ -46,10 +46,12 @@
                 <span class="sidebar-text">문의</span>
             </div>
 
-            <div class="sidebar-item">
-                
-                <input type="checkbox" id="darkModeToggle" class="checkbox">
-                
+            <div class="toggle-container">
+                <img src="../images/light_mode_24dp_5F6368_FILL0_wght400_GRAD0_opsz24.svg">
+                <input type="checkbox" id="darkModeToggle" class="darkMode-checkbox">
+                <label for="darkModeToggle" class="darkMode-label"></label>
+                <img src="../images/dark_mode_24dp_5F6368_FILL0_wght400_GRAD0_opsz24.svg">
+                </label>
             </div>
         </div> <!-- end sidebar -->
 
@@ -176,17 +178,15 @@
             const darkModeToggle = document.getElementById('darkModeToggle');
             const sidebar = document.querySelector('.sidebar');
             const musicPlayer = document.querySelector('.music-player');
-            const content = document.querySelector('.content');
+            const navigation = document.querySelector('.navigation');
 
             // 다크 모드 상태를 토글하는 함수
             function toggleDarkMode() {
                 // body에 'dark-mode' 클래스를 토글하여 다크 모드 적용
                 document.body.classList.toggle('dark-mode');
                 sidebar.classList.toggle('dark-mode');
-                // 사이드바에 'dark-mode' 클래스가 적용된 상태 확인
-                console.log(sidebar.classList.contains('dark-mode'));
                 musicPlayer.classList.toggle('dark-mode');
-                content.classList.toggle('custom-mode');
+                navigation.classList.toggle('dark-mode');
             }
 
             // 다크 모드 토글 버튼 클릭 시 다크 모드 상태를 변경

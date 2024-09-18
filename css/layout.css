@@ -1,9 +1,20 @@
+/* 
+
+색상 변수 추가 
+모든 스타일에서 같은 색상을 적용하기 위함
+
+ */
+
 :root {
     --background-color-light: #ffffff;
+    --background-color-light2: #e1e1e1;
     --text-color-light: #000000;
+    --hover-color-light: #e2e2e2;
 
     --background-color-dark: #333333;
     --text-color-dark: #FFFFFF;
+
+    --background-color-dark2: #4d4d4d;
 }
 
 /*전체적용 ----------------------------------------------------- */
@@ -17,6 +28,9 @@
     padding: 0;
     box-sizing: border-box;
 }
+
+/* body ----------------------------------------------------- */
+
 
 html, body {
     background-color: var(--background-color-light);
@@ -122,7 +136,6 @@ html, body {
     margin-top: 20px;
 }
 
-
 .sidebar-icon {
     width: 40px;
     height: 40px;
@@ -139,6 +152,60 @@ html, body {
     border: 0;
     border-top: 1px solid #ddd;
     margin-top: 20px;
+}
+
+.toggle-container{
+
+    /* border: 1px solid black; */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 30px 0 10px 0;
+    transition: width 0.3s;
+    width: 100%;
+    
+}
+
+.toggle-container img{
+    display: none;
+}
+
+/* 체크박스를 숨김 */
+.darkMode-checkbox {
+    display: none;
+}
+
+/* 토글 버튼 배경 */
+.darkMode-label{
+    width: 60px;
+    height: 30px;
+    background-color: #ccc;
+    border-radius: 30px;
+    position: relative;
+    cursor: pointer;
+    transition: background-color 0.3s;
+    margin: 0 10px 0 10px;
+}
+
+/* 토글 버튼의 움직이는 원 */
+.darkMode-label::before {
+    content: '';
+    position: absolute;
+    top: 3px;
+    left: 3px;
+    width: 24px;
+    height: 24px;
+    background-color: white;
+    border-radius: 50%;
+    transition: transform 0.5s;
+}
+
+.darkMode-checkbox:checked + .darkMode-label{
+    background-color: #4CAF50; /* 토글이 켜진 상태일 때 배경색 */
+}
+
+.darkMode-checkbox:checked + .darkMode-label::before{
+    transform: translateX(30px); /* 토글이 오른쪽으로 이동 */
 }
 
 /* sidebar expanded ----------------------------------------------------- */
@@ -171,6 +238,10 @@ html, body {
     margin-left: 10px;
 }
 
+.sidebar.expanded .toggle-container img{
+    display: block;
+}
+
 /* article ----------------------------------------------------- */
 
 .article {
@@ -186,7 +257,7 @@ html, body {
     display: flex;
     align-items: center;
     justify-content: space-between;
-    
+    background-color: var(--background-color-light);
     color: var(--text-color-light);
     /* border: 1px solid black; */
     z-index: 2;
@@ -395,7 +466,7 @@ html, body {
     left: 0;
     right: 0;
     height: 80px;
-    /* background-color: var(--background-color-light); */
+    background-color: var(--background-color-light2);
     /* color: var(--text-color-light); */
     display: flex;
     align-items: center;
