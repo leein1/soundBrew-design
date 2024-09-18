@@ -37,7 +37,7 @@ html, body {
     color: var(--text-color-light);
     height: 100%;
     font-family: 'GodoM';
-    overflow: hidden;
+    /* overflow: hidden; */
 }
 
 /* main ----------------------------------------------------- */
@@ -217,6 +217,7 @@ html, body {
 
 .sidebar.expanded {
     width: 300px;
+    overflow: scroll;
 }
 
 .sidebar.expanded .menu{
