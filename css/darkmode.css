@@ -23,7 +23,7 @@
 .dark-mode {
     background-color: var(--background-color-dark); /* 다크 모드로 전환 */
     color: var(--text-color-dark) ;
-    transition: background-color 2s, color 2s ;
+    /* transition: background-color 1s, color 1s ; */
 }
 
 .sidebar.dark-mode{
@@ -43,6 +43,8 @@
     filter: invert(100%);
     
 }
+
+
 
 .sidebar.dark-mode .toggle-container img{
     filter: invert(100%);

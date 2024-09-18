@@ -167,7 +167,12 @@ html, body {
 }
 
 .toggle-container img{
-    display: none;
+    max-height: 0;
+    opacity: 0;
+    visibility: hidden;
+    overflow: hidden;
+    transition: opacity 3s ease, max-height 0s ease;
+    
 }
 
 /* 체크박스를 숨김 */
@@ -200,7 +205,7 @@ html, body {
     transition: transform 0.5s;
 }
 
-.darkMode-checkbox:checked + .darkMode-label{
+.darkMode-checkbox:checked + .darkMode-label{ 
     background-color: #4CAF50; /* 토글이 켜진 상태일 때 배경색 */
 }
 
@@ -238,10 +243,12 @@ html, body {
     margin-left: 10px;
 }
 
-.sidebar.expanded .toggle-container img{
-    display: block;
-}
 
+.sidebar.expanded .toggle-container img{
+    opacity: 1;
+    visibility: visible;
+    max-height: 30px; /* 요소의 실제 높이에 맞춰 설정 */
+}
 /* article ----------------------------------------------------- */
 
 .article {
