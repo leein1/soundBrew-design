@@ -1,0 +1,298 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    
+    <link href="../css/layout.css" rel="stylesheet">
+    <link href="../css/darkmode.css" rel="stylesheet">
+    <link href="../css/common.css" rel="stylesheet">
+</head>
+<body>
+    <div class="main">
+
+        <div class="sidebar">
+            <div class="menu">
+                <img class="menu-icon" src="../images/menu_24dp_5F6368_FILL0_wght400_GRAD0_opsz24.svg">
+            </div>
+
+            <hr class="divider">
+            
+            <div class="profile">
+                <img src="../images/account_circle_24dp_5F6368_FILL0_wght400_GRAD0_opsz24.svg" alt="User Profile" class="profile-image">
+                <button class="primary-button none-display">로그인</button> 
+            </div>
+
+            <hr class="divider">
+
+            <div class="sidebar-item">
+                <img class="sidebar-icon" src="../images/home_24dp_5F6368_FILL0_wght400_GRAD0_opsz24.svg">
+                <span class="sidebar-text">홈</span>
+            </div>
+            <div class="sidebar-item">
+                <img class="sidebar-icon" src="../images/music_note_24dp_5F6368_FILL0_wght400_GRAD0_opsz24.svg">
+                <span class="sidebar-text">곡</span>
+            </div>
+            <div class="sidebar-item">
+                <img class="sidebar-icon" src="../images/graphic_eq_24dp_5F6368_FILL0_wght400_GRAD0_opsz24.svg">
+                <span class="sidebar-text">효과음</span>
+            </div>
+
+            <hr class="divider">
+            
+            <div class="sidebar-item">
+                <img class="sidebar-icon" src="../images/help_24dp_5F6368_FILL0_wght400_GRAD0_opsz24.svg">
+                <span class="sidebar-text">문의</span>
+            </div>
+
+            <div class="toggle-container">
+                <img src="../images/light_mode_24dp_5F6368_FILL0_wght400_GRAD0_opsz24.svg">
+                <input type="checkbox" id="darkModeToggle" class="darkMode-checkbox">
+                <label for="darkModeToggle" class="darkMode-label"></label>
+                <img src="../images/dark_mode_24dp_5F6368_FILL0_wght400_GRAD0_opsz24.svg">
+                </label>
+            </div>
+        </div> <!-- end sidebar -->
+
+        <div class="article">
+            
+            <div class="navigation">
+                <div class="navigation-menu">
+                    <img class="navigation-menu-icon" src="../images/menu_24dp_5F6368_FILL0_wght400_GRAD0_opsz24.svg">
+                </div>
+                <div class="sitename font-size-small">사이트이름</div>
+                <div class="user">회원가입</div>
+            </div><!-- end navigation -->
+
+            <div class="searchbar">
+                <div class="searchbar-container">
+                    <span class="searchbar-icon">
+                        <img src="../images/search_24dp_5F6368_FILL0_wght400_GRAD0_opsz24.svg" alt="Search Icon">
+                    </span>
+                    <input type="text" placeholder="검색...">
+                </div>
+            </div><!-- end searchbar -->
+
+            <style>
+
+                .content{
+                    /* border: 1px solid black; */
+                }
+
+                .content-header{
+                    /* border: 1px solid black;  */
+                    margin-top: 20px;
+                    height: 50px; 
+                    font-size: 2rem;
+                    display: flex; 
+                    align-items: center;
+                }
+
+                .content-body{
+                    /* border: 1px solid black;  */
+                    
+                }
+               
+                .question-list{
+                    /* border: 1px solid black;  */
+                    display: flex;
+                }
+
+                .frequently-list , .additional-list{
+                    /* border: 1px solid black;  */
+                    width: 50%;
+                    padding: 40px;
+                }
+
+                .frequently-list > li , .additional-list > li{
+                    /* border: 1px solid black;  */
+                    border-radius: 100px;
+                    width: 100%;
+                    padding: 20px;
+                    margin-top: 40px;
+                    list-style: none;
+                    
+                    /* 새로 추가된 스타일 */
+                    display: flex; /* 플렉스 박스로 전환 */
+                    align-items: center; /* 수직 중앙 정렬 */
+                    justify-content: space-between; /* 양 끝 정렬 */
+                }
+
+
+                .frequently-list > li:hover , .additional-list > li:hover{
+                    background-color: rgb(227, 227, 227);
+                }
+
+                .question-title {
+                    padding: 10px 20px;
+                    border: 2px solid rgb(165, 165, 165); /* 아웃라인 */
+                    border-radius: 20px; /* 곡률 추가 */
+                    display: inline-block; /* 텍스트 주변에만 스타일 적용 */
+                    margin-bottom: 20px; /* 여백 추가 */
+                    font-weight: bold; /* 텍스트 강조 */
+                    font-size: 1.2rem;
+                }
+                
+                @media (max-width: 768px) {
+                   .question-list{
+                    flex-direction: column;
+                   }
+
+                   .frequently-list{
+                    width: 100%;
+                   }
+
+                   .additional-list{
+                    width: 100%;
+                   }
+                }
+
+            </style>
+
+            <div class="content">
+
+                <div class="content-header">
+                    문의하기
+                </div>
+
+                <div class="content-body">
+                    
+                    <div class="question-list">
+                        <div class="frequently-list">
+                            <span class="question-title">자주 있는 질문</span>
+                            <li>
+                                아 몰라요 아무튼 안돼요
+                                <img src="../images/chevron_right_24dp_5F6368_FILL0_wght400_GRAD0_opsz24.svg">
+                            </li>
+                            <li>
+                                아 몰라요 아무튼 안돼요
+                                <img src="../images/chevron_right_24dp_5F6368_FILL0_wght400_GRAD0_opsz24.svg">
+                            </li>
+                            <li>
+                                아 몰라요 아무튼 안돼요
+                                <img src="../images/chevron_right_24dp_5F6368_FILL0_wght400_GRAD0_opsz24.svg">
+                            </li>
+                            <li>
+                                아 몰라요 아무튼 안돼요
+                                <img src="../images/chevron_right_24dp_5F6368_FILL0_wght400_GRAD0_opsz24.svg">
+                            </li>
+                            <li>
+                                아 몰라요 아무튼 안돼요
+                                <img src="../images/chevron_right_24dp_5F6368_FILL0_wght400_GRAD0_opsz24.svg">
+                            </li>
+                        </div>
+                        <div class="additional-list">
+                            <span class="question-title">추가적인 질문이 있다면</span>
+                            <li>
+                                사이트 이용
+                                <img src="../images/chevron_right_24dp_5F6368_FILL0_wght400_GRAD0_opsz24.svg">
+                            </li>
+                            <li>
+                                결제
+                                <img src="../images/chevron_right_24dp_5F6368_FILL0_wght400_GRAD0_opsz24.svg">
+                            </li>
+                            <li>
+                                다운로드
+                                <img src="../images/chevron_right_24dp_5F6368_FILL0_wght400_GRAD0_opsz24.svg">
+                            </li>
+                            <li>
+                                회원가입
+                                <img src="../images/chevron_right_24dp_5F6368_FILL0_wght400_GRAD0_opsz24.svg">
+                            </li>
+                            <li>
+                                협업문의
+                                <img src="../images/chevron_right_24dp_5F6368_FILL0_wght400_GRAD0_opsz24.svg">
+                            </li>
+                        </div>
+                    </div>
+                    
+
+                </div>
+            <div class="footer">
+                푸터 영역
+            </div><!-- end footer -->
+            
+
+            <div class="pagination">
+                <!-- 나중에 페이징 처리 수정 필요 -->
+                <a href="#" class="page-link">«</a>
+                <a href="#" class="page-link active">1</a>
+                <a href="#" class="page-link">2</a>
+                <a href="#" class="page-link">3</a>
+                <a href="#" class="page-link">4</a>
+                <a href="#" class="page-link">5</a>
+                <a href="#" class="page-link">»</a>
+            </div><!-- end pagination -->
+
+
+        </div><!-- end article -->
+       
+    </div><!-- end main -->
+    
+    
+    <div class="music-player" id="musicPlayer">
+
+        <!-- 1. 앨범이미지, 곡정보, 시작버튼 -->
+        <div class="player-left">
+            <div class="music-player-img">
+                <img src="../images/library_add_check_50dp_32ADE6_FILL0_wght400_GRAD0_opsz48.svg" alt="앨범이미지">
+            </div>
+
+            <div class="music-player-info">
+                <span class="music-player-info-title">Henglias</span>
+                <span class="music-player-info-writer">Jonsi</span>
+            </div>
+
+            <div class="music-player-play" id="playButton">
+                <img src="../images/play_circle_50dp_5F6368_FILL0_wght400_GRAD0_opsz48.svg" alt="플레이">
+            </div>
+        </div><!-- end player-left -->
+
+        <!-- 2. 러닝타임, 웨이브파형 -->
+        <div class="player-middle">
+            <div class="music-player-time">
+                02:47/03:43
+            </div>
+
+            <div class="music-player-waveform">
+                <span>(Song WaveForm)</span>
+            </div>
+        </div><!-- end player-middle -->
+
+        <!-- 3. 다운로드, 좋아요, 음량, 복사 -->
+        <div class="player-right">
+            <div class="music-player-volume">
+                <img src="../images/volume_up_50dp_5F6368_FILL0_wght400_GRAD0_opsz48.svg" alt="볼륨">
+            </div>
+
+            <div class="music-player-slider">
+                <input type="range" class="volume-slider" min="0" max="100" value="50">
+            </div>
+
+            <div class="music-player-download">
+                <img src="../images/download_50dp_32ADE6_FILL0_wght400_GRAD0_opsz48.svg" alt="다운로드">
+            </div>
+
+            <div class="music-player-favorite">
+                <img src="../images/heart_plus_50dp_32ADE6_FILL0_wght400_GRAD0_opsz48.svg" alt="좋아요">
+            </div>
+
+            <div class="music-player-copy">
+                <img src="../images/link_50dp_5F6368_FILL0_wght400_GRAD0_opsz48.svg" alt="링크복사" id="copyLinkButton">
+            </div>
+
+            <div class="copy-notification" id="copyNotification">링크가 복사되었습니다!</div>
+        </div><!-- end player-right -->
+    </div><!-- end music-player -->
+
+    <!-- 다크모드 js -->
+    <script src="../js/darkmode.js"></script>
+
+    <!-- 사이드바 확장 js -->
+    <script src="../js/sidebarExpand.js"></script>
+
+    <!-- 뮤직 플레이어 js -->
+    <script src="../js/musicPlayer.js"></script>
+</body>
+</html>
