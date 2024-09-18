@@ -17,6 +17,10 @@
     --background-color-dark2: #4d4d4d;
 }
 
+::-webkit-scrollbar {
+    display: none;
+}
+
 /*전체적용 ----------------------------------------------------- */
 @font-face {
     font-family: 'GodoM';
@@ -35,8 +39,10 @@
 html, body {
     background-color: var(--background-color-light);
     color: var(--text-color-light);
-    height: 100%;
+   
     font-family: 'GodoM';
+    -ms-overflow-style: none;
+       
     /* overflow: hidden; */
 }
 
