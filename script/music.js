@@ -103,4 +103,13 @@ document.addEventListener('DOMContentLoaded', function() {
             }
         });
     });
+
+    document.querySelector('.music-tag-display').addEventListener('click', function(event) {
+        if (event.target.classList.contains('tag')) {
+            event.target.classList.toggle('active');
+            const tagValue = event.target.getAttribute('data-tag');
+            toggleTagState(tagValue);
+            console.log(`클릭된 태그: ${tagValue}, 활성화 상태: ${tagStates[tagValue]}`);
+        }
+    });
 });
