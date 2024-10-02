@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Album Page</title>
+    <link href="../css/layout.css" rel="stylesheet">
+    <link href="../css/common.css" rel="stylesheet">
+    <link href="../css/music.css" rel="stylesheet">
+    <link href="../css/album.css" rel="stylesheet">
+</head>
+<body>
+
+<div class="content">
+    <div class="content-header">
+        <div class="content-header-info">
+            <img class="album-image" src="../images/sample-album-imge.png" alt="Album Image">
+            <div class="album-info">
+                <div class="album-title font-size-large">Album Name</div>
+                <div class="artist-name font-size-medium">
+                    <span>Artist</span> <a href="/artist/jonsi" class="artist-link">Jonsi</a>
+                </div>
+                <div class="album-info-reaction">
+                    <button class="btn album-btn">Play album</button>
+                    <button class="btn album-btn">Get album</button>
+                    <button class="btn album-btn">Share album</button>
+                </div>
+            </div>
+        </div>
+        <div class="album-info-text">
+            <p class="album-description">
+                Inspired by the deep, solid sound of Melodic Techno, ‘Fleck’ offers you a sample album of extensive, room quivering ideas and immediate inspiration for your new tracks.<br><br>
+                This collection runs extremely heavy with analogue gear, over 90% of the sound sources are created on analogue synthesizers and vintage drum machines. This dedication to the retro sound ensures a sonic palette that surpasses your production beliefs. ‘Fleck - Melodic Techno’ nods at key producers including Tale Of Us, Mathame, Colyn, Fideles, and Dizharmonia. You’ll find content inspired by these legendary figures that can be used straight out the box for immediate impact or edit, manipulate and warp till your heart's content. The diverse 700+ Melodic Techno sample library ensures you’ll have what you need in the studio when you need it.<br><br>
+                ‘Fleck - Melodic Techno’ has been intricately designed to give you the tools you need in today's Techno world. Take them for a spin, we know you’ll be happy and your studio running at 100% will be tickled pink too.
+            </p>
+        </div>
+        <button class="album-btn show-more-btn">더보기</button>
+            <!-- 아티스트의 다른 앨범 리스트 -->
+        <div class="other-albums">
+            <h2 class="other-albums-title">Other Albums by Mele</h2>
+            <div class="other-albums-list">
+                <div class="other-album-item">
+                    <img class="other-album-image" src="../images/sample-album-imge.png" alt="Album Image">
+                    <div class="other-album-name">Album Name 1</div>
+                </div>
+                <div class="other-album-item">
+                    <img class="other-album-image" src="../images/sample-album-imge.png" alt="Album Image">
+                    <div class="other-album-name">Album Name 2</div>
+                </div>
+                <div class="other-album-item">
+                    <img class="other-album-image" src="../images/sample-album-imge.png" alt="Album Image">
+                    <div class="other-album-name">Album Name 3</div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- 음원 리스트 정렬 부분, ** music 페이지 기능 복붙했음 ** -->
+    <div class="music-tag-sort">
+        <div class="music-tag-sort-list">
+            <img src="../images/label_48dp_5F6368_FILL0_wght400_GRAD0_opsz48.svg" alt="태그">
+            <span class="music-tag-sort-toggle" data-target="instrument">악기</span>
+            <img src="../images/arrow_drop_down_48dp_5F6368_FILL0_wght400_GRAD0_opsz48.svg" alt="늘리기">
+            <span class="music-tag-sort-toggle" data-target="mood">분위기</span>
+            <img src="../images/arrow_drop_down_48dp_5F6368_FILL0_wght400_GRAD0_opsz48.svg" alt="늘리기">
+            <span class="music-tag-sort-toggle" data-target="genre">장르</span>
+            <img src="../images/arrow_drop_down_48dp_5F6368_FILL0_wght400_GRAD0_opsz48.svg" alt="늘리기">
+        </div>
+        
+        <div class="music-tag-display"></div>
+
+    </div>
+    <div class="content-body">
+        <div class="music-item">
+            <div class="music-item-left">
+                <img src="../images/sample-album-imge.png" alt="앨범 이미지" class="music-album-img">
+
+                <div class="music-play-btn">
+                    <img src="../images/play_circle_50dp_5F6368_FILL0_wght400_GRAD0_opsz48.svg" alt="재생">
+                </div>
+
+                <div class="music-info">
+                    <h3>Jonsi</h3>
+                    <p>Go</p>
+                </div>
+
+                <div class="music-info-time">
+                    <p>3:21</p>
+                </div>
+            </div>
+
+            <div class="music-item-center">
+                <div class="music-info-tag">
+                    <span>피아노</span><span>즐거운</span>
+                </div>
+            </div>
+
+            <div class="music-item-right">
+                <div class="music-actions">
+                    <img src="../images/download_48dp_5F6368_FILL0_wght400_GRAD0_opsz48.svg" alt="다운로드">
+                    <img src="../images/shopping_bag_48dp_5F6368_FILL0_wght400_GRAD0_opsz48.svg" alt="장바구니">
+                    <img src="../images/link_50dp_5F6368_FILL0_wght400_GRAD0_opsz48.svg" alt="공유">
+                </div>
+            </div>
+        </div>
+        
+    </div>
+    <!-- 음원 리스트 정렬 부분, ** music 페이지 기능 복붙했음 ** -->
+     
+</div><!-- end content -->
+
+<script src="../script/tagStates.js"></script>
+<script src="../script/music.js"></script>
+<script src="../script/album.js"></script>
+
+</body>
+</html>

@@ -1,0 +1,127 @@
+/* 앨범 배너  */
+/* Styles for the content-banner */
+.content-banner {
+    
+    padding: 20px;
+    text-align: center;
+    position: relative;
+}
+
+.content-banner h2 {
+    font-size: 24px;
+    margin-bottom: 20px;
+}
+
+.album-slider{
+    
+    display: flex;
+    overflow: hidden; /* Hide the overflow for sliding effect */
+    position: relative;
+    transition: transform 1s ease-in-out; /* 느린 속도로 부드럽게 넘어가도록 설정 */
+}
+
+.album-slide {
+    background-color: #f8f9fa; /* Light gray background */
+    display: flex;
+    min-width: 25%; 
+    box-sizing: border-box;
+    margin: 5px;
+    align-items: center;
+}
+.album-slide img {
+    width: 200px;
+    height: auto;
+    display: block;
+    border-radius: 8px;
+}
+
+.album-details {
+    text-align: center;
+    margin-top: 10px;
+}
+
+.album-title {
+    font-size: 16px;
+    font-weight: bold;
+}
+
+.album-artist {
+    font-size: 14px;
+    color: #555;
+}
+
+/* Slider controls */
+.slider-prev, .slider-next {
+    background-color: rgba(0, 0, 0, 0.5);
+    color: white;
+    border: none;
+    cursor: pointer;
+    padding: 10px;
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+}
+
+.slider-prev {
+    left: 0;
+}
+
+.slider-next {
+    right: 0;
+}
+
+
+/* 앨범 배너 */
+
+.album-item{
+    display: flex;
+    justify-content: space-between;
+    padding-top: 15px;
+    padding-bottom: 15px;
+}
+.album-item-left,
+.album-item-center,
+.album-item-right{
+    display: flex;
+
+}
+
+.album-rank{
+    font-size: xx-large;
+    margin-left: 20px;
+}
+
+.album-info,
+.album-info-tag{
+    margin-left: 20px;
+}
+.album-info-tag{
+    display: flex;
+    align-items: center;
+    gap: 3px;
+    
+}
+
+.album-info h3 {
+    font-size: 16px; /* 가수명 크기 */
+    font-weight: bold; /* 가수명을 더 두껍게 설정 */
+    margin-top: 5px;
+}
+.album-info-tag span,
+.album-info p,
+.album-info-time p {
+    font-size: 12px; /* 앨범명 크기 */
+    color: #555; /* 앨범명 색상 */
+    margin: 5px 0 0;
+}
+.album-item:nth-child(odd) {
+    background-color: #ffffff; /* White for odd items */
+}
+.album-item:nth-child(even) {
+    background-color: #f9f9f9; /* Light gray for even items */
+}
+
+.album-item:hover {
+    background-color: #f0f0f0;
+    cursor: pointer;
+}
