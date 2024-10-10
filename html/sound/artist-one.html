@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sound Page</title>
+    <link href="../css/artist.css" rel="stylesheet">
+    <th:insert fragment="album::albumCssModule"></th:insert>
+    <th:insert fragment="music::musicCssModule"></th:insert>
+</head>
+<body>
+
+<div class="content">
+    <div class="content-header">
+        <div class="content-header-info">
+            <img class="sound-image" src="../images/sample-album-imge.png" alt="sound Image">
+            <div class="sound-info">
+                <span>Artist</span><div class="sound-title font-size-large">Jonsi</div>
+                <div class="artist-name font-size-medium">
+                </div>
+                <div class="sound-info-reaction">
+                    <button class="btn sound-btn">Play sound</button>
+                    <button class="btn sound-btn">Get sound</button>
+                    <button class="btn sound-btn">Share sound</button>
+                </div>
+            </div>
+        </div>
+    
+        <div class="album-info-text">
+            <p class="album-description">
+                Inspired by the deep, solid sound of Melodic Techno, ‘Fleck’ offers you a sample album of extensive, room quivering ideas and immediate inspiration for your new tracks.<br><br>
+                This collection runs extremely heavy with analogue gear, over 90% of the sound sources are created on analogue synthesizers and vintage drum machines. This dedication to the retro sound ensures a sonic palette that surpasses your production beliefs. ‘Fleck - Melodic Techno’ nods at key producers including Tale Of Us, Mathame, Colyn, Fideles, and Dizharmonia. You’ll find content inspired by these legendary figures that can be used straight out the box for immediate impact or edit, manipulate and warp till your heart's content. The diverse 700+ Melodic Techno sample library ensures you’ll have what you need in the studio when you need it.<br><br>
+                ‘Fleck - Melodic Techno’ has been intricately designed to give you the tools you need in today's Techno world. Take them for a spin, we know you’ll be happy and your studio running at 100% will be tickled pink too.
+            </p>
+        </div>
+        <button class="album-btn show-more-btn">더보기</button>
+
+        <!-- 앨범 모듈 -->
+        <th:insert fragment="album::albumModule"></th:insert>
+        <!-- 곡 리스트 모듈 -->
+        <th:insert fragment="music::musicModule"></th:insert>        
+    
+    </div>
+</div>
+<!-- <script src="../script/tagStates.js"></script> -->
+<th:insert fragment="album::albumJsModule"></th:insert>
+<th:insert fragment="music::musicJsModule"></th:insert>
+
+<script src="../script/album-list.js"></script>
+</body>
+</html>

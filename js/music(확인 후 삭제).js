@@ -52,32 +52,42 @@ document.addEventListener('click', function(event) {
 
 document.addEventListener('DOMContentLoaded', function() {
     function createTagSection(target) {
+        
         let sectionHTML = '';
         // 'target' 값에 따라 HTML 문자열을 설정합니다.
         if (target === 'instrument') {
+            // const tags = { instrument: ['piano', 'violin'] };
+            // const tagStates = { piano: true, violin: false };
+            const instrumentTags = tags.instrument.map(tag => `
+                <span data-tag="${tag}" class="tag ${tagStates[tag] ? 'active' : ''}">${tag}</span>
+            `).join('');
+        
             sectionHTML = `
                 <div class="tag-section" id="instrument-section">
-                    <span data-tag="piano" class="tag ${tagStates.piano ? 'active' : ''}">피아노</span>
-                    <span data-tag="violin" class="tag ${tagStates.violin ? 'active' : ''}">바이올린</span>
+                    ${instrumentTags}
                 </div>
             `;
         } else if (target === 'mood') {
+            const moodTags = tags.mood.map(tag => `
+                <span data-tag="${tag}" class="tag ${tagStates[tag] ? 'active' : ''}">${tag}</span>
+            `).join('');
+        
             sectionHTML = `
                 <div class="tag-section" id="mood-section">
-                    <span data-tag="happy" class="tag ${tagStates.happy ? 'active' : ''}">행복한</span>
-                    <span data-tag="sad" class="tag ${tagStates.sad ? 'active' : ''}">슬픈</span>
-                    <span data-tag="exciting" class="tag ${tagStates.exciting ? 'active' : ''}">즐거운</span>
+                    ${moodTags}
                 </div>
             `;
         } else if (target === 'genre') {
+            const genreTags = tags.genre.map(tag => `
+                <span data-tag="${tag}" class="tag ${tagStates[tag] ? 'active' : ''}">${tag}</span>
+            `).join('');
+        
             sectionHTML = `
                 <div class="tag-section" id="genre-section">
-                    <span data-tag="classic" class="tag ${tagStates.classic ? 'active' : ''}">클래식</span>
-                    <span data-tag="jazz" class="tag ${tagStates.jazz ? 'active' : ''}">재즈</span>
-                    <span data-tag="rock" class="tag ${tagStates.rock ? 'active' : ''}">록</span>
+                    ${genreTags}
                 </div>
             `;
-        }
+        } 
         return sectionHTML;
     }
 

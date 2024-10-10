@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Album Page</title>
+    <!-- album css module -->
+    <div th:fragment="albumCssModule">
+        <link href="../../css/album.css" rel="stylesheet">
+    </div>
+</head>
+<body>
+    <!-- album body -->
+    <div th:fragment="albumModule">
+        <hr style="border: 1px solid #eee;">
+        <div class="list-albums">
+            <h2 class="list-albums-title" >5개의 검색결과</h2>
+            <h1 class="list-albums-title" >정렬 : 다운로드 순</h1>
+            <div class="list-albums-list">
+                <div class="list-album-item">
+                    <img class="list-album-image" src="../../images/sample-album-imge.png" alt="Album Image">
+                    <div class="list-album-name">Album Name 1</div>
+                    <div class="list-album-artist">Jonsi</div>
+                </div>
+                <div class="list-album-item">
+                    <img class="list-album-image" src="../../images/sample-album-imge.png" alt="Album Image">
+                    <div class="list-album-name">Album Name 1</div>
+                    <div class="list-album-artist">Jonsi</div>
+                </div>
+                <div class="list-album-item">
+                    <img class="list-album-image" src="../../images/sample-album-imge.png" alt="Album Image">
+                    <div class="list-album-name">Album Name 1</div>
+                    <div class="list-album-artist">Jonsi</div>
+                </div>
+                <div class="list-album-item">
+                    <img class="list-album-image" src="../../images/sample-album-imge.png" alt="Album Image">
+                    <div class="list-album-name">Album Name 2</div>
+                    <div class="list-album-artist">Jonsi</div>
+                </div>
+                <div class="list-album-item">
+                    <img class="list-album-image" src="../../images/sample-album-imge.png" alt="Album Image">
+                    <div class="list-album-name">Album Name 3</div>
+                    <div class="list-album-artist">Jonsi</div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+    <!-- album js module -->
+    <div th:fragment="albumJsModule">
+        <script src="../script/album.js"></script>
+    </div>
+</html>

@@ -15,9 +15,11 @@ function toggleTagState(tag) {
     tagStates[tag] = !tagStates[tag];
 }
 
-// showTags 함수 정의
-window.showTags = function() {
-    const selectedTags = Object.keys(tagStates).filter(tag => tagStates[tag]);
-    alert(`선택된 태그: ${selectedTags.join(', ')}`);
-};
+// ==========
+//  upload tag list
 
+const tags = {
+    instrument: ['Piano', 'Violin', 'Guitar', 'Drums'],
+    mood: ['Happy', 'Sad', 'Energetic', 'Calm'],
+    genre: ['Pop', 'Rock', 'Classical', 'Jazz']
+};
