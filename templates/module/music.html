@@ -1,6 +1,5 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org"
-      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+<html xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -8,7 +7,7 @@
 
     <!-- music css -->
     <div th:fragment="musicCssModule">
-        <link href="../../css/music.css" rel="stylesheet">
+        <link href="css/music.css" rel="stylesheet">
     </div>
 </head>
 <body>
@@ -18,10 +17,10 @@
         <div class="content-body">
             <div class="music-item">
                 <div class="music-item-left">
-                    <img src="../../images/sample-album-imge.png" alt="앨범 이미지" class="music-album-img">
+                    <img src="images/sample-album-imge.png" alt="앨범 이미지" class="music-album-img">
 
                     <div class="music-play-btn">
-                        <img src="../../images/play_circle_50dp_5F6368_FILL0_wght400_GRAD0_opsz48.svg" alt="재생">
+                        <img src="images/play_circle_50dp_5F6368_FILL0_wght400_GRAD0_opsz48.svg" alt="재생">
                     </div>
 
                     <div class="music-info">
@@ -42,9 +41,9 @@
 
                 <div class="music-item-right">
                     <div class="music-actions">
-                        <img src="../../images/download_48dp_5F6368_FILL0_wght400_GRAD0_opsz48.svg" alt="다운로드">
-                        <img src="../../images/shopping_bag_48dp_5F6368_FILL0_wght400_GRAD0_opsz48.svg" alt="장바구니">
-                        <img src="../../images/link_50dp_5F6368_FILL0_wght400_GRAD0_opsz48.svg" alt="공유">
+                        <img src="images/download_48dp_5F6368_FILL0_wght400_GRAD0_opsz48.svg" alt="다운로드">
+                        <img src="images/shopping_bag_48dp_5F6368_FILL0_wght400_GRAD0_opsz48.svg" alt="장바구니">
+                        <img src="images/link_50dp_5F6368_FILL0_wght400_GRAD0_opsz48.svg" alt="공유">
                     </div>
                 </div>
             </div>
@@ -55,6 +54,6 @@
 
     <!-- music js -->
     <div th:fragment="musicJsModule">
-        <script src="../../script/music.js"></script>
+        <script src="js/music.js"></script>
     </div>
 </html>

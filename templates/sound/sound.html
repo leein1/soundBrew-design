@@ -1,20 +1,20 @@
 <!DOCTYPE html>
-<html lang="en">
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layouts/layout.html}">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Sound Page</title>
-    <link href="../css/layout.css" rel="stylesheet">
-    <link href="../css/common.css" rel="stylesheet">
-    <link href="../css/sound.css" rel="stylesheet">
+    <link th:href="@{/css/sound.css}" rel="stylesheet">
 </head>
 <body>
 
-<div class="content">
+<div layout:fragment="content">
     <div class="content-header">
         
         <div class="content-header-info">
-            <img class="sound-image" src="../images/sample-album-imge.png" alt="sound Image">
+            <img class="sound-image" src="images/sample-album-imge.png" alt="sound Image">
             <div class="sound-info">
                 <div class="sound-title font-size-large">Tornado</div>
                 <div class="artist-name font-size-medium">

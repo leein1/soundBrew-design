@@ -1,14 +1,17 @@
 <!DOCTYPE html>
-<html lang="ko">
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layouts/layout.html}">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>음악 업로드 페이지</title>
-    <link href="../css/music.css" rel="stylesheet">
-    <link href="../css/music-upload.css" rel="stylesheet">
+    <link th:href="@{/css/music.css}" rel="stylesheet">
+    <link th:href="@{/css/music-upload.css}" rel="stylesheet">
     
 </head>
 <body>
+<div layout:fragment="content">
     <h1>음악 업로드 페이지</h1>
 
     <!-- Step 1: 싱글 or 앨범 선택 -->
@@ -21,7 +24,7 @@
                 <option value="album">앨범</option>
             </select>
             <button id="next-step" onclick="nextStep(1)" >
-                <img src="../images/arrow_forward_24dp_5F6368_FILL0_wght400_GRAD0_opsz24.svg" alt="next">
+                <img src="images/arrow_forward_24dp_5F6368_FILL0_wght400_GRAD0_opsz24.svg" alt="next">
             </button>
         </div>
     </div>
@@ -33,16 +36,16 @@
 
         <h2>앨범 이미지를 업로드해주세요.</h2>
         <label for="group-image" class="file-upload-label">
-            <img src="../images/upload_file_24dp_5F6368_FILL0_wght400_GRAD0_opsz24.svg" alt="Upload File">
+            <img src="images/upload_file_24dp_5F6368_FILL0_wght400_GRAD0_opsz24.svg" alt="Upload File">
         </label>
         <input type="file" id="group-image" >
 
 
         <h2>앨범 설명을 작성해주세요.</h2>
         <textarea id="group-description" placeholder="곡 설명"></textarea>
-        
+
         <button id="next-step" onclick="nextStep(2)" >
-            <img src="../images/arrow_forward_24dp_5F6368_FILL0_wght400_GRAD0_opsz24.svg" alt="next">
+            <img src="images/arrow_forward_24dp_5F6368_FILL0_wght400_GRAD0_opsz24.svg" alt="next">
         </button>
     </div>
 
@@ -53,15 +56,15 @@
         <h2>업로드할 곡 파일을 선택해주세요.</h2>
 
         <label for="file-upload" class="file-upload-label">
-            <img src="../images/upload_file_24dp_5F6368_FILL0_wght400_GRAD0_opsz24.svg" alt="Upload File">
+            <img src="images/upload_file_24dp_5F6368_FILL0_wght400_GRAD0_opsz24.svg" alt="Upload File">
         </label>
         <input type="file" id="file-upload" style="display:none;">
-        
+
         <h2>곡 설명을 작성해주세요.</h2>
         <textarea id="song-description" placeholder="곡 설명"></textarea>
 
         <button id="next-step" onclick="nextStep(3)" >
-            <img src="../images/arrow_forward_24dp_5F6368_FILL0_wght400_GRAD0_opsz24.svg" alt="next">
+            <img src="images/arrow_forward_24dp_5F6368_FILL0_wght400_GRAD0_opsz24.svg" alt="next">
         </button>
     </div>
 
@@ -72,17 +75,17 @@
         <!-- Major Category Buttons -->
         <div class="select-div">
             <a onclick="showTagPopup('instrument')" style="cursor: pointer;">
-                <img src="../images/new_label_24dp_5F6368_FILL0_wght400_GRAD0_opsz24.svg" alt="tag">악기
+                <img src="images/new_label_24dp_5F6368_FILL0_wght400_GRAD0_opsz24.svg" alt="tag">악기
             </a>
-            
+
             <a onclick="showTagPopup('mood')" style="cursor: pointer;">
-                <img src="../images/new_label_24dp_5F6368_FILL0_wght400_GRAD0_opsz24.svg" alt="tag">분위기
+                <img src="images/new_label_24dp_5F6368_FILL0_wght400_GRAD0_opsz24.svg" alt="tag">분위기
             </a>
-           
+
             <a onclick="showTagPopup('genre')" style="cursor: pointer;">
-                <img src="../images/new_label_24dp_5F6368_FILL0_wght400_GRAD0_opsz24.svg" alt="tag">장르
+                <img src="images/new_label_24dp_5F6368_FILL0_wght400_GRAD0_opsz24.svg" alt="tag">장르
             </a>
-        </div>                                                                                  
+        </div>
 
         <!-- Selected Tags Display Area -->
         <div id="selected-tags" style="margin-top: 20px;">
@@ -92,7 +95,7 @@
 
         <!-- Next Button to proceed to next step -->
         <button id="next-step" onclick="nextStep(4); uploadSongPush();" >
-            <img src="../images/arrow_forward_24dp_5F6368_FILL0_wght400_GRAD0_opsz24.svg" alt="next">
+            <img src="images/arrow_forward_24dp_5F6368_FILL0_wght400_GRAD0_opsz24.svg" alt="next">
         </button>
     </div>
 
@@ -104,7 +107,7 @@
             <input type="text" id="tag-search" placeholder="검색..." oninput="searchTags()">
             <div id="popup-tags" class="tag-select"></div>
             <button onclick="applyTags()" >
-                <img src="../images/arrow_forward_24dp_5F6368_FILL0_wght400_GRAD0_opsz24.svg" alt="next">
+                <img src="images/arrow_forward_24dp_5F6368_FILL0_wght400_GRAD0_opsz24.svg" alt="next">
             </button>
         </div>
     </div>
@@ -113,13 +116,15 @@
     <div id="submit-step" class="step">
         <h2>최종적으로 작성한 정보를 확인해주세요.</h2>
         <div id="song-info-list"></div>
-        <button id="check-upload" onclick="renderSongs()"><img src="../images/visibility_24dp_5F6368_FILL0_wght400_GRAD0_opsz24.svg" alt="확인">확인하기</button>
-        <button id="add-more-songs" onclick="addMoreSongs()" style="display: none;"><img src="../images/add_24dp_5F6368_FILL0_wght400_GRAD0_opsz24.svg" alt="추가">추가하기</button>
-        <button id="upload-button" onclick="confirm()"><img src="../images/arrow_forward_24dp_5F6368_FILL0_wght400_GRAD0_opsz24.svg" alt="next">업로드</button>
+        <button id="check-upload" onclick="renderSongs()"><img src="images/visibility_24dp_5F6368_FILL0_wght400_GRAD0_opsz24.svg" alt="확인">확인하기</button>
+        <button id="add-more-songs" onclick="addMoreSongs()" style="display: none;"><img src="images/add_24dp_5F6368_FILL0_wght400_GRAD0_opsz24.svg" alt="추가">추가하기</button>
+        <button id="upload-button" onclick="confirm()"><img src="images/arrow_forward_24dp_5F6368_FILL0_wght400_GRAD0_opsz24.svg" alt="next">업로드</button>
         
     </div>
+</div>
 </body>
-
-<script src="../script/tagStates.js"></script>
-<script src="../script/music-upload.js"></script>
+<th:block layout:fragment="script">
+    <script th:src="@{/js/tagStates.js}"></script>
+    <script th:src="@{/js/music-upload.js}"></script>
+</th:block>
 </html>
