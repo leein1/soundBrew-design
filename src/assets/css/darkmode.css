@@ -1,0 +1,98 @@
+/* src/assets/css/darkmode.css */
+
+/* 최상위 요소에 적용 */
+html.dark-mode,
+body.dark-mode {
+  background-color: var(--background-color-dark); /* 예: #222 */
+  color: var(--text-color-dark); /* 예: #eee */
+}
+
+/* Sidebar 다크 모드 스타일 */
+.sidebar.dark-mode {
+  background-color: var(--background-color-dark);
+  color: var(--text-color-dark);
+}
+.sidebar.dark-mode .menu > img,
+.sidebar.dark-mode .profile > img,
+.sidebar.dark-mode .sidebar-item > img {
+  filter: invert(100%);
+}
+
+/* Navigation 다크 모드 스타일 */
+.navigation.dark-mode {
+  background-color: var(--background-color-dark);
+  color: var(--text-color-dark);
+}
+
+/* 기타 요소에 대한 다크 모드 예시 */
+.audio-player-bar.dark-mode,
+.pagination-container.dark-mode,
+.footer.dark-mode {
+  background-color: var(--background-color-dark);
+  color: var(--text-color-dark);
+}
+
+/* 검색 컨테이너 내 input/select */
+.searchContainer.dark-mode input,
+.searchContainer.dark-mode select {
+  background-color: var(--background-color-dark);
+  color: var(--text-color-dark);
+}
+
+html.dark-mode .navigation,
+body.dark-mode .navigation {
+  background-color: var(--background-color-dark);
+  color: var(--text-color-dark);
+}
+
+/* 로고 이미지 반전 (sitename 안에 img) */
+html.dark-mode .navigation .sitename img,
+body.dark-mode .navigation .sitename img {
+  filter: invert(100%);
+}
+
+/* 햄버거 메뉴 아이콘 반전 */
+html.dark-mode .navigation .navigation-menu-icon,
+body.dark-mode .navigation .navigation-menu-icon {
+  filter: invert(100%);
+}
+
+/* 로그인/회원가입 텍스트 색상 */
+html.dark-mode .navigation .auth-container a,
+body.dark-mode .navigation .auth-container a {
+  color: var(--text-color-dark);
+}
+
+/* Sidebar 전체 다크모드 */
+html.dark-mode .sidebar,
+body.dark-mode .sidebar {
+  background-color: var(--background-color-dark);
+  color: var(--text-color-dark);
+}
+
+/* 사이드바 내부 아이콘 이미지 반전 */
+html.dark-mode .sidebar .sidebar-icon,
+html.dark-mode .sidebar .menu-icon,
+html.dark-mode .sidebar .profile-image,
+html.dark-mode .sidebar .toggle-container img {
+  filter: invert(100%);
+}
+
+/* 텍스트 색상 */
+html.dark-mode .sidebar .sidebar-text,
+html.dark-mode .sidebar .myNickname,
+html.dark-mode .sidebar .plans {
+  color: var(--text-color-dark);
+}
+
+/* 로그인 버튼 등 버튼 색상 */
+html.dark-mode .sidebar .primary-button {
+  background-color: var(--background-color-dark2);
+  color: var(--text-color-dark);
+  border: 1px solid #666;
+}
+
+/* 다크모드 토글 스위치 주변 조정 (선택 사항) */
+html.dark-mode .sidebar .toggle-container {
+  background-color: transparent;
+}
