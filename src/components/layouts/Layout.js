@@ -1,26 +1,34 @@
 // src/components/Layout.jsx
-import Sidebar from './Sidebar';
-import Navigation from './Navigation';
-import ProfileModal from './ProfileModal';
-import { useAuth } from '../../context/authContext';
-import { Outlet } from 'react-router-dom';
-// import '../assets/styles/layout.css'; // 기존 CSS 유지
+import React, { useState } from "react";
+import Sidebar from "./Sidebar";
+import Navigation from "./Navigation";
+import ProfileModal from "./ProfileModal";
+import { Outlet } from "react-router-dom";
 
 const Layout = () => {
-  const { isAuthenticated } = useAuth();
+  const [isSidebarExpanded, setIsSidebarExpanded] = useState(false);
+  const [showProfileModal, setShowProfileModal] = useState(false);
+
+  const toggleSidebar = () => setIsSidebarExpanded(prev => !prev);
+  const openProfileModal = () => setShowProfileModal(true);
 
   return (
     <div className="main">
-      <Sidebar />
+      <Sidebar
+        isExpanded={isSidebarExpanded}
+        toggleSidebar={toggleSidebar}
+        onProfileClick={openProfileModal}  
+      />
       <div className="article">
-        <Navigation />
-        <div id="searchContainer" className="searchContainer"></div>
-        <div className="content">
-          <Outlet /> {/* 여기에 각 페이지 내용이 들어감 */}
-        </div>
-        <div className="pagination-container" id="pagination-container"></div>
+        <Navigation toggleSidebar={toggleSidebar} />
+        <div id="searchContainer" className="searchContainer" />
+        <div className="content"><Outlet /></div>
+        <div className="pagination-container" id="pagination-container" />
       </div>
-      <ProfileModal />
+      <ProfileModal
+        show={showProfileModal}            
+        setShow={setShowProfileModal}      
+      />
     </div>
   );
 };

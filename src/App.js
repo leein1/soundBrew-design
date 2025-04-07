@@ -5,8 +5,8 @@ import AppRouter from "./routes/AppRouter";
 import { setGlobalNavigate } from "./utils/response/globalNavigate";
 import { GlobalStateProvider } from "./state/State";
 import { AuthProvider } from "./context/authContext"; 
-
-// 글로벌 ㅊㄴㄴ
+ 
+// 글로벌 css
 import "./assets/css/darkmode.css";
 import "./assets/css/layout.css";
 import "./assets/css/common.css";

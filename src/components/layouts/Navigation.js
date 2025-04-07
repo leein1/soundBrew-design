@@ -1,22 +1,23 @@
 // src/components/Navigation.jsx
+import React from "react";
 import { Link } from "react-router-dom";
-import { useAuth } from '../../context/authContext';
-import SoundBrewLogo from "../../assets/images/SoundBrew.svg";
-import sidebarIcon from '../../assets/images/menu_24dp_5F6368_FILL0_wght400_GRAD0_opsz24.svg';
+import { useAuth } from "../../context/authContext";
 
-const Navigation = () => {
+// 아이콘 베럴
+import icons from '../../assets/images/imageBarrel'
+
+const Navigation = ({ toggleSidebar }) => {
   const { isAuthenticated, logout } = useAuth();
 
   return (
     <div className="navigation">
-      <div className="navigation-menu">
-        <img className="navigation-menu-icon" src={sidebarIcon} alt="menu" />
+      {/* 화면이 좁은 경우, 이 메뉴 버튼을 눌러 사이드바를 토글 */}
+      <div className="navigation-menu" onClick={e => {e.stopPropagation();toggleSidebar();}}>
+        <img className="navigation-menu-icon" src={icons.sidebarIcon} alt="Menu Toggle" />
       </div>
-
       <div className="sitename">
-        <img src={SoundBrewLogo} alt="SoundBrew" />
+        <img src={icons.SoundBrewLogo} alt="SoundBrew" />
       </div>
-      
       <div className="auth-container">
         {!isAuthenticated ? (
           <>

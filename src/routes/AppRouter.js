@@ -25,7 +25,26 @@ const AppRouter = () => {
 
         {/* 예를 들어 로그인은 전체 새로고침으로 Spring Boot 로그인 페이지로 이동 */}
         <Route path="/" element={<Layout />}>
+          {/* for ADMIN */}
+          {/* <Route path="/admin/statistic" element={} />
+          <Route path="/admin/users" element={} />
+          <Route path="/admin/albums" element={} /> */}
+
+          {/* for User */}
+          {/* <Route path="/me/info" element={} />
+          <Route path="/me/change-password" element={} />
+          <Route path="/me/subscription" element={} />
+          <Route path="/me/statistic" element={} />
+          <Route path="/me/sounds/albums" element={} />
+          <Route path="/me/sounds/upload" element={} /> */}
+
+          {/* for visitor */}
           <Route path="/login" element={<Login />} />
+          {/* <Route path="/register" element={} />
+          <Route path="/sounds/tracks" element={} />
+          <Route path="/sounds/albums" element={} /> */}
+          {/* <Route path="" element={} /> */}
+          
         </Route>
         <Route path="*" element={<Navigate to="/" />} />
         {/* <Route path="/me/change-password" element={<ProtectedRoute allowedRoles={['ROLE_USER']}><ChangePassword /></ProtectedRoute>} /> */}

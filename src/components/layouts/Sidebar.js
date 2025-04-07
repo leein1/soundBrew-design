@@ -1,83 +1,68 @@
 // src/components/Sidebar.jsx
-import React, { useState, useRef, useEffect } from "react";
+import React, { useState, useRef, useEffect, useCallback } from "react";
 import { useAuth } from "../../context/authContext";
+import { Link } from "react-router-dom";
 
-// 아이콘 import (경로는 실제 프로젝트에 맞게 수정)
-import sidebarIcon from "../../assets/images/menu_24dp_5F6368_FILL0_wght400_GRAD0_opsz24.svg";
-import closeIcon from "../../assets/images/close_24dp_5F6368_FILL0_wght400_GRAD0_opsz24.svg";
-import soundIcon from "../../assets/images/music_note_24dp_5F6368_FILL0_wght400_GRAD0_opsz24.svg";
-import subscriptionIcon from "../../assets/images/graphic_eq_24dp_5F6368_FILL0_wght400_GRAD0_opsz24.svg";
-import qnaIcon from "../../assets/images/help_24dp_5F6368_FILL0_wght400_GRAD0_opsz24.svg";
-import defaultUserIcon from "../../assets/images/account_circle_24dp_5F6368_FILL0_wght400_GRAD0_opsz24.svg"
+// 아이콘 베럴 
+import icons from '../../assets/images/imageBarrel'
 
-import DarkModeToggle from "../DarkModeToggle"; // 다크 모드 토글 컴포넌트
+// 다크 모드 토글
+import DarkModeToggle from "../DarkModeToggle";
 
-// css
-import "../../assets/css/layout.css";
-import "../../assets/css/common.css";
-
-const Sidebar = () => {
+const Sidebar = ({ isExpanded, toggleSidebar, onProfileClick }) => {
   const { user, isAuthenticated, isAdmin } = useAuth();
-
-  const [isExpanded, setIsExpanded] = useState(false);
   const [userInfoOpen, setUserInfoOpen] = useState(false);
   const [adminInfoOpen, setAdminInfoOpen] = useState(false);
 
   const sidebarRef = useRef(null);
   const menuButtonRef = useRef(null);
 
-  const handleSidebarToggle = () => {
-    setIsExpanded((prev) => {
-      if (prev) {
+  const handleSidebarToggle = e => {
+    e.stopPropagation();         // ← 여기서도 전파 차단
+    toggleSidebar();
+    // 내부 메뉴 닫기
+    setUserInfoOpen(false);
+    setAdminInfoOpen(false);
+  };
+
+  const handleDocumentClick = useCallback(
+    (e) => {
+      if (isExpanded &&
+        sidebarRef.current &&
+        menuButtonRef.current &&
+        !sidebarRef.current.contains(e.target) &&
+        !menuButtonRef.current.contains(e.target)
+      ) {
+        toggleSidebar();
         setUserInfoOpen(false);
         setAdminInfoOpen(false);
       }
-      return !prev;
-    });
-  };
-
-  const handleDocumentClick = (e) => {
-    if (
-      isExpanded &&
-      sidebarRef.current &&
-      menuButtonRef.current &&
-      !sidebarRef.current.contains(e.target) &&
-      !menuButtonRef.current.contains(e.target)
-    ) {
-      setIsExpanded(false);
-      setUserInfoOpen(false);
-      setAdminInfoOpen(false);
-    }
-  };
+    },
+    [isExpanded, toggleSidebar]
+  );
 
   useEffect(() => {
     document.addEventListener("click", handleDocumentClick);
     return () => document.removeEventListener("click", handleDocumentClick);
-  }, [isExpanded]);
+  }, [handleDocumentClick]);
 
   return (
     <div ref={sidebarRef} className={`sidebar ${isExpanded ? "expanded" : ""}`}>
-      <div ref={menuButtonRef} className="menu" onClick={handleSidebarToggle}>
+      {/* Sidebar 자체의 메뉴 버튼: 화면 넓은 경우에도 사용 */}
+       <div ref={menuButtonRef} className="menu" onClick={handleSidebarToggle}>
         <img
           className="menu-icon"
-          src={isExpanded ? closeIcon : sidebarIcon}
+          src={isExpanded ? icons.closeIcon : icons.sidebarIcon}
           alt="Menu Toggle"
         />
       </div>
       <hr className="divider" />
 
-      {/* 여기는 기존 게스트/유저/관리자 뷰 */}
       {!isAuthenticated && (
         <div className="guest-view">
           <div className="profile">
-            <img
-              src={defaultUserIcon}
-              alt="User"
-              className="profile-image"
-            />
-            {isExpanded && (
-              <button className="primary-button loginPage">로그인</button>
-            )}
+            <img src={icons.defaultUserIcon} alt="User" className="profile-image" />
+            {isExpanded && ( <button className="primary-button loginPage">로그인</button> )}
           </div>
         </div>
       )}
@@ -90,7 +75,7 @@ const Sidebar = () => {
                 <img
                   onError={(e) => {
                     e.target.onerror = null;
-                    e.target.src ={defaultUserIcon};
+                    e.target.src = icons.defaultUserIcon;
                   }}
                   alt="User Profile"
                   className="profile-image"
@@ -101,22 +86,27 @@ const Sidebar = () => {
                 <span className="plans">관리자</span>
               </div>
               <div className="sidebar-admin-info">
-                <div
-                  className="sidebar-admin-info-title"
-                  onClick={() => setAdminInfoOpen((prev) => !prev)}
-                >
+                <div className="sidebar-admin-info-title" onClick={() => setAdminInfoOpen((prev) => !prev)}>
                   <div className="sidebar-item">
-                    <img
-                      className="sidebar-icon"
-                      src="/images/info_24dp_5F6368_FILL0_wght400_GRAD0_opsz24.svg"
-                      alt="Info"
-                    />
+                    <img className="sidebar-icon" src={icons.infoIcon} alt="Info" />
                     <span className="sidebar-text">더 보기</span>
                   </div>
                 </div>
+
                 {adminInfoOpen && (
                   <div className="admin-view-content">
-                    {/* 관리자 메뉴 아이템 */}
+                      <Link to="/admin/statistic" className="sidebar-item">
+                        <img className="sidebar-icon" src={icons.myIcon} alt="Statistics" />
+                        <span className="sidebar-text">사이트 통계 조회</span>
+                      </Link>
+                      <Link to="/admin/users" className="sidebar-item">
+                        <img className="sidebar-icon" src={icons.myIcon} alt="User Info" />
+                        <span className="sidebar-text">회원 정보 조회</span>
+                      </Link>
+                      <Link to="/admin/albums" className="sidebar-item">
+                        <img className="sidebar-icon" src={icons.myIcon} alt="Album Info" />
+                        <span className="sidebar-text">앨범 정보 조회</span>
+                      </Link>
                   </div>
                 )}
               </div>
@@ -124,33 +114,50 @@ const Sidebar = () => {
           ) : (
             <div className="user-view">
               <div className="profile">
-                <img
-                  src={`https://soundbrew.storage.s3.ap-northeast-2.amazonaws.com/${user.profileImagePath}`}
-                  alt="프로필"
-                  className="profile-image"
-                />
+                <img src={`https://soundbrew.storage.s3.ap-northeast-2.amazonaws.com/${user.profileImagePath}`}
+                  alt="프로필"className="profile-image no-invert" />
+                <button id="profileModalBtn" className="primary-button none-display" 
+                onClick={onProfileClick}>프로필 사진 변경</button>
               </div>
               <div className="info1">
                 <span className="myNickname">{user.nickname}</span>
                 <span className="plans">회원</span>
               </div>
-              <div
-                className="sidebar-my-info"
-                onClick={() => setUserInfoOpen((prev) => !prev)}
-              >
+              <hr className="divider" />
+              <div className={`sidebar-my-info ${userInfoOpen ? "open" : ""}`} onClick={() => setUserInfoOpen((prev) => !prev)}>
                 <div className="sidebar-item">
-                  <img
-                    className="sidebar-icon"
-                    src="/images/info_24dp_5F6368_FILL0_wght400_GRAD0_opsz24.svg"
-                    alt="내 정보"
-                  />
-                  <span className="sidebar-text">내 정보</span>
+                  <img className="sidebar-icon" src={icons.myIcon} alt="내 정보" />
+                  <span className="sidebar-text">내 메뉴</span>
                 </div>
-                {userInfoOpen && (
-                  <div className="user-view-content">
-                    {/* 사용자 메뉴 아이템 */}
-                  </div>
-                )}
+
+                <div className="user-view-content">
+                  <Link to="/me/info" className="sidebar-item">
+                    <img className="sidebar-icon" src={icons.myIcon} alt="내 정보 조회" />
+                    <span className="sidebar-text">내 정보 조회</span>
+                  </Link>
+                  <Link to="/me/change-password" className="sidebar-item">
+                    <img className="sidebar-icon" src={icons.myIcon} alt="비밀번호 변경" />
+                    <span className="sidebar-text">비밀번호 변경</span>
+                  </Link>
+                  <Link to="/me/subscription" className="sidebar-item">
+                    <img className="sidebar-icon" src={icons.myIcon} alt="내 구독제 조회"/>
+                    <span className="sidebar-text" onClick={() => alert("결제 기능과 함께 업데이트 예정입니다.")} >
+                      내 구독제 조회
+                    </span>
+                  </Link>
+                  <Link to="/me/statistic" className="sidebar-item">
+                    <img className="sidebar-icon" src={icons.soundIcon} alt="내 음악 통계" />
+                    <span className="sidebar-text" id="mySoundStatisticRoute">내 음악 통계</span>
+                  </Link>
+                  <Link to="/me/sounds/albums" className="sidebar-item">
+                    <img className="sidebar-icon" src={icons.soundIcon} alt="내 음원 관리" />
+                    <span className="sidebar-text" id="mySoundRoute">내 음원 관리</span>
+                  </Link>
+                  <Link to="/me/sounds/upload" className="sidebar-item">
+                    <img className="sidebar-icon" src={icons.soundIcon} alt="신규 음원 등록" />
+                    <span className="sidebar-text" id="mySoundUploadRoute">신규 음원 등록</span>
+                  </Link>
+                </div>
               </div>
             </div>
           )}
@@ -160,19 +167,19 @@ const Sidebar = () => {
       <hr className="divider" />
 
       {/* 기타 메뉴들 */}
-      <div className="sidebar-item" id="soundTracksRoute">
-        <img className="sidebar-icon" src={soundIcon} alt="곡" />
+      <Link to="/sounds/tracks" className="sidebar-item" id="soundTracksRoute">
+        <img className="sidebar-icon" src={icons.soundIcon} alt="곡" />
         <span className="sidebar-text">곡</span>
-      </div>
-      <div className="sidebar-item" id="subscriptionListRoute">
-        <img className="sidebar-icon" src={subscriptionIcon} alt="구독제" />
+      </Link>
+      <Link to="/subscription" className="sidebar-item" id="subscriptionListRoute">
+        <img className="sidebar-icon" src={icons.subscriptionIcon} alt="구독제" />
         <span className="sidebar-text">구독제</span>
-      </div>
+      </Link>
       <hr className="divider" />
-      <div className="sidebar-item">
-        <img className="sidebar-icon" src={qnaIcon} alt="문의" />
+      <Link to="" className="sidebar-item" onClick={()=>alert("문의하기를 클릭하셨습니다.")}>
+        <img className="sidebar-icon" src={icons.qnaIcon} alt="문의" />
         <span className="sidebar-text">문의</span>
-      </div>
+      </Link>
 
       {/* 다크모드 토글 */}
       <DarkModeToggle />

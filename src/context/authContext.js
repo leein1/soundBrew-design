@@ -1,55 +1,53 @@
 // src/context/authContext.jsx
-import React, { createContext, useContext, useState } from "react";
-import axios from "axios";
+import React, { createContext, useContext, useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
+import axios from "axios";
+import TokenUtil from "../utils/token/tokenUtil";
 
 const AuthContext = createContext();
 
 export const AuthProvider = ({ children }) => {
-  const [auth, setAuth] = useState(null);
+  const [user, setUser] = useState(null);
   const navigate = useNavigate();
+
+  useEffect(() => {
+    const token = TokenUtil.getToken();
+    if (token && !TokenUtil.isTokenExpired(token)) {
+      const userInfo = TokenUtil.getUserInfo(token);
+      setUser(userInfo);
+    }
+  }, []);
 
   const login = async (username, password) => {
     const userInput = { username, password };
-
     try {
-      const response = await axios.post("https://localhost:3000/generateToken", userInput);
-
+      const response = await axios.post("https://localhost:8443/generateToken", userInput);
       const { accessToken, refreshToken, redirectUrl } = response.data;
-
-      localStorage.setItem("accessToken", accessToken);
-      localStorage.setItem("refreshToken", refreshToken);
-
-      setAuth({ username, accessToken });
-
+      TokenUtil.setToken(accessToken, refreshToken);
+      const userInfo = TokenUtil.getUserInfo(accessToken);
+      setUser(userInfo);
       navigate(redirectUrl);
     } catch (error) {
-      localStorage.removeItem("accessToken");
-      localStorage.removeItem("refreshToken");
-
+      TokenUtil.clearToken();
+      setUser(null);
+      console.log(error);
       if (error?.response?.data?.resetToken) {
         localStorage.setItem("resetToken", error.response.data.resetToken);
       }
-
-      if (error?.response?.data?.redirectUrl) {
-        window.location.href = error.response.data.redirectUrl;
-      } else {
+      else {
         alert(error?.response?.data?.message || "로그인 실패");
       }
-
-      throw error;
     }
   };
 
   const logout = () => {
-    setAuth(null);
-    localStorage.removeItem("accessToken");
-    localStorage.removeItem("refreshToken");
+    TokenUtil.clearToken();
+    setUser(null);
     navigate("/login");
   };
 
   return (
-    <AuthContext.Provider value={{ auth, login, logout }}>
+    <AuthContext.Provider value={{ user, login, logout, isAuthenticated: !!user, isAdmin: user?.roles?.includes("ROLE_ADMIN") }}>
       {children}
     </AuthContext.Provider>
   );

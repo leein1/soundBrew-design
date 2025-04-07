@@ -781,6 +781,7 @@ html, body {
     overflow: hidden;
     transition: max-height 0.3s ease-out;
 }
+
 .admin-view-content {
     max-height: 0;
     overflow: hidden;

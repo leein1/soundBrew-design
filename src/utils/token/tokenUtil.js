@@ -24,6 +24,16 @@ export default class TokenUtil {
         }
     }
 
+    static setToken(accessToken, refreshToken) {
+        localStorage.setItem("accessToken", accessToken);
+        localStorage.setItem("refreshToken", refreshToken);
+    }
+
+    static clearToken(){
+        localStorage.removeItem("accessToken");
+        localStorage.removeItem("refreshToken");
+    }
+
     // 토큰의 만료 여부를 체크 (만료 시간(exp) 필드를 사용)
     // ** 토큰이 expired라면?, 로그인의 연계로 refresh토큰을 통해서 재발급을 하고 그럼에도 문제가 발생한다면, 다시 로그인을 하는것이 맞을꺼 같다.
     // 해당 재발급 시점을 잘 생각해보자.

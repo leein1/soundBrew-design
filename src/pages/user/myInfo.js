@@ -1,5 +1,4 @@
 // myInfoForm.js
-
 import { axiosPost, axiosPatch } from '/js/fetch/standardAxios.js';
 import { serializeFormToJSON } from '/js/serialize/formToJson.js';
 import { serializeInputToJSON } from '/js/serialize/inputToJson.js';

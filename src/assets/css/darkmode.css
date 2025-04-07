@@ -96,3 +96,8 @@ html.dark-mode .sidebar .primary-button {
 html.dark-mode .sidebar .toggle-container {
   background-color: transparent;
 }
+
+/* 반전 효과를 제거하고 싶은 경우 */
+html.dark-mode .sidebar .profile-image.no-invert {
+  filter: none;
+}
