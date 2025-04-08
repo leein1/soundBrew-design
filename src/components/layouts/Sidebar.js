@@ -16,6 +16,7 @@ const Sidebar = ({ isExpanded, toggleSidebar, onProfileClick }) => {
 
   const sidebarRef = useRef(null);
   const menuButtonRef = useRef(null);
+  
 
   const handleSidebarToggle = e => {
     e.stopPropagation();         // ← 여기서도 전파 차단

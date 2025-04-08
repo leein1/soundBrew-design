@@ -42,7 +42,7 @@ export const validationRules = {
         required: true,
         minLength:2,
         maxLength:255,
-        pattern: /^[a-zA-Z0-9\-!@?._/()\s'"]+$/,
+        pattern: /^[a-zA-Z0-9\u1100-\u11FF\uAC00-\uD7A3\-!@?._+=/()\s'"]+$/,
     },
     'description':{
         required: true,

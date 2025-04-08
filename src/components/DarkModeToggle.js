@@ -1,7 +1,7 @@
 // src/components/DarkModeToggle.jsx
 import React from "react";
 import { useDarkMode } from "../hooks/useDarkMode";
-// 아이콘 경로는 실제 프로젝트 구조에 맞게 수정하세요.
+
 import lightModeIcon from "../assets/images/light_mode_24dp_5F6368_FILL0_wght400_GRAD0_opsz24.svg";
 import darkModeIcon from "../assets/images/dark_mode_24dp_5F6368_FILL0_wght400_GRAD0_opsz24.svg";
 

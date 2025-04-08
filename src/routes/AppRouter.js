@@ -14,6 +14,12 @@ import Layout from "../components/layouts/Layout"
 // 페이지들. (./pages/(...))
 // import ChangePassword from "../pages/ChangePW.js"
 import Login from "../pages/security/Login"
+import MySubscription from "../pages/user/MySubscription";
+import MyInfo from "../pages/user/MyInfo";
+import ChangePW from "../pages/user/ChangePW";
+import MeDashboard from "../pages/user/MeDashboard";
+import SoundUpload from "../pages/sound/Upload";
+
 
 
 const AppRouter = () => {
@@ -31,12 +37,12 @@ const AppRouter = () => {
           <Route path="/admin/albums" element={} /> */}
 
           {/* for User */}
-          {/* <Route path="/me/info" element={} />
-          <Route path="/me/change-password" element={} />
-          <Route path="/me/subscription" element={} />
-          <Route path="/me/statistic" element={} />
-          <Route path="/me/sounds/albums" element={} />
-          <Route path="/me/sounds/upload" element={} /> */}
+          <Route path="/me/info" element={<MyInfo/>} />
+          <Route path="/me/change-password" element={<ChangePW/>} />
+          <Route path="/me/subscription" element={<MySubscription/>} />
+          <Route path="/me/statistic" element={<MeDashboard/>} />
+          {/* <Route path="/me/sounds/albums" element={} /> */}
+          <Route path="/me/sounds/upload" element={<SoundUpload/>} />
 
           {/* for visitor */}
           <Route path="/login" element={<Login />} />

@@ -8,6 +8,8 @@ import defaultUserIcon from "./account_circle_24dp_5F6368_FILL0_wght400_GRAD0_op
 import myIcon from "./psychology_alt_24dp_5F6368_FILL0_wght400_GRAD0_opsz24.svg";
 import infoIcon from "./info_24dp_5F6368_FILL0_wght400_GRAD0_opsz24.svg";
 import SoundBrewLogo from "./SoundBrew.svg";
+import changeSection from "./swap_vert_48dp_5F6368_FILL0_wght400_GRAD0_opsz48.svg"
+import nextIcon from "./chevron_right_24dp_5F6368_FILL0_wght400_GRAD0_opsz24.svg";
 
 const icons = {
   sidebarIcon,
@@ -19,6 +21,8 @@ const icons = {
   myIcon,
   infoIcon,
   SoundBrewLogo,
+  changeSection,
+  nextIcon,
 };
 
 export default icons;

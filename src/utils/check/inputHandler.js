@@ -1,4 +1,4 @@
-import { validationRules,processingRules } from '/js/check/inputRules.js';
+import { validationRules,processingRules } from '../check/inputRules';
 
 export function inputProcessor(key, value, rules) {
     if (!rules || !rules[key]) return value; // 처리 규칙 없으면 원래 값 반환
