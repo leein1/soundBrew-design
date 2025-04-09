@@ -1,10 +1,10 @@
 // src/components/Navigation.jsx
 import React from "react";
 import { Link } from "react-router-dom";
-import { useAuth } from "../../context/authContext";
+import { useAuth } from "../context/authContext";
 
 // 아이콘 베럴
-import icons from '../../assets/images/imageBarrel'
+import icons from '../assets/images/imageBarrel'
 
 const Navigation = ({ toggleSidebar }) => {
   const { isAuthenticated, logout } = useAuth();

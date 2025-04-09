@@ -1,66 +1,58 @@
-import { router } from '/js/router.js';
-import { globalStateManager } from "/js/globalState.js";
+// src/components/Pagination.jsx
+import React from "react";
+import { useNavigate, useLocation } from "react-router-dom";
 
-export async function renderPagination(responseDTO) {
-    const container = document.getElementById("pagination-container");
-    if (!responseDTO || responseDTO.total === 0) {
-        container.innerHTML = ''; // 공란으로 설정
-        return;
-    }
+const Pagination = ({ responseDTO }) => {
+    const navigate = useNavigate();
+    const location = useLocation();
+
+    if (!responseDTO || responseDTO.total === 0) return null;
 
     const { page, size, total, start, end, prev, next } = responseDTO;
+    const totalPages = Math.ceil(total / size);
 
-    const totalPages = Math.ceil(total / size); // 전체 페이지 수 계산
+    const handleClick = (selectedPage) => {
+        const params = new URLSearchParams(location.search);
+        params.set("page", selectedPage);
 
-    let pageHTML = `
-        <div class="pagination">
-            ${prev ? `<a class="page-link" data-page="${page - 1}">&laquo; </a>` : ''}
-    `;
+        navigate(`${location.pathname}?${params.toString()}`);
+    };
 
-    for (let i = start; i <= end; i++) {
-        if (i === page) {
-            // 현재 페이지는 비활성화된 상태로 렌더링
-            pageHTML += `
-                <span class="page-link active" aria-disabled="true">
-                    ${i}
-                </span>
-            `;
-        } else {
-            pageHTML += `
-                <a class="page-link" data-page="${i}">
-                    ${i}
+    const renderPageLink = (i) => {
+        const isActive = i === page;
+        return isActive ? (
+            <span key={i} className="page-link active" aria-disabled="true">
+                {i}
+            </span>
+        ) : (
+            <a
+                key={i}
+                className="page-link"
+                onClick={() => handleClick(i)}
+                role="button"
+            >
+                {i}
+            </a>
+        );
+    };
+
+    return (
+        <div className="pagination">
+            {prev && (
+                <a className="page-link" onClick={() => handleClick(page - 1)} role="button">
+                    &laquo;
                 </a>
-            `;
-        }
-    }
+            )}
 
-    pageHTML += `
-            ${next ? `<a class="page-link" data-page="${page + 1}"> &raquo;</a>` : ''}
+            {Array.from({ length: end - start + 1 }, (_, idx) => start + idx).map(renderPageLink)}
+
+            {next && (
+                <a className="page-link" onClick={() => handleClick(page + 1)} role="button">
+                    &raquo;
+                </a>
+            )}
         </div>
-    `;
+    );
+};
 
-    container.innerHTML = pageHTML;
-
-    // 기존 이벤트 리스너를 중복으로 추가하지 않도록 먼저 제거
-    container.removeEventListener("click", handlePaginationClick);
-
-    // 새로 이벤트 리스너 추가
-    container.addEventListener("click", handlePaginationClick);
-}
-
-async function handlePaginationClick(event) {
-    const target = event.target;
-
-    if (target.classList.contains("page-link") && !target.classList.contains("active")) {
-        const selectedPage = target.getAttribute("data-page");
-
-        const currentParams = new URLSearchParams(window.location.search);
-        currentParams.set('page', selectedPage);
-
-        const newQueryString = currentParams.toString();
-
-        const newUrl = `${window.location.pathname}?${newQueryString}`;
-
-        router.navigate(newUrl);
-    }
-}
+export default Pagination;

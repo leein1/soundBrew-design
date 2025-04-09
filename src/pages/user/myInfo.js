@@ -1,9 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import { axiosGet, axiosPost, axiosPatch } from '../../api/standardAxios';
-// // 기존 serializeInputToJSON, serializeFormToJSON, inputHandler 함수 사용 (내부 로직 수정 필요 시 해당 파일에서 조정)
-// import { serializeInputToJSON } from '../../utils/serialize/inputToJson';
-// import { serializeFormToJSON } from '../../utils/serialize/formToJson';
 import { inputHandler } from '../../utils/check/inputHandler';
+
+import FieldWithEdit from '../../components/FieldWithEdit';
 
 import '../../assets/css/user/myInfo.css';
 
@@ -183,38 +182,6 @@ const MyInfo = () => {
           />
         </div>
       </form>
-    </div>
-  );
-};
-
-const FieldWithEdit = ({ label, value, onChange, isEditing, onEdit, onCancel, onSave, isValid = true }) => {
-  // 수정 중이면 테두리 orange, 아니면 기본 스타일
-  const inputClassName = isEditing 
-    ? 'border rounded p-2 flex-1 border-orange-500'
-    : `border rounded p-2 flex-1 ${isValid ? 'border-gray-300' : 'border-red-500'}`;
-  const buttonStyle = isEditing ? { backgroundColor: "orange", color: "white" } : {};
-
-  return (
-    <div className="input-group">
-      <label>{label}</label>
-      <div className="input-with-button">
-        <input
-          type="text"
-          value={value}
-          onChange={e => onChange(e.target.value)}
-          readOnly={!isEditing}
-          className={inputClassName}
-          style={isEditing ? { borderColor: 'orange' } : {}}
-        />
-        {!isEditing ? (
-          <button type="button" onClick={onEdit}>수정하기</button>
-        ) : (
-          <>
-            <button type="button" onClick={onSave} style={buttonStyle}>수정완료</button>
-            <button type="button" onClick={onCancel}>취소하기</button>
-          </>
-        )}
-      </div>
     </div>
   );
 };

@@ -1,13 +1,13 @@
 // src/components/Sidebar.jsx
 import React, { useState, useRef, useEffect, useCallback } from "react";
-import { useAuth } from "../../context/authContext";
+import { useAuth } from "../context/authContext";
 import { Link } from "react-router-dom";
 
 // 아이콘 베럴 
-import icons from '../../assets/images/imageBarrel'
+import icons from '../assets/images/imageBarrel'
 
 // 다크 모드 토글
-import DarkModeToggle from "../DarkModeToggle";
+import DarkModeToggle from "./DarkModeToggle";
 
 const Sidebar = ({ isExpanded, toggleSidebar, onProfileClick }) => {
   const { user, isAuthenticated, isAdmin } = useAuth();

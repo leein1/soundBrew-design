@@ -11,14 +11,19 @@ import { Routes, Route, Navigate } from "react-router-dom";
 // 페이지 레이아웃
 import Layout from "../components/layouts/Layout"
 
-// 페이지들. (./pages/(...))
-// import ChangePassword from "../pages/ChangePW.js"
+// 부모 컴포넌트
+import MeSoundManage from "../components/layouts/MeSoundManage";
+import Sound from "../components/layouts/Sound";
+
+// 컴포넌트 (./pages/(...))
 import Login from "../pages/security/Login"
 import MySubscription from "../pages/user/MySubscription";
 import MyInfo from "../pages/user/MyInfo";
 import ChangePW from "../pages/user/ChangePW";
 import MeDashboard from "../pages/user/MeDashboard";
 import SoundUpload from "../pages/sound/Upload";
+import Register from "../pages/user/Register";
+import SubscriptionPlans from "../pages/user/SubscriptionPlan";
 
 
 
@@ -41,14 +46,15 @@ const AppRouter = () => {
           <Route path="/me/change-password" element={<ChangePW/>} />
           <Route path="/me/subscription" element={<MySubscription/>} />
           <Route path="/me/statistic" element={<MeDashboard/>} />
-          {/* <Route path="/me/sounds/albums" element={} /> */}
+          <Route path="/me/sounds/*" element={<MeSoundManage />} /> {/* 부모 컴포넌트*/}
           <Route path="/me/sounds/upload" element={<SoundUpload/>} />
 
           {/* for visitor */}
           <Route path="/login" element={<Login />} />
-          {/* <Route path="/register" element={} />
-          <Route path="/sounds/tracks" element={} />
-          <Route path="/sounds/albums" element={} /> */}
+          <Route path="/register" element={<Register/>} />
+          <Route path="/subscription" element={<SubscriptionPlans/>} />
+          <Route path="/sounds/tracks" element={<Sound/>} />
+          {/* <Route path="/sounds/albums" element={} /> */}
           {/* <Route path="" element={} /> */}
           
         </Route>

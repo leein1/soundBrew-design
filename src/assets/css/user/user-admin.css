@@ -129,14 +129,12 @@ td {
     background-color: #FF5252;
     color: white;
     border: none;
-    display: none; /* 기본적으로 숨김 */
 }
 
 .apply-button {
     background-color: #2196F3;
     color: white;
     border: none;
-    display: none; /* 기본적으로 숨김 */
 }
 .choose-creditBalance {
     background-color: #2196F3;

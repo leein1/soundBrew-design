@@ -1,8 +1,8 @@
-// src/components/Layout.jsx
+// src/components/layouts/Layout.jsx
 import React, { useState } from "react";
-import Sidebar from "./Sidebar";
-import Navigation from "./Navigation";
-import ProfileModal from "./ProfileModal";
+import Sidebar from "../Sidebar";
+import Navigation from "../Navigation";
+import ProfileModal from "../ProfileModal";
 import { Outlet } from "react-router-dom";
 
 const Layout = () => {

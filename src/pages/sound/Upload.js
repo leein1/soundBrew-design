@@ -3,7 +3,6 @@ import React, { useState, useRef, useEffect } from "react";
 import { axiosGet, axiosPost } from "../../api/standardAxios"; // 기존 API 함수 import
 import { serializeFormToJSON } from "../../utils/serialize/formToJson";
 import { inputHandler } from "../../utils/check/inputHandler";
-import { musicUpload,manageTags } from "../../assets/css/cssBarrel";
 
 import "../../assets/css/sound/music-upload.css";
 import "../../assets/css/sound/manage-tags.css";
@@ -289,39 +288,39 @@ const SoundUpload = () => {
 
       {/* 태그 선택 모달 */}
       {isTagModalOpen && (
-      <div className="modal-cover">
-        <div id="tag-modal" className="modal">
-          <div className="modal-content">
-            <h2>태그 선택</h2>
-            {/* 탭 영역 */}
-            <div className="tag-tabs">
-              <button type="button" className={activeCategory === "instrument" ? "tab-button active" : "tab-button"}
-                onClick={() => setActiveCategory("instrument")}>
-                악기
-              </button>
-              <button type="button" className={activeCategory === "mood" ? "tab-button active" : "tab-button"}
-                onClick={() => setActiveCategory("mood")}>
-                무드
-              </button>
-              <button type="button" className={activeCategory === "genre" ? "tab-button active" : "tab-button"}
-                onClick={() => setActiveCategory("genre")}>
-                장르
-              </button>
+        <div className="modal-cover">
+          <div id="tag-modal" className="modal">
+            <div className="modal-content">
+              <h2>태그 선택</h2>
+              {/* 탭 영역 */}
+              <div className="tag-tabs">
+                <button type="button" className={activeCategory === "instrument" ? "tab-button active" : "tab-button"}
+                  onClick={() => setActiveCategory("instrument")}>
+                  악기
+                </button>
+                <button type="button" className={activeCategory === "mood" ? "tab-button active" : "tab-button"}
+                  onClick={() => setActiveCategory("mood")}>
+                  무드
+                </button>
+                <button type="button" className={activeCategory === "genre" ? "tab-button active" : "tab-button"}
+                  onClick={() => setActiveCategory("genre")}>
+                  장르
+                </button>
+              </div>
+              {/* 검색 및 목록 영역 */}
+              <input type="text" id="tag-search" placeholder="태그 검색"
+                value={tagSearch} onChange={(e) => setTagSearch(e.target.value)}/>
+              <ul id="tag-list">
+                {filterTags().map((item, idx) => (
+                  <li key={idx} onClick={() => selectTag(item.tag, item.type)}>{item.tag}</li>
+                ))}
+              </ul>
+              <button type="button" className="close-modal" onClick={closeTagModal}>닫기</button>
+              <button type="button" className="reset-tags-modal" onClick={resetTags}>태그 초기화</button>
+              <button type="button" className="apply-tags" onClick={closeTagModal}>수정 확정</button>
             </div>
-            {/* 검색 및 목록 영역 */}
-            <input type="text" id="tag-search" placeholder="태그 검색"
-              value={tagSearch} onChange={(e) => setTagSearch(e.target.value)}/>
-            <ul id="tag-list">
-              {filterTags().map((item, idx) => (
-                <li key={idx} onClick={() => selectTag(item.tag, item.type)}>{item.tag}</li>
-              ))}
-            </ul>
-            <button type="button" className="close-modal" onClick={closeTagModal}>닫기</button>
-            <button type="button" className="reset-tags-modal" onClick={resetTags}>태그 초기화</button>
-            <button type="button" className="apply-tags" onClick={closeTagModal}>수정 확정</button>
           </div>
         </div>
-      </div>
       )}
     </div>
   );

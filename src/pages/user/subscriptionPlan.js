@@ -1,61 +1,49 @@
-export async function renderSubscriptionPlans() {
-    const contentBody = document.querySelector(".content-body");
+// src/components/SubscriptionPlans.jsx
+import React from 'react';
+import '../../assets/css/user/subscriptionPlan.css';  // ← 여기에 CSS import
 
-    if (!contentBody) {
-        console.error("content-body 요소를 찾을 수 없습니다.");
-        return;
-    }
+const plans = [
+  { name: 'Free', price: 0, credit: 0, description: null },
+  { name: 'Basic', price: 10000, credit: 50, description: null },
+  { name: 'Premium', price: 20000, credit: 100, description: null },
+  { name: 'VIP', price: 30000, credit: null, description: '무제한으로 사용하세요!' },
+];
 
-    contentBody.innerHTML = `
-    <div class="subscriptionPlan-content-header">
+const SubscriptionPlans = () => {
+  const handleSubscribe = (plan) => {
+    alert('결제 기능과 함께 업데이트 예정입니다.');
+  };
+
+  return (
+    <div className="subscriptionPlan-content">
+      <div className="subscriptionPlan-content-header">
         구독제
+      </div>
 
-    </div>
-
-    <div class="subscriptionPlan-content-body">
-        <div class="subscription-container">
-            <div class="subscription-card">
-                <h2>Free</h2>
-                <p>월 결제 금액: 0원</p>
-                <p>월 크레딧: 0</p>
-                <button type="button" class="subscribe-btn" data-plan="Free">구독하기</button>
+      <div className="subscriptionPlan-content-body">
+        <div className="subscription-container">
+          {plans.map(({ name, price, credit, description }) => (
+            <div
+              key={name}
+              className={`subscription-card${name === 'VIP' ? ' vip-card' : ''}`}
+            >
+              <h2>{name}</h2>
+              <p>월 결제 금액: {price.toLocaleString()}원</p>
+              {credit !== null && <p>월 크레딧: {credit}</p>}
+              {description && <p>{description}</p>}
+              <button
+                type="button"
+                className="subscribe-btn"
+                onClick={() => handleSubscribe(name)}
+              >
+                구독하기
+              </button>
             </div>
-            <div class="subscription-card">
-                <h2>Basic</h2>
-                <p>월 결제 금액: 10,000원</p>
-                <p>월 크레딧: 50</p>
-                <button type="button" class="subscribe-btn" data-plan="Basic">구독하기</button>
-            </div>
-            <div class="subscription-card">
-                <h2>Premium</h2>
-                <p>월 결제 금액: 20,000원</p>
-                <p>월 크레딧: 100</p>
-                <button type="button" class="subscribe-btn" data-plan="Premium">구독하기</button>
-            </div>
-            <div class="subscription-card vip-card">
-                <h2>VIP</h2>
-                <p>월 결제 금액: 30,000원</p>
-                <p>무제한으로 사용하세요!</p>
-                <button type="button" class="subscribe-btn" data-plan="VIP">구독하기</button>
-            </div>
+          ))}
         </div>
-    `;
+      </div>
+    </div>
+  );
+};
 
-    attachSubscriptionEventHandlers();
-}
-
-function attachSubscriptionEventHandlers() {
-    const subscribeButtons = document.querySelectorAll(".subscribe-btn");
-
-    subscribeButtons.forEach((button) => {
-        button.addEventListener("click", (event) => {
-            const plan = event.target.dataset.plan;
-            alert("결제 기능과 함께 업데이트 예정입니다.");
-            // alert(`${plan} 플랜을 선택하셨습니다.`);
-
-            // if (plan === "VIP") {
-            //     alert("VIP는 무제한 서비스입니다. 고민하지 말고 바로 구독하세요!");
-            // }
-        });
-    });
-}
+export default SubscriptionPlans;

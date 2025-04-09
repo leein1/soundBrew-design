@@ -1,83 +1,87 @@
-function renderSearch() {
-    const container = document.getElementById("searchContainer");
-    container.innerHTML = ''; // Clear previous content
+// src/components/Search.jsx
+import React, { useEffect, useState } from "react";
+import { useNavigate, useLocation } from "react-router-dom";
+import icons from "../assets/images/imageBarrel";
 
-    const searchItem = document.createElement('div');
-    searchItem.classList.add('search-sort');
+const Search = ({ type, keyword, onTypeChange, onKeywordChange, onSearch }) => {
+  const navigate = useNavigate();
+  const location = useLocation();
 
-    // Add HTML structure
-    searchItem.innerHTML = `
-        <div class="searchbar">
-            <div class="searchbar-container">
-                <div class="search-area">
-                    <span class="searchbar-icon">
-                        <img src="/images/search_24dp_5F6368_FILL0_wght400_GRAD0_opsz24.svg" alt="Search Icon">
-                    </span>
-                    <!-- 검색 타입 드롭다운 -->
-                    <select id="searchType" class="searchType">
-                        <option value="t">타이틀</option>
-                        <option value="n">닉네임</option>
-                    </select>
-                </div>
-                <input type="text" id="searchKeyword" placeholder="검색..." />
-            </div>
-        </div><!-- end searchbar -->
-    `;
+  const [localKeyword, setLocalKeyword] = useState(keyword || "");
+  const [localType, setLocalType] = useState(type || "t");
 
-    // Append the constructed searchItem
-    container.appendChild(searchItem);
+  // URL에서 파라미터 읽어오기
+  useEffect(() => {
+    const urlParams = new URLSearchParams(location.search);
+    const keywordParam = urlParams.get("keyword");
+    const typeParam = urlParams.get("type");
 
-    function setSearchParams() {
-        const urlParams = new URLSearchParams(window.location.search);
-        const keyword = urlParams.get("keyword");
-        const type = urlParams.get("type");
-
-        if (keyword) {
-            document.getElementById("searchKeyword").value = keyword;
-        }
-        if (type) {
-            document.getElementById("searchType").value = type;
-        }
+    if (keywordParam) {
+      setLocalKeyword(keywordParam);
+      onKeywordChange(keywordParam);
     }
-
-    window.onload=setSearchParams;
-    window.addEventListener("popstate", setSearchParams);
-
-    // Add event listener for the input field to handle Enter key
-    document.getElementById('searchKeyword').addEventListener('keydown', handleEnterSearch);
-}
-
-/**
- * Handles search when the Enter key is pressed
- */
-function handleEnterSearch(event) {
-    // Check if the Enter key was pressed
-    if (event.key === 'Enter') {
-        // Get the keyword and type values
-        const keyword = document.getElementById('searchKeyword').value.trim();
-        const type = document.getElementById('searchType').value;
-
-        // Validate input
-        if (!keyword) {
-            alert('검색어를 입력해주세요.');
-            return;
-        }
-
-        // Get current URL parameters
-        const currentParams = new URLSearchParams(window.location.search);
-
-        // Update or add 'keyword' and 'type' parameters
-        currentParams.set('keyword', keyword);
-        currentParams.set('type', type);
-
-        // Generate a new query string
-        const newQueryString = currentParams.toString();
-
-        // Construct the new URL
-        const newUrl = `${window.location.pathname}?${newQueryString}`;
-
-        // Update the browser's history state and refresh the page
-        window.history.pushState(null, '', newUrl);
-        window.location.reload();
+    if (typeParam) {
+      setLocalType(typeParam);
+      onTypeChange(typeParam);
     }
-}
+  }, [location.search]);
+
+  const handleKeyDown = (e) => {
+    if (e.key === "Enter") {
+      if (!localKeyword.trim()) {
+        alert("검색어를 입력해주세요.");
+        return;
+      }
+
+      // URL 변경
+      const newParams = new URLSearchParams(location.search);
+      newParams.set("keyword", localKeyword);
+      newParams.set("type", localType);
+
+      navigate(`${location.pathname}?${newParams.toString()}`);
+
+      // 검색 실행 콜백
+      onSearch();
+    }
+  };
+
+  return (
+    <div className="search-sort">
+      <div className="searchbar">
+        <div className="searchbar-container">
+          <div className="search-area">
+            <span className="searchbar-icon">
+              <img
+                src={icons.searchIcon}
+                alt="Search Icon"
+              />
+            </span>
+            <select
+              value={localType}
+              onChange={(e) => {
+                setLocalType(e.target.value);
+                onTypeChange(e.target.value);
+              }}
+              className="searchType"
+            >
+              <option value="t">타이틀</option>
+              <option value="n">닉네임</option>
+            </select>
+          </div>
+          <input
+            type="text"
+            placeholder="검색..."
+            value={localKeyword}
+            onChange={(e) => {
+              setLocalKeyword(e.target.value);
+              onKeywordChange(e.target.value);
+            }}
+            onKeyDown={handleKeyDown}
+          />
+        </div>
+      </div>
+    </div>
+  );
+};
+
+export default Search;
