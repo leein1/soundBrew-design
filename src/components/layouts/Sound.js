@@ -1,91 +1,91 @@
 // src/components/layouts/Sound.jsx
 import React, { useState, useEffect } from "react";
-import { useLocation, useNavigate, Outlet } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 
-// 플레이스홀더(나중에 구현할) 컴포넌트들
+import useTagFilter from "../../hooks/useTagFilter";
+import useViewSort from "../../hooks/useViewSort";
+
 import SearchBar from "../../components/Search";
-import TagArea   from "../../pages/sound/TagArea"
-import ViewType  from "../../pages/sound/ViewType"
-// import TrackList  from "../../pages/sound/TrackList"
-// import AlbumList  from "../../pages/sound/AlbumList"
-import Pagination from "../../components/Pagination";
+import TagSort from "../../pages/sound/TagSort";
+import ViewType from "../../pages/sound/ViewType";
+import ViewSort from "../../pages/sound/ViewSort";
+import TrackList from "../../pages/sound/TrackList";
+import AlbumList from "../../pages/sound/AlbumList";
+import QueBar from "../../pages/sound/QueBar";
+
+import "../../assets/css/sound/sound.css";
+import "../../assets/css/sound/music.css";
+import "../../assets/css/sound/album-list.css";
+import "../../assets/css/sound/player.css";
 
 const Sound = () => {
-    const location = useLocation();
-    const navigate = useNavigate();
+  const location = useLocation();
+  const navigate = useNavigate();
 
-    // 예: 검색어, 필터, 정렬 상태 등
-    const [searchType, setSearchType] = useState("t");
-    const [searchKeyword, setSearchKeyword] = useState("");
-    const [activeTags, setActiveTags] = useState({
-        instrument: true,
-        mood: true,
-        genre: true,
-    });
-    
-    const [viewMode, setViewMode] = useState("list"); // or "grid"
-    const [sortKey, setSortKey] = useState("newest");
-    const [page, setPage] = useState(1);
+  // 정렬 상태 (newest, oldest 등)
+  const [sortStyle, setSortStyle] = useState("newest");
 
-    const validViews = ["albums", "tracks"];
-    const pathSegment = location.pathname.split("/").pop(); // albums, tracks 중 하나
-    const initialView = validViews.includes(pathSegment) ? pathSegment : "tracks";
-    const [currentView, setCurrentView] = useState(initialView);
+  // useViewSort 커스텀 훅을 통해 sortStyle 적용
+  useViewSort(sortStyle);
 
-    useEffect(() => {
-        // 주소가 바뀌면 currentView 도 동기화되도록
-        if (validViews.includes(pathSegment) && pathSegment !== currentView) {
-            setCurrentView(pathSegment);
-        }
-    }, [pathSegment]);
+  // 검색 상태 (검색 타입, 검색어)
+  const [searchType, setSearchType] = useState("t");
+  const [searchKeyword, setSearchKeyword] = useState("");
 
-    return (
-        <div className="article">
-        {/* 1. 검색바 영역 */}
-        <SearchBar
-            type={searchType}
-            keyword={searchKeyword}
-            onTypeChange={setSearchType}
-            onKeywordChange={setSearchKeyword}
-            onSearch={() => {
-            // e.g. navigate(`?type=${searchType}&q=${searchKeyword}`)
-            }}
+  // 현재 뷰 상태: URL 경로에 따라 tracks 또는 albums 선택
+  const [currentView, setCurrentView] = useState(() => {
+    const seg = location.pathname.split("/").pop();
+    return ["albums", "tracks"].includes(seg) ? seg : "tracks";
+  });
+
+  // 태그 필터 관련 훅
+  const {
+    tagData,
+    sectionVisibility,
+    activeTags,
+    toggleSection,
+    clickTag,
+  } = useTagFilter();
+
+  // URL 변경에 따라 뷰 동기화
+  useEffect(() => {
+    const seg = location.pathname.split("/").pop();
+    if (["albums", "tracks"].includes(seg) && seg !== currentView) {
+      setCurrentView(seg);
+    }
+  }, [location.pathname, currentView]);
+
+  return (
+    <div className="article">
+      <SearchBar
+        type={searchType}
+        keyword={searchKeyword}
+        onTypeChange={setSearchType}
+        onKeywordChange={setSearchKeyword}
+        onSearch={() => navigate(`?type=${searchType}&q=${searchKeyword}`)}
+      />
+
+      <div className="content">
+        <TagSort
+          data={tagData}
+          sectionVisibility={sectionVisibility}
+          activeTags={activeTags}
+          onToggleSection={toggleSection}
+          onTagClick={clickTag}
         />
 
-        <div className="content">
-            {/* 2. 태그영역 */}
-            <TagArea
-            activeTags={activeTags}
-            onToggleTag={(tag) =>
-                setActiveTags((prev) => ({ ...prev, [tag]: !prev[tag] }))
-            }
-            />
+        <ViewSort sortStyle={sortStyle} onChange={setSortStyle} />
+        <ViewType mode={currentView} onChange={setCurrentView} />
 
-            {/* 3. 뷰타입 영역 */}
-            <ViewType mode={currentView} onChange={(newView) => setCurrentView(newView)}/>
-
-            {/* 4. 리스트 영역 */}
-            <div>
-                {/* {currentView === "albums" && <AlbumList />}
-                {currentView === "tracks" && <TrackList />} */}
-            </div>
-
-            {/* <ListArea
-                viewMode={viewMode}
-                searchType={searchType}
-                searchKeyword={searchKeyword}
-                activeTags={activeTags}
-                sortKey={sortKey}
-            /> */}
-
-            {/* 5. 페이지 영역 */}
-            <Pagination currentPage={page} onChange={setPage} />
+        <div>
+          {currentView === "tracks" && <TrackList />}
+          {currentView === "albums" && <AlbumList />}
         </div>
 
-        {/* Outlet 쓰고 싶으면 이 자리에 */}
-        {/* <Outlet /> */}
-        </div>
-    );
+        <QueBar />
+      </div>
+    </div>
+  );
 };
 
 export default Sound;
