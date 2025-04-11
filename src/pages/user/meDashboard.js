@@ -1,17 +1,22 @@
 // src/components/MeDashboard.jsx
-import React, { useState, useEffect, useRef, useCallback } from 'react';
+import React, { useState, useEffect, useRef, useCallback, useMemo } from 'react';
 import { axiosGet } from '../../api/standardAxios';
 import { useNavigate } from 'react-router-dom';
 import { Chart as ChartJS, ArcElement, BarElement, CategoryScale, LinearScale, Tooltip, Legend,} from 'chart.js';
 import { Doughnut, Bar } from 'react-chartjs-2';
 
-import "../../assets/css/sound/admin-main.css";
-
 import icons from '../../assets/images/imageBarrel';
+import { useCSSLoader } from '../../hooks/useCSSLoader';
 
 ChartJS.register(ArcElement, BarElement, CategoryScale, LinearScale, Tooltip, Legend);
 
 const MeDashboard = () => {
+  const cssFiles = useMemo(()=>[
+    "/assets/css/sound/admin-main.css",
+  ],[])
+
+  useCSSLoader(cssFiles);
+
   // 1) 상태 훅
   const [stats, setStats] = useState(null);
   const [tagStats, setTagStats] = useState(null);

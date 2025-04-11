@@ -213,7 +213,7 @@ button {
 
 /* 모달 백그라운드: 전체 화면 오버레이 */
 .detailModal {
-    /* display: none;  */
+    display: none; /* 기본 숨김 */
     position: fixed;
     z-index: 1000; /* 다른 요소 위에 표시 */
     left: 0;

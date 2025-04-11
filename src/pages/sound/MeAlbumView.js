@@ -1,5 +1,5 @@
 // src/pages/sound/MeAlbumView.jsx
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useMemo } from "react";
 import { useLocation } from "react-router-dom";
 import { axiosGet, axiosPatch } from "../../api/standardAxios";
 import { inputHandler } from "../../utils/check/inputHandler";
@@ -7,16 +7,32 @@ import { formatDate } from "../../utils/date/formatDate";
 import { useEditableItem } from "../../hooks/useEditableItem";
 import InlineEditor from "../../components/InlineEditor";
 import SortableHeaderCell from "../../components/SortableHeaderCell";
+import { useCSSLoader } from "../../hooks/useCSSLoader";
+import { useAuth } from "../../context/authContext";
 
-import "../../assets/css/sound/admin-main.css";
-import "../../assets/css/user/user-admin.css";
+import Pagination from "../../components/Pagination";
+
+// 새로 만든 모달 컴포넌트를 import 합니다.
+import AlbumTracksModal from "./AlbumTracksModal";
+
 
 const MeAlbumView = () => {
+  const cssFiles = useMemo(() => [
+    "/assets/css/sound/music.css",
+    "/assets/css/sound/admin-main.css",
+    "/assets/css/user/user-admin.css",
+  ], []);
+  useCSSLoader(cssFiles);
+
   const [albums, setAlbums] = useState([]);
+  const [responseData, setResponseData] = useState(null);
   const [searchKeyword, setSearchKeyword] = useState("");
   const location = useLocation();
 
-  // 에디팅에 사용되는 공통 훅 (여기서 form 만들어 줌)
+  const {isAdmin} =useAuth();
+  // 선택한 앨범의 ID를 저장하는 상태
+  const [selectedAlbumId, setSelectedAlbumId] = useState(null);
+
   const {
     editModeId,
     editedData,
@@ -26,21 +42,29 @@ const MeAlbumView = () => {
     handleChange,
   } = useEditableItem();
 
-  // 앨범 데이터 및 검색어 로드
   useEffect(() => {
     const fetchAlbums = async () => {
       const params = new URLSearchParams(location.search);
+      let response ='';
+
+      if(isAdmin){
+        response = await axiosGet({ endpoint: `/api/admin/albums?${params.toString()}` });
+      }else{
+        response = await axiosGet({ endpoint: `/api/me/albums?${params.toString()}` });
+      }
+
+      if (response && response.dtoList) {
+        setResponseData(response);
+      } else {
+        setResponseData({ dtoList: [] });
+      }
       
-      const response = await axiosGet({endpoint: `/api/me/albums?${params.toString()}`});
-  
       setAlbums(response.dtoList || []);
     };
-  
-    fetchAlbums();
-  }, [location]);
-  
 
-  // 적용 버튼 클릭 시: 입력값 검증 후 PATCH API 호출
+    fetchAlbums();
+  }, [location.search]);
+
   const handleApply = async () => {
     const { errors, processedData } = inputHandler(editedData, editedData);
     if (errors) {
@@ -48,13 +72,21 @@ const MeAlbumView = () => {
       return;
     }
     try {
-      await axiosPatch({ endpoint: `/api/me/albums/${editModeId}`, body: processedData,});
+      await axiosPatch({
+        endpoint: `/api/me/albums/${editModeId}`,
+        body: processedData,
+      });
       cancelEdit();
     } catch (err) {
       console.error(err);
       alert("수정 실패");
     }
   };
+
+  const handleDelete = async ()=>{        
+    alert("삭제 클릭, 삭제한 아이디 : "+editModeId);
+    // await axiosDelete({ endpoint:`/api/admin/albums/${editModeId}`, handle });
+  } 
 
   return (
     <div>
@@ -91,8 +123,10 @@ const MeAlbumView = () => {
                   key={album.albumId}
                   onClick={(e) => {
                     const tag = e.target.tagName.toLowerCase();
+                    // 버튼이나 input을 클릭한 경우 모달 오픈을 막음
                     if (["button", "input"].includes(tag)) return;
-                    alert(`앨범 모달 열기: ${album.userId}, ${album.albumId}`);
+                    // 모달창 오픈: 클릭한 앨범 ID를 상태에 저장
+                    setSelectedAlbumId(album.albumId);
                   }}
                 >
                   <td>{album.albumId}</td>
@@ -121,35 +155,17 @@ const MeAlbumView = () => {
                   <td>
                     {isCurrentEditing ? (
                       <>
-                        <button
-                          className="apply-button"
-                          onClick={(e) => {
-                            e.stopPropagation();
-                            handleApply();
-                          }}
-                        >
+                        <button className="apply-button" onClick={(e) => {e.stopPropagation(); handleApply();}}>
                           적용
                         </button>
-                        <button
-                          className="cancel-button"
-                          onClick={(e) => {
-                            e.stopPropagation();
-                            cancelEdit();
-                          }}
-                        >
+                        <button className="cancel-button" onClick={(e) => {e.stopPropagation(); cancelEdit();}}>
                           취소
                         </button>
+                        {isAdmin? (<button className="delete-button" onClick={handleDelete}>삭제</button>):(<></>)}
                       </>
                     ) : (
-                      <button
-                        className="edit-button"
-                        onClick={(e) => {
-                          e.stopPropagation();
-                          startEdit(album.albumId, {
-                            albumName: album.albumName,
-                            description: album.description,
-                          });
-                        }}
+                      <button className="edit-button" 
+                          onClick={(e) => {e.stopPropagation(); startEdit(album.albumId, {albumName: album.albumName,description: album.description,});}}
                       >
                         수정하기
                       </button>
@@ -162,6 +178,16 @@ const MeAlbumView = () => {
         </table>
       ) : (
         <p>앨범이 없습니다.</p>
+      )}
+
+      <Pagination responseDTO={responseData} />
+
+      {/* 선택한 앨범이 있으면 모달창 렌더링 */}
+      {selectedAlbumId && (
+        <AlbumTracksModal
+          albumId={selectedAlbumId}
+          onClose={() => setSelectedAlbumId(null)}
+        />
       )}
     </div>
   );

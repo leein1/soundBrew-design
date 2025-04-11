@@ -1,6 +1,6 @@
 // src/components/SubscriptionPlans.jsx
-import React from 'react';
-import '../../assets/css/user/subscriptionPlan.css';  // ← 여기에 CSS import
+import React, { useMemo } from 'react';
+import { useCSSLoader } from '../../hooks/useCSSLoader';
 
 const plans = [
   { name: 'Free', price: 0, credit: 0, description: null },
@@ -10,6 +10,12 @@ const plans = [
 ];
 
 const SubscriptionPlans = () => {
+  const cssFiles = useMemo(()=>[
+    "/assets/css/user/subscriptionPlan.css",
+  ],[])
+
+  useCSSLoader(cssFiles);
+
   const handleSubscribe = (plan) => {
     alert('결제 기능과 함께 업데이트 예정입니다.');
   };

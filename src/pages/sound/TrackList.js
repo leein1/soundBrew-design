@@ -6,19 +6,14 @@ import icons from "../../assets/images/imageBarrel";
 import Pagination from "../../components/Pagination";
 import { copyTextToClipboard } from "../../utils/sound/copyTextToClipboard";
 import handleDownload from "../../utils/sound/handleDownload";
-import QueBar from "./QueBar";
 
-const TrackList = ({ data: propData, onPlay }) => {
+const TrackList = ({ onPlay }) => {
   const navigate = useNavigate();
   const location = useLocation();
   const [responseData, setResponseData] = useState(null);
 
-  // TrackList 데이터 로드: URL의 쿼리 파라미터에 따라 재요청
+  // 데이터 로드: propData가 있으면 그대로 사용, 없으면 API 호출
   useEffect(() => {
-    if (propData) {
-      setResponseData(propData);
-      return;
-    }
     const fetchTracks = async () => {
       try {
         const response = await axiosGet({ endpoint: `/api/sounds/tracks${location.search}` });
@@ -33,13 +28,14 @@ const TrackList = ({ data: propData, onPlay }) => {
       }
     };
     fetchTracks();
-  }, [propData, location.search]);
+  }, [ location.search]);
 
   // 공유 버튼 핸들러
   const handleShare = async (sound) => {
     const url = window.location.origin;
-    const shareText = `${url}/sounds/tracks/one?
-      nickname=${encodeURIComponent(sound.albumDTO.nickname)}&title=${encodeURIComponent(sound.musicDTO.title)}`;
+    const shareText = `${url}/sounds/tracks/one?nickname=${encodeURIComponent(
+      sound.albumDTO.nickname
+    )}&title=${encodeURIComponent(sound.musicDTO.title)}`;
     try {
       await copyTextToClipboard(shareText);
       alert("링크가 복사되었습니다!");
@@ -55,8 +51,8 @@ const TrackList = ({ data: propData, onPlay }) => {
 
   return (
     <div className="track-list">
-    {responseData.dtoList.map((sound) => (
-      <div key={sound.musicDTO.musicId} className="music-item">
+      {responseData.dtoList.map((sound) => (
+        <div key={sound.musicDTO.musicId} className="music-item">
           <div className="music-item-left">
             <img
               alt="앨범 이미지"
@@ -64,7 +60,18 @@ const TrackList = ({ data: propData, onPlay }) => {
               src={`https://d1lq7t3sqkotey.cloudfront.net/${sound.albumDTO.albumArtPath}`}
               onError={(e) => { e.target.src = icons.defaultSoundImg; }}
             />
-            <div className="music-play-btn" onClick={() => QueBar(sound.musicDTO.musicId)}>
+            {/* 재생 버튼 클릭 시, 3개 정보를 onPlay로 전달 */}
+            <div
+              className="music-play-btn"
+              onClick={() =>
+                onPlay({
+                  filePath: sound.musicDTO.filePath,
+                  title: sound.musicDTO.title,
+                  albumName: sound.albumDTO.albumName,
+                  albumArtPath: sound.albumDTO.albumArtPath,
+                })
+              }
+            >
               <img src={icons.playIcon} alt="재생" />
             </div>
             <div className="music-info">
@@ -126,7 +133,7 @@ const TrackList = ({ data: propData, onPlay }) => {
           </div>
         </div>
       ))}
-      {/* Pagination 컴포넌트에 전체 responseData 전달 */}
+
       <Pagination responseDTO={responseData} />
     </div>
   );

@@ -1,12 +1,17 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useMemo, useState } from 'react';
 import { axiosGet, axiosPost, axiosPatch } from '../../api/standardAxios';
 import { inputHandler } from '../../utils/check/inputHandler';
 
 import FieldWithEdit from '../../components/FieldWithEdit';
-
-import '../../assets/css/user/myInfo.css';
+import { useCSSLoader } from '../../hooks/useCSSLoader';
 
 const MyInfo = () => {
+  const cssFiles = useMemo(()=>[
+    "/assets/css/user/myInfo.css",
+  ], []);
+
+  useCSSLoader(cssFiles);
+
   const [userInfo, setUserInfo] = useState(null);
   const [editMode, setEditMode] = useState({}); // { name: true } 등 한 필드만 수정 가능
   const [nicknameAvailable, setNicknameAvailable] = useState(true);

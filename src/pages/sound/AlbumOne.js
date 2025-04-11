@@ -1,16 +1,33 @@
 // src/pages/sound/AlbumOne.jsx
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useMemo } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import { axiosGet } from "../../api/standardAxios";
+
 import TrackList from "./TrackList";  // 재활용할 TrackList 컴포넌트
+import QueBar from "./QueBar";
+
 import { copyTextToClipboard } from "../../utils/sound/copyTextToClipboard";
+import { useCSSLoader } from "../../hooks/useCSSLoader";
 
 const AlbumOne = () => {
+  const cssFiles = useMemo(() => [
+    "/assets/css/sound/sound.css",
+    "/assets/css/sound/music.css",
+    "/assets/css/sound/album.css",
+    "/assets/css/sound/album-list.css",
+    "/assets/css/sound/player.css",
+  ], []);
+
+  useCSSLoader(cssFiles);
+
   const location = useLocation();
   const navigate = useNavigate();
   const [albumData, setAlbumData] = useState(null);
   const [loading, setLoading] = useState(true);
   const [expanded, setExpanded] = useState(false);
+
+  const [playerSoundInfo, setPlayerSoundInfo] = useState(null);
+  
 
   // URL 쿼리 파라미터에서 nickname과 albumName 추출 후 API 호출
   useEffect(() => {
@@ -124,8 +141,10 @@ const AlbumOne = () => {
       {/* 앨범의 음원 목록 영역 - 부모에서 전체 responseDTO를 TrackList에 전달 */}
       <div className="album-track-list">
         <h2>이 앨범의 음원 목록</h2>
-        <TrackList data={albumData} />
+        <TrackList onPlay={setPlayerSoundInfo}  data={albumData} />
         {/* Pagination은 TrackList 내부에서 렌더링됩니다. */}
+
+        <QueBar playerSoundInfo={playerSoundInfo} />
       </div>
     </div>
   );

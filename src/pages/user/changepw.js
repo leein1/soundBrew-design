@@ -1,11 +1,18 @@
-import React,{useState, useEffect, useRef} from 'react';
+import React,{useState, useEffect, useRef, useMemo} from 'react';
 import { serializeFormToJSON } from '../../utils/serialize/formToJson'
 import { inputHandler } from '../../utils/check/inputHandler';
 import { axiosPatch } from '../../api/standardAxios';
+import { useCSSLoader } from '../../hooks/useCSSLoader';
 
-import "../../assets/css/user/changepw.css"
+// import "../../assets/css/user/changepw.css"
 
 const ChangePW = () => {
+  const cssFiles = useMemo(()=>[
+    "/assets/css/user/changepw.css",
+  ], []);
+
+  useCSSLoader(cssFiles);
+
   const [password, setPassword] = useState('');
   const [passwordCheck, setPasswordCheck] = useState('');
   const [submitting, setSubmitting] = useState(false);

@@ -1,9 +1,17 @@
 // src/pages/Login.js
-import { useState } from "react";
+import { useMemo, useState } from "react";
 import { useAuth } from "../../context/authContext";
-import "../../assets/css/login.css";
+import { useCSSLoader } from "../../hooks/useCSSLoader";
+
+// import "../../assets/css/login.css";
 
 const Login = () => {
+  const cssFiles = useMemo(()=>[
+    "/assets/css/login.css",
+  ], []);
+
+  useCSSLoader(cssFiles);
+
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const { login } = useAuth();

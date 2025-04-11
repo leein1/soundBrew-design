@@ -8,6 +8,7 @@ const AuthContext = createContext();
 
 export const AuthProvider = ({ children }) => {
   const [user, setUser] = useState(null);
+  const [initializing, setInitializing] = useState(true); // ✅ 초기화 여부
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -16,6 +17,8 @@ export const AuthProvider = ({ children }) => {
       const userInfo = TokenUtil.getUserInfo(token);
       setUser(userInfo);
     }
+    setInitializing(false); 
+
   }, []);
 
   const login = async (username, password) => {
@@ -33,8 +36,7 @@ export const AuthProvider = ({ children }) => {
       console.log(error);
       if (error?.response?.data?.resetToken) {
         localStorage.setItem("resetToken", error.response.data.resetToken);
-      }
-      else {
+      } else {
         alert(error?.response?.data?.message || "로그인 실패");
       }
     }
@@ -47,7 +49,16 @@ export const AuthProvider = ({ children }) => {
   };
 
   return (
-    <AuthContext.Provider value={{ user, login, logout, isAuthenticated: !!user, isAdmin: user?.roles?.includes("ROLE_ADMIN") }}>
+    <AuthContext.Provider
+      value={{
+        user,
+        login,
+        logout,
+        isAuthenticated: !!user,
+        isAdmin: user?.roles?.includes("ROLE_ADMIN"),
+        initializing, // ✅ 컨텍스트에 포함
+      }}
+    >
       {children}
     </AuthContext.Provider>
   );

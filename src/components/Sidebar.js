@@ -80,36 +80,33 @@ const Sidebar = ({ isExpanded, toggleSidebar, onProfileClick }) => {
                   }}
                   alt="User Profile"
                   className="profile-image"
+                  src={`https://soundbrew.storage.s3.ap-northeast-2.amazonaws.com/${user.profileImagePath}`}
                 />
               </div>
               <div className="info1">
                 <span className="myNickname">{user.nickname}</span>
                 <span className="plans">관리자</span>
               </div>
-              <div className="sidebar-admin-info">
-                <div className="sidebar-admin-info-title" onClick={() => setAdminInfoOpen((prev) => !prev)}>
-                  <div className="sidebar-item">
-                    <img className="sidebar-icon" src={icons.infoIcon} alt="Info" />
-                    <span className="sidebar-text">더 보기</span>
-                  </div>
+              <div className={`sidebar-admin-info ${adminInfoOpen ? "open" : ""}`} onClick={() => setAdminInfoOpen((prev) => !prev)}>
+                <div className="sidebar-item">
+                  <img className="sidebar-icon" src={icons.infoIcon} alt="Info" />
+                  <span className="sidebar-text">더 보기</span>
                 </div>
 
-                {adminInfoOpen && (
-                  <div className="admin-view-content">
-                      <Link to="/admin/statistic" className="sidebar-item">
-                        <img className="sidebar-icon" src={icons.myIcon} alt="Statistics" />
-                        <span className="sidebar-text">사이트 통계 조회</span>
-                      </Link>
-                      <Link to="/admin/users" className="sidebar-item">
-                        <img className="sidebar-icon" src={icons.myIcon} alt="User Info" />
-                        <span className="sidebar-text">회원 정보 조회</span>
-                      </Link>
-                      <Link to="/admin/albums" className="sidebar-item">
-                        <img className="sidebar-icon" src={icons.myIcon} alt="Album Info" />
-                        <span className="sidebar-text">앨범 정보 조회</span>
-                      </Link>
-                  </div>
-                )}
+                <div className="admin-view-content">
+                    <Link to="/admin/statistic" className="sidebar-item">
+                      <img className="sidebar-icon" src={icons.myIcon} alt="Statistics" />
+                      <span className="sidebar-text">사이트 통계 조회</span>
+                    </Link>
+                    <Link to="/admin/users" className="sidebar-item">
+                      <img className="sidebar-icon" src={icons.myIcon} alt="User Info" />
+                      <span className="sidebar-text">회원 정보 조회</span>
+                    </Link>
+                    <Link to="/admin/albums" className="sidebar-item">
+                      <img className="sidebar-icon" src={icons.myIcon} alt="Album Info" />
+                      <span className="sidebar-text">앨범 정보 조회</span>
+                    </Link>
+                </div>
               </div>
             </div>
           ) : (

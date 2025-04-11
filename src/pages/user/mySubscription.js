@@ -1,9 +1,16 @@
 // MySubscription.jsx
-import React from 'react';
+import React, { useMemo } from 'react';
+import { useCSSLoader } from '../../hooks/useCSSLoader';
 
-import "../../assets/css/user/mySubscription.css"
+// import "../../assets/css/user/mySubscription.css"
 
 const MySubscription = () => {
+  const cssFiles = useMemo(()=>[
+    "/assets/css/user/mySubscription.css"
+  ],[])
+
+  useCSSLoader(cssFiles);
+
   const handleChangeSubscription = () => {
     alert("구독 변경 기능은 아직 구현되지 않았습니다.");
   };

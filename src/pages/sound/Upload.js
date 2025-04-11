@@ -1,13 +1,18 @@
 // SoundUpload.jsx
-import React, { useState, useRef, useEffect } from "react";
+import React, { useState, useRef, useEffect, useMemo } from "react";
 import { axiosGet, axiosPost } from "../../api/standardAxios"; // 기존 API 함수 import
 import { serializeFormToJSON } from "../../utils/serialize/formToJson";
 import { inputHandler } from "../../utils/check/inputHandler";
-
-import "../../assets/css/sound/music-upload.css";
-import "../../assets/css/sound/manage-tags.css";
+import {useCSSLoader} from "../../hooks/useCSSLoader";
 
 const SoundUpload = () => {
+  const cssFiles = useMemo(() => [
+    "/assets/css/sound/manage-tags.css",
+    "/assets/css/sound/music-upload.css",
+  ], []);
+
+  useCSSLoader(cssFiles);
+
   // 파일 업로드 결과 (서버로부터 받은 경로)
   const [uploadImage, setUploadImage] = useState("");
   const [uploadTrack, setUploadTrack] = useState("");

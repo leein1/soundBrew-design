@@ -3,6 +3,8 @@ import React, { useEffect, useState } from "react";
 import { useNavigate, useLocation } from "react-router-dom";
 import icons from "../assets/images/imageBarrel";
 
+// 뮤직 업로드 때문에 css가 꼬인다. 즉 어떻게든 컴포넌트에 해당하는 css만 불러오는것을 적용해야한다.
+
 const Search = ({ type, keyword, onTypeChange, onKeywordChange, onSearch }) => {
   const navigate = useNavigate();
   const location = useLocation();

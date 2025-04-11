@@ -1,14 +1,27 @@
 // src/components/MeTagView.jsx
-import { useState, useEffect } from "react";
+import { useState, useEffect, useMemo } from "react";
 import { useLocation } from "react-router-dom";
 import { axiosGet, axiosPatch, axiosPost } from "../../api/standardAxios";
 import { formatDate } from "../../utils/date/formatDate";
 import SortableHeaderCell from "../../components/SortableHeaderCell";
 import { inputHandler } from "../../utils/check/inputHandler";
+import { useCSSLoader } from "../../hooks/useCSSLoader";
+
+import Pagination from "../../components/Pagination";
 
 const MeTagView = () => {
+  const cssFiles = useMemo(() => [
+    "/assets/css/sound/manage-tags.css",
+    "/assets/css/sound/music.css",
+    "/assets/css/sound/admin-main.css",
+    "/assets/css/user/user-admin.css",
+  ], []);
+
+  useCSSLoader(cssFiles);
+
   const [tracks, setTracks] = useState([]);
   const [searchKeyword, setSearchKeyword] = useState("");
+  const [responseData, setResponseData] = useState(null);
   const location = useLocation();
 
   // 태그 관련 상태 관리
@@ -72,10 +85,15 @@ const MeTagView = () => {
     const fetchTracks = async () => {
       const params = new URLSearchParams(location.search);
       const response = await axiosGet({ endpoint: `/api/me/tracks?${params.toString()}` });
+      if (response && response.dtoList) {
+        setResponseData(response);
+      } else {
+        setResponseData({ dtoList: [] });
+      }
       setTracks(response.dtoList || []);
     };
     fetchTracks();
-  }, [location]);
+  }, [location.search]);
 
   // 태그 수정 적용: 선택한 태그들을 서버에 전송 (오직 새로 선택한 태그만)
   const handleApplyTags = async () => {
@@ -270,6 +288,8 @@ const MeTagView = () => {
           </div>
         </div>
       )}
+
+      <Pagination responseDTO={responseData}/>
     </div>
   );
 };

@@ -15,7 +15,7 @@ const ViewSort = ({ sortStyle, onChange }) => {
 
   return (
     <div className="sort-01">
-      <span className="music-sort-left" id="sortKeyword" onClick={handleSortView}>
+      <span className="music-sort" id="sortKeyword" onClick={handleSortView}>
         <img src={icons.changeSection} alt="정렬" id="sortIcon" /> 정렬
       </span>
 

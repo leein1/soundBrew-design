@@ -32,13 +32,12 @@ body.dark-mode {
   color: var(--text-color-dark);
 }
 
-html.dark-mode .searchbar-container input,
-html.dark-mode .searchbar-container select {
-  background-color: var(--background-color-dark); /* 다크 모드 배경색 변수 또는 원하는 색상 값 */
-  color: var(--text-color-dark); /* 필요하다면 텍스트 색상도 변경 */
-  border-color: #666; /* 테두리 색상도 다크 모드에 맞게 조정 */
+/* 검색 컨테이너 내 input/select */
+.searchContainer.dark-mode input,
+.searchContainer.dark-mode select {
+  background-color: var(--background-color-dark);
+  color: var(--text-color-dark);
 }
-
 
 html.dark-mode .navigation,
 body.dark-mode .navigation {
@@ -64,34 +63,12 @@ body.dark-mode .navigation .auth-container a {
   color: var(--text-color-dark);
 }
 
-/* 다크 모드에서 태그 아이템의 글자 색상을 변경 */
-html.dark-mode .music-tag-sort .tag-item,
-body.dark-mode .music-tag-sort .tag-item {
-  color: #000000; /* 원하는 색상 코드로 변경 */
-}
-
-/* 다크 모드에서 태그 아이템의 글자 색상을 변경 */
-html.dark-mode .sound-tag-list .tag-items span {
-  color: #000;
-}
-
-html.dark-mode .table-container tbody,thead{
-  color: #000;
-}
-
 /* Sidebar 전체 다크모드 */
 html.dark-mode .sidebar,
 body.dark-mode .sidebar {
   background-color: var(--background-color-dark);
   color: var(--text-color-dark);
 }
-
-body.dark-mode .audio-player-bar,
-html.dark-mode .audio-player-bar {
-  background-color: var(--background-color-dark);
-  color: var(--text-color-dark);
-}
-
 
 /* 사이드바 내부 아이콘 이미지 반전 */
 html.dark-mode .sidebar .sidebar-icon,

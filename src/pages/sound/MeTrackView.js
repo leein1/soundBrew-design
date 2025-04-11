@@ -1,15 +1,30 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useMemo } from "react";
 import { useLocation } from "react-router-dom";
 import { inputHandler } from "../../utils/check/inputHandler";
-import { axiosPatch, axiosGet } from "../../api/standardAxios";
+import { axiosPatch, axiosGet,axiosDelete } from "../../api/standardAxios";
 import { formatDate } from "../../utils/date/formatDate";
 import { useEditableItem } from "../../hooks/useEditableItem";
 import InlineEditor from "../../components/InlineEditor";
 import SortableHeaderCell from "../../components/SortableHeaderCell";
+import { useCSSLoader } from "../../hooks/useCSSLoader";
+
+import { useAuth } from "../../context/authContext";
+
+import Pagination from "../../components/Pagination"
 
 const MeTrackView= ()=>{
+    const cssFiles = useMemo(() => [
+        "/assets/css/sound/music.css",
+        "/assets/css/sound/admin-main.css",
+        "/assets/css/user/user-admin.css",
+    ], []);
+    
+    useCSSLoader(cssFiles);
+
+    const { user,isAdmin } = useAuth();
     const [track, setTrack] = useState([]);
     const [searchKeyword, setSearchKeyword] = useState("");
+    const [responseData, setResponseData] = useState(null);
     const location = useLocation();
 
     // 에디팅에 사용되는 공통 훅
@@ -26,14 +41,25 @@ const MeTrackView= ()=>{
     useEffect(() => {
         const fetchTracks = async () => {
             const params = new URLSearchParams(location.search);
+            let response='';
             
-            const response = await axiosGet({endpoint: `/api/me/tracks?${params.toString()}`});
-        
+            if(isAdmin){
+                response = await axiosGet({endpoint:`/api/admin/tracks?${params.toString()}`});
+            }else{
+                response = await axiosGet({endpoint: `/api/me/tracks?${params.toString()}`});
+            }
+
+            if (response && response.dtoList) {
+                setResponseData(response);
+            } else {
+                setResponseData({ dtoList: [] });
+            }
+            
             setTrack(response.dtoList || []);
         };
     
         fetchTracks();
-    }, [location]);
+    }, [location.search]);
 
     // 공통 훅에 대한 apply
     const handleApply = async () => {
@@ -50,6 +76,11 @@ const MeTrackView= ()=>{
             console.error(err);
             alert("수정 실패");
         }
+    }
+    
+    const handleDelete = async ()=>{        
+        alert("삭제 클릭, 삭제한 아이디 : "+editModeId);
+        // await axiosDelete({ endpoint:`/api/admin/tracks/${editModeId}`, handle });
     }
 
     return (
@@ -109,6 +140,7 @@ const MeTrackView= ()=>{
                                     <>
                                     <button className="apply-button" onClick={handleApply}>적용</button>
                                     <button className="cancel-button" onClick={cancelEdit}>취소</button>
+                                    {isAdmin?(<button className="delete-button" onClick={handleDelete}>삭제</button>):(<></>)}
                                     </>
                                 ) : (
                                     <button
@@ -131,6 +163,8 @@ const MeTrackView= ()=>{
         ) : (
             <p>트랙이 없습니다.</p>
         )}
+
+            <Pagination responseDTO={responseData}/>
         </div>
     );
 };

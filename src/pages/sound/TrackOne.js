@@ -1,13 +1,23 @@
 // src/pages/sound/TrackOne.jsx
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useMemo } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import { axiosGet, axiosPost } from "../../api/standardAxios";
 
 import { copyTextToClipboard } from "../../utils/sound/copyTextToClipboard";
+import { useCSSLoader } from "../../hooks/useCSSLoader";
 
 const showCopyAlert = () => alert("링크가 복사되었습니다!");
 
 const TrackOne = () => {
+  const cssFiles = useMemo(() => [
+    "/assets/css/sound/sound.css",
+    "/assets/css/sound/music.css",
+    "/assets/css/sound/album.css",
+    "/assets/css/sound/album-list.css",
+    "/assets/css/sound/player.css",
+  ], []);
+
+  useCSSLoader(cssFiles);
   const location = useLocation();
   const navigate = useNavigate();
   

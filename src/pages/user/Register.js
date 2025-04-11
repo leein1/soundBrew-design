@@ -1,13 +1,20 @@
 // src/pages/Register.jsx
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useMemo } from "react";
 import { axiosPost } from "../../api/standardAxios";
 import { inputHandler } from "../../utils/check/inputHandler";
 
 import useDuplicateCheck from "../../hooks/duplicateCheck";
+import { useCSSLoader } from "../../hooks/useCSSLoader";
 
-import "../../assets/css/register.css";
+// import "../../assets/css/register.css";
 
 const Register = () => {
+  const cssFiles = useMemo(()=>[
+    "/assets/css/register.css",
+  ], [])
+
+  useCSSLoader(cssFiles);
+
   // 각 입력 필드 상태
   const [email, setEmail] = useState("");
   const [name, setName] = useState("");
@@ -102,7 +109,7 @@ const Register = () => {
   };
 
   return (
-    <div className="register-container">
+    <div className="content-body">
       <h1>회원가입</h1>
       <form id="register-form" className="register-form" onSubmit={handleSubmit}>
         {/* 이메일 입력 */}
