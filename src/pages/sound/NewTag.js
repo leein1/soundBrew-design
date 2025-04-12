@@ -89,7 +89,7 @@ const NewTag = ({ isVisible, onClose, onTagAdded }) => {
                   <option value="mood">Mood</option>
                   <option value="genre">Genre</option>
                 </select>
-                <button type="submit">태그 추가</button>
+                <button className="apply-button" type="submit">태그 추가</button>
               </div>
             </section>
           </form>

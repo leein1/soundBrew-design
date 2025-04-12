@@ -78,6 +78,21 @@ html.dark-mode .sidebar .toggle-container img {
   filter: invert(100%);
 }
 
+html.dark-mode .table-container thead {
+  background-color:rebeccapurple;
+}
+/* 또는 테이블 헤더의 각 th에 적용하려면 */
+html.dark-mode .table-container thead th {
+  background-color: var(--background-color-dark2);
+  color: var(--text-color-dark);
+  border-bottom: 1px solid #666; /* 예시: 경계선 색상 */
+}
+/* tbody의 스타일도 필요하다면 */
+html.dark-mode .table-container tbody {
+  background-color: var(--background-color-dark);
+  color: var(--text-color-dark);
+}
+
 /* 텍스트 색상 */
 html.dark-mode .sidebar .sidebar-text,
 html.dark-mode .sidebar .myNickname,

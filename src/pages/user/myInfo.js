@@ -146,18 +146,19 @@ const MyInfo = () => {
           onSave={() => handleSave("nickname")}
         />
 
-        <div className="input-group">
+        <div className="myInfo-form input-group">
           <label>전화번호</label>
           <div className="phone-number">
             {["phone1", "phone2", "phone3"].map((part, i) => (
               <input
                 key={i}
+                id={part}
+                type="text"
                 value={userInfo[part] || ''}
                 onChange={e => handleChange(part, e.target.value)}
                 readOnly={!editMode.phoneNumber}
-                className="border rounded p-2 w-1/4"
-                maxLength={4}
                 style={editMode.phoneNumber ? { borderColor: 'orange' } : {}}
+                maxLength={4}
               />
             ))}
           </div>

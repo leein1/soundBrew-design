@@ -5,24 +5,27 @@ import AppRouter from "./routes/AppRouter";
 import { setGlobalNavigate } from "./utils/response/globalNavigate";
 import { GlobalStateProvider } from "./state/State";
 import { AuthProvider, useAuth } from "./context/authContext"; 
-import LoadingSpinner from "./components/LoadingSpinner";
- 
+import { LoadingProvider, useLoading } from "./context/loadingContext";
+import { registerLoadingHandler } from "./api/standardAxios"; 
+import GlobalLoader from "./components/GlobalLoader";
+
 // 글로벌 css
 import "./assets/css/darkmode.css";
 import "./assets/css/layout.css";
 import "./assets/css/common.css";
 
 function AppWithNavigationSetter() {
+  const { setIsLoading } = useLoading();
+
+  useEffect(() => {
+    registerLoadingHandler(setIsLoading);
+  }, [setIsLoading]);
+
   const navigate = useNavigate();
-  const { initializing } = useAuth();
 
   useEffect(() => {
     setGlobalNavigate(navigate);
   }, [navigate]);
-
-  if (initializing) {
-    return <LoadingSpinner />;
-  }
 
   return <AppRouter />;
 }
@@ -31,9 +34,12 @@ function App() {
   return (
     <Router>
       <AuthProvider>
-        <GlobalStateProvider>
-          <AppWithNavigationSetter />
-        </GlobalStateProvider>
+        <LoadingProvider>
+          <GlobalStateProvider>
+            <GlobalLoader />
+            <AppWithNavigationSetter />
+          </GlobalStateProvider>
+        </LoadingProvider>
       </AuthProvider>
     </Router>
   );

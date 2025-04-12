@@ -13,7 +13,6 @@
     background-color: var(--status-color, grey); /* 기본 색상은 grey */
 }
 
-
 .myInfo-content-header{
     /* border: 1px solid black;  */
     margin-top: 20px;
@@ -75,6 +74,7 @@
     box-sizing: border-box;
     flex: 1;
 }
+
 .check-button {
     font-size: 14px;
     padding: 10px;
