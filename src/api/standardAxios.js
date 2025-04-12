@@ -29,8 +29,6 @@ export const callRefresh = async () => {
 
         return response.data.accessToken;
     } catch (error) {
-        localStorage.removeItem("accessToken");
-        localStorage.removeItem("refreshToken");
         // alert("토큰 재발급 과정 중 오류, 로그인이 필요합니다.");
         window.location.href = '/login';
         throw new Error("로그인이 필요합니다.");
@@ -146,59 +144,3 @@ export const axiosPatch = async ({ endpoint, body = {}, useToken = true, params 
 
 export const axiosPut = async ({ endpoint, body = {}, useToken = true, params = {}, handle = null }) =>
     fetchData({ endpoint, body, useToken, params, method: 'PUT', handle });
-
-
-let setGlobalLoading = null;
-
-export const registerLoadingHandler = (setLoadingFn) => {
-  setGlobalLoading = setLoadingFn;
-};
-
-// 요청 인터셉터
-axiosInstance.interceptors.request.use(
-    (config) => {
-      try {
-        if (typeof setGlobalLoading === "function") {
-          setGlobalLoading(true);
-        }
-      } catch (e) {
-        console.error("로딩 상태 설정 중 오류 (요청):", e);
-      }
-      return config;
-    },
-    (error) => {
-      try {
-        if (typeof setGlobalLoading === "function") {
-          setGlobalLoading(false);
-        }
-      } catch (e) {
-        console.error("로딩 상태 설정 중 오류 (요청 에러):", e);
-      }
-      return Promise.reject(error);
-    }
-  );
-  
-  // 응답 인터셉터
-  axiosInstance.interceptors.response.use(
-    (response) => {
-      try {
-        if (typeof setGlobalLoading === "function") {
-          setGlobalLoading(false);
-        }
-      } catch (e) {
-        console.error("로딩 상태 설정 중 오류 (응답):", e);
-      }
-      return response;
-    },
-    (error) => {
-      try {
-        if (typeof setGlobalLoading === "function") {
-          setGlobalLoading(false);
-        }
-      } catch (e) {
-        console.error("로딩 상태 설정 중 오류 (응답 에러):", e);
-      }
-      return Promise.reject(error);
-    }
-  );
-  

@@ -79,7 +79,7 @@ const Sidebar = ({ isExpanded, toggleSidebar, onProfileClick }) => {
                     e.target.src = icons.defaultUserIcon;
                   }}
                   alt="User Profile"
-                  className="profile-image no-invert"
+                  className="profile-image"
                   src={`https://soundbrew.storage.s3.ap-northeast-2.amazonaws.com/${user.profileImagePath}`}
                 />
               </div>

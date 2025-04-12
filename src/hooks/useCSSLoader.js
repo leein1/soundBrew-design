@@ -1,39 +1,21 @@
-import { useState, useEffect } from "react";
+import { useEffect } from "react";
 
 export function useCSSLoader(styles) {
-  const [cssLoaded, setCssLoaded] = useState(false);
-
   useEffect(() => {
-    let loadedCount = 0;
+    // CSS 동적 추가
     const links = styles.map((href) => {
-      if (document.querySelector(`link[href="${href}"]`)) {
-        loadedCount++;
-        return null;
-      }
+      if (document.querySelector(`link[href="${href}"]`)) return null; // 중복 방지
       const link = document.createElement("link");
       link.rel = "stylesheet";
       link.href = href;
-      link.setAttribute("data-dynamic", "true");
-      link.onload = () => {
-        loadedCount++;
-        if (loadedCount === styles.length) {
-          setCssLoaded(true);
-        }
-      };
+      link.setAttribute("data-dynamic", "true"); // 동적으로 추가된 CSS 표시
       document.head.appendChild(link);
       return link;
-    }).filter(Boolean);
-
-    if (loadedCount === styles.length) {
-      setCssLoaded(true);
-    }
+    }).filter(Boolean); // null 제거
 
     return () => {
-      links.forEach((link) => {
-        if (link) document.head.removeChild(link);
-      });
+      // 언마운트 시 제거
+      links.forEach((link) => link && document.head.removeChild(link));
     };
-  }, [styles]);
-
-  return cssLoaded;
+  }, [styles]); // styles 변경 감지하여 반응
 }

@@ -139,14 +139,12 @@ const QueBar = ({ playerSoundInfo }) => {
                   : icons.defaultSoundImg
               }
             />
-            {playerSoundInfo &&
             <div className="player-play-btn" onClick={handlePlayPause}>
               <img ref={playPauseRef} src={icons.playIcon} alt="재생/일시정지" />
             </div>
-            }   
             <div className="player-info">
-              <h3>{playerSoundInfo ? playerSoundInfo.title : "음원을 선택하세요"}</h3>
-              <p>{playerSoundInfo ? playerSoundInfo.albumName : ""}</p>
+              <h3>{playerSoundInfo ? playerSoundInfo.title : "제목"}</h3>
+              <p>{playerSoundInfo ? playerSoundInfo.albumName : "앨범"}</p>
             </div>
             <div className="player-info-time">
               <p ref={currentTimeRef}>0:00</p>

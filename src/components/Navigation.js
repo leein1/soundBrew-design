@@ -15,9 +15,9 @@ const Navigation = ({ toggleSidebar }) => {
       <div className="navigation-menu" onClick={e => {e.stopPropagation();toggleSidebar();}}>
         <img className="navigation-menu-icon" src={icons.sidebarIcon} alt="Menu Toggle" />
       </div>
-      <Link to="/" className="sitename">
+      <div className="sitename">
         <img src={icons.SoundBrewLogo} alt="SoundBrew" />
-      </Link>
+      </div>
       <div className="auth-container">
         {!isAuthenticated ? (
           <>

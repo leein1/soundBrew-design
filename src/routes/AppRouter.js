@@ -12,16 +12,19 @@ import TrackOne from "../pages/sound/TrackOne";   // 상세 트랙 페이지
 import AlbumOne from "../pages/sound/AlbumOne";   // 상세 앨범 페이지
 import Register from "../pages/user/Register";
 import SubscriptionPlans from "../pages/user/SubscriptionPlan";
-import AdminDashBoard from "../pages/user/AdminDashBoard";
-import AdminUser from "../pages/user/AdminUser";
+
+// import AdminDashboard
+// import AdminUser
+import TagSpelling from "../pages/sound/TagSpelling";
+// import VerifyAlbum
 
 const AppRouter = () => {
   return (
     <Routes>
       <Route path="/" element={<Layout />}>
         {/* Admin Routes */}
-        <Route path="/admin/statistic" element={<AdminDashBoard/>} />
-        <Route path="/admin/users" element={<AdminUser/>} />
+        <Route path="/admin/statistic" element={null} />
+        <Route path="/admin/users" element={null} />
         <Route path="/admin/albums" element={<MeSoundManage/>} />
         <Route path="/admin/tracks" element={<MeSoundManage/>} />
         {/* <Route path="/admin/tags/spelling" element={<TagSpelling/>} />
