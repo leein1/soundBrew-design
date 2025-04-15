@@ -15,6 +15,10 @@ import SubscriptionPlans from "../pages/user/SubscriptionPlan";
 import AdminDashBoard from "../pages/user/AdminDashBoard";
 import AdminUser from "../pages/user/AdminUser";
 
+import { CheckoutPage } from "../pages/payment/Checkout";
+import { FailPage } from "../pages/payment/Fail";
+import { SuccessPage } from "../pages/payment/Success";
+
 const AppRouter = () => {
   return (
     <Routes>
@@ -46,6 +50,10 @@ const AppRouter = () => {
         <Route path="/sounds/tracks/one" element={<TrackOne />} />
         <Route path="/sounds/albums/one" element={<AlbumOne />} />
 
+        {/* 결제 시스템 Route */}
+        <Route path="/checkout" element={<CheckoutPage />} />
+        <Route path="/success" element={<SuccessPage />} />
+        <Route path="/fail" element={<FailPage />} />
       </Route>
       <Route path="*" element={<Navigate to="/" />} />
     </Routes>

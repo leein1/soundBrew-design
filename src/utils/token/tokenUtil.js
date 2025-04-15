@@ -54,7 +54,8 @@ export default class TokenUtil {
         const roles = decoded.roles;
         const nickname = decoded.nickname;
         const profileImagePath = decoded.profileImagePath
-        return { userId, roles, nickname, profileImagePath };
+        const username = decoded.username;
+        return { userId, roles, nickname, profileImagePath,username };
     }
 
     // 토큰의 유효성을 검사 (토큰 존재 여부 및 만료 여부 체크)
