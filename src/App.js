@@ -4,10 +4,11 @@ import { BrowserRouter as Router, useNavigate } from "react-router-dom";
 import AppRouter from "./routes/AppRouter";
 import { setGlobalNavigate } from "./utils/response/globalNavigate";
 import { GlobalStateProvider } from "./state/State";
-import { AuthProvider, useAuth } from "./context/authContext"; 
+import { AuthProvider } from "./context/authContext"; 
 import { LoadingProvider, useLoading } from "./context/loadingContext";
 import { registerLoadingHandler } from "./api/standardAxios"; 
 import GlobalLoader from "./components/GlobalLoader";
+import AuthGlobalLoader from "./components/AuthGlobalLoader"; // ✅ 추가
 
 // 글로벌 css
 import "./assets/css/darkmode.css";
@@ -36,6 +37,7 @@ function App() {
       <AuthProvider>
         <LoadingProvider>
           <GlobalStateProvider>
+            <AuthGlobalLoader/>
             <GlobalLoader />
             <AppWithNavigationSetter />
           </GlobalStateProvider>

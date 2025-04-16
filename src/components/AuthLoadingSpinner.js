@@ -1,15 +1,15 @@
-// src/components/LoadingSpinner.jsx
+// src/components/AuthLoadingSpinner.jsx
 import React from "react";
 import "../assets/loadingSpinner.css"
 
-const LoadingSpinner = () => {
+const AuthLoadingSpinner = () => {
   return (
     <div className="spinner-container">
       <div className="loading-spinner" />
       <p>로딩 중입니다...</p>
-      <p>API LoadingSpinner.</p>
+      <p>AuthLoadingSpinner..</p>
     </div>
   );
 };
 
-export default LoadingSpinner;
+export default AuthLoadingSpinner;

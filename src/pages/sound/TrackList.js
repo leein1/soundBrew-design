@@ -6,11 +6,14 @@ import icons from "../../assets/images/imageBarrel";
 import Pagination from "../../components/Pagination";
 import { copyTextToClipboard } from "../../utils/sound/copyTextToClipboard";
 import handleDownload from "../../utils/sound/handleDownload";
+import handleCart from "../../utils/sound/handleCart";
+import { useAuth } from "../../context/authContext";
 
 const TrackList = ({ onPlay }) => {
   const navigate = useNavigate();
   const location = useLocation();
   const [responseData, setResponseData] = useState(null);
+  const {user} = useAuth();
 
   // 데이터 로드: propData가 있으면 그대로 사용, 없으면 API 호출
   useEffect(() => {
@@ -117,6 +120,12 @@ const TrackList = ({ onPlay }) => {
 
           <div className="music-item-right">
             <div className="music-actions">
+              <img
+                src={icons.cartIcon}
+                alt="장바구니"
+                className="cart-btn"
+                onClick={()=> handleCart(sound, user.userId)}
+              />
               <img
                 src={icons.downloadIcon}
                 className="download-btn"

@@ -18,6 +18,7 @@ import linkIcon from "./link_50dp_5F6368_FILL0_wght400_GRAD0_opsz48.svg"
 import labelIcon from "./label_48dp_5F6368_FILL0_wght400_GRAD0_opsz48.svg"
 import listIcon from "./list_24dp_1F1F1F_FILL0_wght400_GRAD0_opsz24.svg"
 import pauseIcon from "./pause_circle_50dp_5F6368_FILL0_wght400_GRAD0_opsz48.svg"
+import cartIcon from "./shopping_bag_48dp_5F6368_FILL0_wght400_GRAD0_opsz48.svg"
 
 const icons = {
   sidebarIcon,
@@ -39,6 +40,7 @@ const icons = {
   labelIcon,
   listIcon,
   pauseIcon,
+  cartIcon,
 };
 
 export default icons;

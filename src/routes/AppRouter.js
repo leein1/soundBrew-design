@@ -14,10 +14,12 @@ import Register from "../pages/user/Register";
 import SubscriptionPlans from "../pages/user/SubscriptionPlan";
 import AdminDashBoard from "../pages/user/AdminDashBoard";
 import AdminUser from "../pages/user/AdminUser";
+import Cart from "../pages/cart/Cart";
 
 import { CheckoutPage } from "../pages/payment/Checkout";
 import { FailPage } from "../pages/payment/Fail";
 import { SuccessPage } from "../pages/payment/Success";
+import Transaction from "../pages/cart/Transaction";
 
 const AppRouter = () => {
   return (
@@ -40,6 +42,9 @@ const AppRouter = () => {
         <Route path="/me/statistic" element={<MeDashboard />} />
         <Route path="/me/sounds/*" element={<MeSoundManage />} />
         <Route path="/me/sounds/upload" element={<SoundUpload />} />
+
+        <Route path="/me/cart" element={<Cart/>}/>
+        <Route path="/me/cart/transaction" element={<Transaction/>}/>
 
         {/* Visitor Routes */}
         <Route path="/login" element={<Login />} />

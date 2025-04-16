@@ -129,9 +129,13 @@ const Sidebar = ({ isExpanded, toggleSidebar, onProfileClick }) => {
                 </div>
 
                 <div className="user-view-content">
+                  <Link to="/me/cart" className="sidebar-item">
+                    <img className="sidebar-icon" src={icons.cartIcon} alt="내 장바구니"/>
+                    <span className="sidebar-text" >장바구니</span>
+                  </Link>
                   <Link to="/me/info" className="sidebar-item">
                     <img className="sidebar-icon" src={icons.myIcon} alt="내 정보 조회" />
-                    <span className="sidebar-text">내 정보 조회</span>
+                    <span className="sidebar-text">정보 조회</span>
                   </Link>
                   <Link to="/me/change-password" className="sidebar-item">
                     <img className="sidebar-icon" src={icons.myIcon} alt="비밀번호 변경" />
@@ -139,21 +143,25 @@ const Sidebar = ({ isExpanded, toggleSidebar, onProfileClick }) => {
                   </Link>
                   <Link to="/me/subscription" className="sidebar-item">
                     <img className="sidebar-icon" src={icons.myIcon} alt="내 구독제 조회"/>
-                    <span className="sidebar-text" onClick={() => alert("결제 기능과 함께 업데이트 예정입니다.")} >
+                    <span className="sidebar-text">
                       내 구독제 조회
                     </span>
                   </Link>
                   <Link to="/me/statistic" className="sidebar-item">
                     <img className="sidebar-icon" src={icons.soundIcon} alt="내 음악 통계" />
-                    <span className="sidebar-text" id="mySoundStatisticRoute">내 음악 통계</span>
+                    <span className="sidebar-text" >음원 관리</span>
                   </Link>
-                  <Link to="/me/sounds/albums" className="sidebar-item">
+                  {/* <Link to="/me/sounds/albums" className="sidebar-item">
                     <img className="sidebar-icon" src={icons.soundIcon} alt="내 음원 관리" />
-                    <span className="sidebar-text" id="mySoundRoute">내 음원 관리</span>
-                  </Link>
+                    <span className="sidebar-text" >내 음원 관리</span>
+                  </Link> */}
                   <Link to="/me/sounds/upload" className="sidebar-item">
                     <img className="sidebar-icon" src={icons.soundIcon} alt="신규 음원 등록" />
-                    <span className="sidebar-text" id="mySoundUploadRoute">신규 음원 등록</span>
+                    <span className="sidebar-text" >신규 음원 등록</span>
+                  </Link>
+                  <Link to="/me/cart/transaction" className="sidebar-item">
+                    <img className="sidebar-icon" src={icons.cartIcon} alt="결제 음원 목록" />
+                    <span className="sidebar-text">결제 음원 목록</span>
                   </Link>
                 </div>
               </div>

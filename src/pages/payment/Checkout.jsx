@@ -1,111 +1,122 @@
 import { loadTossPayments, ANONYMOUS } from "@tosspayments/tosspayments-sdk";
 import { useEffect, useState } from "react";
-
-import {axiosGet, axiosPost, axiosDelete} from "../../api/standardAxios";
+import { useLocation, useNavigate } from 'react-router-dom';
+import { axiosGet, axiosPost, axiosDelete } from "../../api/standardAxios";
 import { useAuth } from "../../context/authContext";
-
 import "../../assets/css/toss.css";
 
-// TODO: clientKey는 개발자센터의 결제위젯 연동 키 > 클라이언트 키로 바꾸세요.
-// TODO: 구매자의 고유 아이디를 불러와서 customerKey로 설정하세요. 이메일・전화번호와 같이 유추가 가능한 값은 안전하지 않습니다.
-// @docs https://docs.tosspayments.com/sdk/v2/js#토스페이먼츠-초기화
 const clientKey = "test_gck_docs_Ovk5rk1EwkEbP0W43n07xlzm";
 const customerKey = generateRandomString();
 
 export function CheckoutPage() {
-  const {user} = useAuth();
+  // user가 준비되는 과정을 감안하여 initializing도 함께 받아옴
+  const { user, initializing } = useAuth();
+  const location = useLocation();
+  const navigate = useNavigate();
+  const selectedPlan = location.state?.plan; // 항상 존재할 수도, 없을 수도 있음
+
+  // 모든 훅은 무조건 호출된다.
   const [amount, setAmount] = useState({
     currency: "KRW",
-    value: 500,
+    // selectedPlan이 없으면 0 또는 임의의 값 지정 (후에 렌더링 조건에서 체크)
+    value: selectedPlan ? selectedPlan.price : 0,
   });
   const [ready, setReady] = useState(false);
   const [widgets, setWidgets] = useState(null);
 
+  // selectedPlan이 없을 경우 alert 후 페이지 이동
+  useEffect(() => {
+    if (!selectedPlan) {
+      alert("플랜이 없습니다.");
+      navigate("/subscription-plans");
+    }
+  }, [selectedPlan, navigate]);
+
+  // TossPayments 위젯 로딩
   useEffect(() => {
     async function fetchPaymentWidgets() {
       try {
-        // ------  SDK 초기화 ------
-        // @docs https://docs.tosspayments.com/sdk/v2/js#토스페이먼츠-초기화
         const tossPayments = await loadTossPayments(clientKey);
-
-        // 회원 결제
-        // @docs https://docs.tosspayments.com/sdk/v2/js#tosspaymentswidgets
-        const widgets = tossPayments.widgets({
-          customerKey,
-        });
-        // 비회원 결제
-        // const widgets = tossPayments.widgets({ customerKey: ANONYMOUS });
-
+        const widgets = tossPayments.widgets({ customerKey });
         setWidgets(widgets);
       } catch (error) {
         console.error("Error fetching payment widget:", error);
       }
     }
-
     fetchPaymentWidgets();
-  }, [clientKey, customerKey]);
+  }, []);
 
+  // 위젯 렌더링 및 금액 설정
   useEffect(() => {
     async function renderPaymentWidgets() {
-      if (widgets == null) {
+      if (!widgets) {
         return;
       }
-
-      // ------  주문서의 결제 금액 설정 ------
-      // TODO: 위젯의 결제금액을 결제하려는 금액으로 초기화하세요.
-      // TODO: renderPaymentMethods, renderAgreement, requestPayment 보다 반드시 선행되어야 합니다.
       await widgets.setAmount(amount);
-
-      // ------  결제 UI 렌더링 ------
-      // @docs https://docs.tosspayments.com/sdk/v2/js#widgetsrenderpaymentmethods
       await widgets.renderPaymentMethods({
         selector: "#payment-method",
-        // 렌더링하고 싶은 결제 UI의 variantKey
-        // 결제 수단 및 스타일이 다른 멀티 UI를 직접 만들고 싶다면 계약이 필요해요.
-        // @docs https://docs.tosspayments.com/guides/v2/payment-widget/admin#새로운-결제-ui-추가하기
         variantKey: "DEFAULT",
       });
-
-      // ------  이용약관 UI 렌더링 ------
-      // @docs https://docs.tosspayments.com/reference/widget-sdk#renderagreement선택자-옵션
       await widgets.renderAgreement({
         selector: "#agreement",
         variantKey: "AGREEMENT",
       });
-
       setReady(true);
     }
-
     renderPaymentWidgets();
-  }, [widgets]);
+  }, [widgets, amount]);
 
-  const updateAmount = async (amount) => {
-    setAmount(amount);
-    await widgets.setAmount(amount);
+  // 페이지 로딩 시, user와 widgets가 준비되면 기존 결제 기록을 검증
+  useEffect(() => {
+    if (initializing || !user || !widgets) return; // 인증과 위젯이 준비되지 않았다면 실행하지 않음
+    async function verifyPaymentRecord() {
+      try {
+        const existingRecord = await axiosGet({ endpoint: `/api/payment/verification/${user.userId}/READY` });
+        if (existingRecord && existingRecord.dto) {
+          if (window.confirm("이미 진행된 결제 기록이 존재합니다. 기존 결제로 진행하시겠습니까?")) {
+            const { orderId, orderName, username, nickname } = existingRecord.dto;
+            await widgets.requestPayment({
+              orderId,
+              orderName,
+              successUrl: window.location.origin + "/success",
+              failUrl: window.location.origin + "/fail",
+              customerEmail: username,
+              customerName: nickname,
+              customerMobilePhone: "01033337777",
+            });
+          }
+        }
+      } catch (error) {
+        console.error("결제 검증 중 에러 발생:", error);
+      }
+    }
+    verifyPaymentRecord();
+  }, [initializing, user, widgets]);
+
+  const updateAmount = async (newAmount) => {
+    setAmount(newAmount);
+    await widgets.setAmount(newAmount);
   };
+
+  // 조건부 렌더링: selectedPlan이 없으면 null을 반환하여 컴포넌트 내 훅 호출 순서를 바꾸지 않음
+  if (!selectedPlan) {
+    return null;
+  }
 
   return (
     <div className="wrapper">
       <div className="box_section">
-        {/* 결제 UI */}
         <div id="payment-method" />
-        {/* 이용약관 UI */}
         <div id="agreement" />
-        {/* 쿠폰 체크박스 */}
         <div style={{ paddingLeft: "24px" }}>
           <div className="checkable typography--p">
-            <label
-              htmlFor="coupon-box"
-              className="checkable__label typography--regular"
-            >
+            <label htmlFor="coupon-box" className="checkable__label typography--regular">
               <input
                 id="coupon-box"
                 className="checkable__input"
                 type="checkbox"
                 aria-checked="true"
                 disabled={!ready}
-                // ------  주문서의 결제 금액이 변경되었을 경우 결제 금액 업데이트 ------
-                // @docs https://docs.tosspayments.com/sdk/v2/js#widgetssetamount
                 onChange={async (event) => {
                   await updateAmount({
                     currency: amount.currency,
@@ -120,55 +131,47 @@ export function CheckoutPage() {
           </div>
         </div>
 
-        {/* 결제하기 버튼 */}
         <button
           className="button"
           style={{ marginTop: "30px" }}
           disabled={!ready}
-          // ------ '결제하기' 버튼 누르면 결제창 띄우기 ------
-          // @docs https://docs.tosspayments.com/sdk/v2/js#widgetsrequestpayment
           onClick={async () => {
             try {
-              // 1. 기존 결제 기록이 있는지 확인
+              // // 버튼 클릭 시에도 한 번 더 검증 (원한다면 중복 검증 대신 버튼 클릭 로직을 수정할 수도 있음)
               const existingRecord = await axiosGet({ endpoint: `/api/payment/verification/${user.userId}/READY` });
-        
-              // 기존 결제 기록이 있고 유효한 데이터가 있으면
+              // if (existingRecord && existingRecord.dto) {
+              //   if (window.confirm("이미 진행된 결제 기록이 존재합니다. 기존 결제로 진행하시겠습니까?")) {
+              //     const { orderId, orderName, username, nickname } = existingRecord.dto;
+              //     await widgets.requestPayment({
+              //       orderId,
+              //       orderName,
+              //       successUrl: window.location.origin + "/success",
+              //       failUrl: window.location.origin + "/fail",
+              //       customerEmail: username,
+              //       customerName: nickname,
+              //       customerMobilePhone: "01033337777",
+              //     });
+              //     return;
+              //   }
+              // }
+
               if (existingRecord && existingRecord.dto) {
-                // 2. 기존 결제로 진행할 것인지 확인
-                if (window.confirm("이미 진행된 결제 기록이 존재합니다. 기존 결제로 진행하시겠습니까?")) {
-                  // 3-1. 기존 기록으로 토스 결제 진행
-                  const { orderId, orderName,username, nickname } = existingRecord.dto;
-                  await widgets.requestPayment({
-                    orderId: orderId,
-                    orderName: orderName,
-                    successUrl: window.location.origin + "/success",
-                    failUrl: window.location.origin + "/fail",
-                    customerEmail: username,
-                    customerName: nickname,
-                    customerMobilePhone: "01033337777",
-                  });
-                  return;
-                }
+                await axiosDelete({ endpoint: `/api/payment/draft/${user.userId}/READY` });
               }
-        
-              // 4. 기존 기록이 없거나 사용자가 기존 결제로 진행하지 않는 경우 new 임시 기록 생성 후 결제 진행
-              if (existingRecord && existingRecord.dto) {
-                // 기존 기록을 진행하지 않는 관계로 있던 기존 결제 기록은 지우기.
-                await axiosDelete({endpoint:`/api/payment/draft/${user.userId}/READY`});
-              }
+
+              // 선택한 플랜 정보에 따라 orderName, creditAmount, subscriptionId 설정
               const body = {
                 userId: user.userId,
                 status: "READY",
                 orderId: generateRandomString(),
                 amount: amount.value,
                 customerKey: customerKey,
-                orderName: "토스 티셔츠 외 2건",
-                creditAmount: 100, //후에 subscrption 페이지랑 연계해서 가져오기
-                subscriptionId: 3 //후에 subscrption 페이지랑 연계해서 가져오기
+                orderName: `${selectedPlan.name} 플랜 구독`,
+                creditAmount: selectedPlan.credit || 0,
+                subscriptionId: selectedPlan.id,
               };
-        
+
               await axiosPost({ endpoint: '/api/payment/draft', body });
-              
               await widgets.requestPayment({
                 orderId: body.orderId,
                 orderName: body.orderName,
