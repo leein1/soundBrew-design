@@ -2,16 +2,16 @@
 import React, { useState, useEffect, useMemo } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 
-import useTagFilter from "../../hooks/useTagFilter";
-import useViewSort from "../../hooks/useViewSort";
+import useTagFilter from "hooks/useTagFilter";
+import useViewSort from "hooks/useViewSort";
 
-import SearchBar from "../../components/Search";
-import TagSort from "../../pages/sound/TagSort";
-import ViewType from "../../pages/sound/ViewType";
-import ViewSort from "../../pages/sound/ViewSort";
-import TrackList from "../../pages/sound/TrackList";
-import AlbumList from "../../pages/sound/AlbumList";
-import QueBar from "../../pages/sound/QueBar";
+import SearchBar from "components/global/Search";
+import TagSort from "components/sound/TagSort";
+import ViewType from "components/sound/ViewType";
+import ViewSort from "components/sound/ViewSort";
+import TrackList from "pages/sound/TrackList";
+import AlbumList from "pages/sound/AlbumList";
+import QueBar from "components/sound/QueBar";
 
 import { useCSSLoader } from "../../hooks/useCSSLoader";
 

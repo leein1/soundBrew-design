@@ -1,22 +1,28 @@
 // src/pages/sound/TrackList.jsx
 import React, { useState, useEffect } from "react";
 import { useNavigate, useLocation } from "react-router-dom";
-import { axiosGet } from "../../api/standardAxios";
-import icons from "../../assets/images/imageBarrel";
-import Pagination from "../../components/Pagination";
-import { copyTextToClipboard } from "../../utils/sound/copyTextToClipboard";
-import handleDownload from "../../utils/sound/handleDownload";
-import handleCart from "../../utils/sound/handleCart";
-import { useAuth } from "../../context/authContext";
+import { axiosGet, axiosPost } from "api/standardAxios";
+import icons from "assets/images/imageBarrel";
+import Pagination from "components/global/Pagination";
+import { copyTextToClipboard } from "utils/sound/copyTextToClipboard";
+import handleCart from "utils/sound/handleCart";
+import handleDownload from "utils/sound/handleDownload";
+import { useAuth } from "context/authContext";
 
-const TrackList = ({ onPlay }) => {
+const TrackList = ({ onPlay, data }) => {
   const navigate = useNavigate();
   const location = useLocation();
   const [responseData, setResponseData] = useState(null);
-  const {user} = useAuth();
+  const { user } = useAuth();
 
-  // 데이터 로드: propData가 있으면 그대로 사용, 없으면 API 호출
   useEffect(() => {
+    // 부모에서 data prop이 들어오면 API 호출 없이 덮어쓰기
+    if (data && data.dtoList) {
+      setResponseData(data);
+      return;
+    }
+
+    // data가 없을 때만 API 호출
     const fetchTracks = async () => {
       try {
         const response = await axiosGet({ endpoint: `/api/sounds/tracks${location.search}` });
@@ -31,9 +37,8 @@ const TrackList = ({ onPlay }) => {
       }
     };
     fetchTracks();
-  }, [ location.search]);
+  }, [location.search, data]);
 
-  // 공유 버튼 핸들러
   const handleShare = async (sound) => {
     const url = window.location.origin;
     const shareText = `${url}/sounds/tracks/one?nickname=${encodeURIComponent(
@@ -47,6 +52,22 @@ const TrackList = ({ onPlay }) => {
       alert("링크가 복사되었습니다!");
     }
   };
+
+  const handleCartAndTransaction = async (sound, userId)=>{
+    const body={
+      musicId:sound.musicDTO.musicId,
+      userId : userId, // 추가한 유저의 아이디
+      title: sound.musicDTO.title,
+      filePath:sound.musicDTO.filePath,
+      nickname:sound.albumDTO.nickname,
+      credit:3,
+      status:"DONE",
+    }  
+    const response = await axiosPost({endpoint:'/api/cart/transaction', body:body});
+    if (response.message.includes("결제가 완료되었습니다")) {
+      handleDownload(sound.musicDTO.filePath);
+    }
+  }
 
   if (!responseData || !responseData.dtoList || responseData.dtoList.length === 0) {
     return <span>검색결과가 없습니다</span>;
@@ -63,7 +84,6 @@ const TrackList = ({ onPlay }) => {
               src={`https://d1lq7t3sqkotey.cloudfront.net/${sound.albumDTO.albumArtPath}`}
               onError={(e) => { e.target.src = icons.defaultSoundImg; }}
             />
-            {/* 재생 버튼 클릭 시, 3개 정보를 onPlay로 전달 */}
             <div
               className="music-play-btn"
               onClick={() =>
@@ -105,16 +125,20 @@ const TrackList = ({ onPlay }) => {
                 {sound.albumDTO.albumName}
               </p>
             </div>
-            <div className="music-info-time">
-              {/* 시간 정보 추가 가능 */}
-            </div>
+            <div className="music-info-time"></div>
           </div>
 
           <div className="music-item-center">
             <div className="music-info-tag">
-              <span>{(sound.tagsStreamDTO.instrumentTagName || "기타").replace(/,/g, " ")}</span>
-              <span>{(sound.tagsStreamDTO.moodTagName || "없음").replace(/,/g, " ")}</span>
-              <span>{(sound.tagsStreamDTO.genreTagName || "기타").replace(/,/g, " ")}</span>
+              <span>
+                {(sound.tagsStreamDTO.instrumentTagName || "기타").replace(/,/g, " ")}
+              </span>
+              <span>
+                {(sound.tagsStreamDTO.moodTagName || "없음").replace(/,/g, " ")}
+              </span>
+              <span>
+                {(sound.tagsStreamDTO.genreTagName || "기타").replace(/,/g, " ")}
+              </span>
             </div>
           </div>
 
@@ -124,13 +148,13 @@ const TrackList = ({ onPlay }) => {
                 src={icons.cartIcon}
                 alt="장바구니"
                 className="cart-btn"
-                onClick={()=> handleCart(sound, user.userId)}
+                onClick={() => handleCart(sound, user.userId)}
               />
               <img
                 src={icons.downloadIcon}
                 className="download-btn"
                 alt="다운로드"
-                onClick={() => handleDownload(sound)}
+                onClick={() => handleCartAndTransaction(sound, user.userId)}
               />
               <img
                 src={icons.linkIcon}
@@ -142,7 +166,6 @@ const TrackList = ({ onPlay }) => {
           </div>
         </div>
       ))}
-
       <Pagination responseDTO={responseData} />
     </div>
   );

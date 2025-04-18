@@ -1,9 +1,9 @@
 import { loadTossPayments, ANONYMOUS } from "@tosspayments/tosspayments-sdk";
 import { useEffect, useState } from "react";
 import { useLocation, useNavigate } from 'react-router-dom';
-import { axiosGet, axiosPost, axiosDelete } from "../../api/standardAxios";
-import { useAuth } from "../../context/authContext";
-import "../../assets/css/toss.css";
+import { axiosGet, axiosPost, axiosDelete } from "api/standardAxios";
+import { useAuth } from "context/authContext";
+import "assets/css/toss.css";
 
 const clientKey = "test_gck_docs_Ovk5rk1EwkEbP0W43n07xlzm";
 const customerKey = generateRandomString();
@@ -19,7 +19,7 @@ export function CheckoutPage() {
   const [amount, setAmount] = useState({
     currency: "KRW",
     // selectedPlan이 없으면 0 또는 임의의 값 지정 (후에 렌더링 조건에서 체크)
-    value: selectedPlan ? selectedPlan.price : 0,
+    value: selectedPlan ? selectedPlan.subscriptionPrice : 0,
   });
   const [ready, setReady] = useState(false);
   const [widgets, setWidgets] = useState(null);
@@ -28,7 +28,7 @@ export function CheckoutPage() {
   useEffect(() => {
     if (!selectedPlan) {
       alert("플랜이 없습니다.");
-      navigate("/subscription-plans");
+      navigate("/subscription");
     }
   }, [selectedPlan, navigate]);
 
@@ -166,9 +166,9 @@ export function CheckoutPage() {
                 orderId: generateRandomString(),
                 amount: amount.value,
                 customerKey: customerKey,
-                orderName: `${selectedPlan.name} 플랜 구독`,
-                creditAmount: selectedPlan.credit || 0,
-                subscriptionId: selectedPlan.id,
+                orderName: `${selectedPlan.subscriptionName} 플랜 구독`,
+                creditAmount: selectedPlan.creditPerMonth || 0,
+                subscriptionId: selectedPlan.subscriptionId,
               };
 
               await axiosPost({ endpoint: '/api/payment/draft', body });

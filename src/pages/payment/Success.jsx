@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { Link, useNavigate, useSearchParams } from "react-router-dom";
-import { useAuth } from "../../context/authContext";
-import { axiosGet, axiosPatch, axiosPost, callRefresh } from "../../api/standardAxios";
+import { useAuth } from "context/authContext";
+import { axiosGet, axiosPatch, axiosPost, callRefresh } from "api/standardAxios";
 
 export function SuccessPage() {
   const navigate = useNavigate();
@@ -31,7 +31,7 @@ export function SuccessPage() {
           const transaction = {
             userId: user.userId, // user 객체 내의 식별자 이름을 확인하세요.
             amount: dto.amount,
-            paymentKey: dto.paymentKey,
+            paymentKey: searchParams.get("paymentKey"),
             orderId: dto.orderId,
             customerKey: dto.customerKey,
             orderName: dto.orderName,

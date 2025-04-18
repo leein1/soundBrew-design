@@ -1,11 +1,11 @@
 // src/pages/sound/AlbumTracksModal.jsx
 import React, { useState, useEffect } from "react";
-import { axiosGet, axiosPatch } from "../../api/standardAxios";
-import { formatDate } from "../../utils/date/formatDate";
-import { useEditableItem } from "../../hooks/useEditableItem";
-import InlineEditor from "../../components/InlineEditor";
-import Pagination from "../../components/Pagination";
-import { inputHandler } from "../../utils/check/inputHandler";
+import { axiosGet, axiosPatch } from "api/standardAxios";
+import { formatDate } from "utils/date/formatDate";
+import { useEditableItem } from "hooks/useEditableItem";
+import InlineEditor from "components/editor/InlineEditor";
+import Pagination from "components/global/Pagination";
+import { inputHandler } from "utils/check/inputHandler";
 
 const AlbumTracksModal = ({ albumId, onClose }) => {
   const [tracks, setTracks] = useState([]);

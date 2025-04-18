@@ -1,8 +1,8 @@
 import React,{useState, useEffect, useRef, useMemo} from 'react';
-import { serializeFormToJSON } from '../../utils/serialize/formToJson'
-import { inputHandler } from '../../utils/check/inputHandler';
-import { axiosPatch } from '../../api/standardAxios';
-import { useCSSLoader } from '../../hooks/useCSSLoader';
+import { serializeFormToJSON } from 'utils/serialize/formToJson'
+import { inputHandler } from 'utils/check/inputHandler';
+import { axiosPatch } from 'api/standardAxios';
+import { useCSSLoader } from 'hooks/useCSSLoader';
 
 // import "../../assets/css/user/changepw.css"
 

@@ -1,6 +1,6 @@
 // src/components/AdminUserInfoModal.jsx
 import React from "react";
-import { formatDate } from "../../utils/date/formatDate";
+import { formatDate } from "utils/date/formatDate";
 
 const AdminUserInfoModal = ({ userData, onClose }) => {
   if (!userData) {

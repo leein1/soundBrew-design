@@ -1,10 +1,10 @@
 // src/pages/sound/TrackOne.jsx
 import React, { useState, useEffect, useMemo } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
-import { axiosGet, axiosPost } from "../../api/standardAxios";
+import { axiosGet, axiosPost } from "api/standardAxios";
 
-import { copyTextToClipboard } from "../../utils/sound/copyTextToClipboard";
-import { useCSSLoader } from "../../hooks/useCSSLoader";
+import { copyTextToClipboard } from "utils/sound/copyTextToClipboard";
+import { useCSSLoader } from "hooks/useCSSLoader";
 
 const showCopyAlert = () => alert("링크가 복사되었습니다!");
 

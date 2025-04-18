@@ -1,11 +1,11 @@
 // src/components/AdminDashboard.jsx
 import React, { useState, useEffect, useRef, useCallback, useMemo } from 'react';
-import { axiosGet } from '../../api/standardAxios';
+import { axiosGet } from 'api/standardAxios';
 import { useNavigate } from 'react-router-dom';
 import { Chart as ChartJS, ArcElement, BarElement, CategoryScale, LinearScale, Tooltip, Legend,} from 'chart.js';
 import { Doughnut, Bar } from 'react-chartjs-2';
-import icons from '../../assets/images/imageBarrel';
-import { useCSSLoader } from '../../hooks/useCSSLoader';
+import icons from 'assets/images/imageBarrel';
+import { useCSSLoader } from 'hooks/useCSSLoader';
 
 ChartJS.register(ArcElement, BarElement, CategoryScale, LinearScale, Tooltip, Legend);
 

@@ -1,16 +1,16 @@
 import { useState, useEffect, useMemo } from "react";
 import { useLocation } from "react-router-dom";
-import { inputHandler } from "../../utils/check/inputHandler";
-import { axiosPatch, axiosGet,axiosDelete } from "../../api/standardAxios";
-import { formatDate } from "../../utils/date/formatDate";
-import { useEditableItem } from "../../hooks/useEditableItem";
-import InlineEditor from "../../components/InlineEditor";
-import SortableHeaderCell from "../../components/SortableHeaderCell";
-import { useCSSLoader } from "../../hooks/useCSSLoader";
+import { inputHandler } from "utils/check/inputHandler";
+import { axiosPatch, axiosGet,axiosDelete } from "api/standardAxios";
+import { formatDate } from "utils/date/formatDate";
+import { useEditableItem } from "hooks/useEditableItem";
+import InlineEditor from "components/editor/InlineEditor";
+import SortableHeaderCell from "components/global/SortableHeaderCell";
+import { useCSSLoader } from "hooks/useCSSLoader";
 
-import { useAuth } from "../../context/authContext";
+import { useAuth } from "context/authContext";
 
-import Pagination from "../../components/Pagination"
+import Pagination from "components/global/Pagination"
 
 const MeTrackView= ()=>{
     const cssFiles = useMemo(() => [

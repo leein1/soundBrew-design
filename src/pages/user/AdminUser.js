@@ -1,14 +1,14 @@
 // src/components/AdminUser.jsx
 import React, { useState, useEffect, useMemo } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
-import { axiosGet, axiosPatch } from "../../api/standardAxios";
-import { useCSSLoader } from "../../hooks/useCSSLoader";
-import { formatDate } from "../../utils/date/formatDate"; // 임의 유틸, 필요에 따라 변경
-import SortableHeaderCell from "../../components/SortableHeaderCell";
-import AdminUserInfoModal from "./AdminUserInfoModal";
-import AdminUserSubscriptionModal from "./AdminUserSubscriptionModal"
-import Pagination from "../../components/Pagination";
-import Search from "../../components/Search"
+import { axiosGet, axiosPatch } from "api/standardAxios";
+import { useCSSLoader } from "hooks/useCSSLoader";
+import { formatDate } from "utils/date/formatDate"; // 임의 유틸, 필요에 따라 변경
+import SortableHeaderCell from "components/global/SortableHeaderCell";
+import AdminUserInfoModal from "components/user/AdminUserInfoModal";
+import AdminUserSubscriptionModal from "components/user/AdminUserSubscriptionModal"
+import Pagination from "components/global/Pagination";
+import Search from "components/global/Search"
 
 // 수정할 수 있는 항목 종류 (상태, 실무 상황에 따라 확장 가능)
 const EDIT_FIELDS = {

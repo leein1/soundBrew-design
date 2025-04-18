@@ -1,6 +1,6 @@
 import React, { useState } from "react";
-import { axiosPost } from "../../api/standardAxios"; // 경로 필요시 조정하세요
-import { inputHandler } from "../../utils/check/inputHandler";
+import { axiosPost } from "api/standardAxios"; // 경로 필요시 조정하세요
+import { inputHandler } from "utils/check/inputHandler";
 
 const NewTag = ({ isVisible, onClose, onTagAdded }) => {
   const [tagName, setTagName] = useState("");

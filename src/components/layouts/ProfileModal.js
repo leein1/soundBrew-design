@@ -1,7 +1,7 @@
 // src/components/ProfileModal.jsx
 import React, { useState } from 'react';
-import { axiosPost, callRefresh } from '../api/standardAxios';
-import TokenUtil from '../utils/token/tokenUtil';
+import { axiosPost, callRefresh } from 'api/standardAxios';
+import TokenUtil from 'utils/token/tokenUtil';
 import { useNavigate } from 'react-router-dom';
 
 const ProfileModal = ({ show, setShow }) => {

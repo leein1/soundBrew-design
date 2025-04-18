@@ -1,6 +1,6 @@
 import { axiosPost } from "../../api/standardAxios";
 // 다운로드 버튼 핸들러
-  const handleDownload = async (sound, userId) => {
+  const handleCart = async (sound, userId) => {
     const body={
         musicId:sound.musicDTO.musicId,
         userId : userId, // 추가한 유저의 아이디
@@ -11,7 +11,12 @@ import { axiosPost } from "../../api/standardAxios";
         status:"READY",
     }
 
-    await axiosPost({endpoint: `/api/cart/add`,body:body});
+    try{
+      await axiosPost({endpoint: `/api/cart/add`,body:body});
+    } catch (error) {
+      console.error("결제 중 오류:", error);
+      alert("결제 실패");
+    }
   };
 
-  export default handleDownload;
+  export default handleCart;

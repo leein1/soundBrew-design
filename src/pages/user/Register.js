@@ -1,10 +1,10 @@
 // src/pages/Register.jsx
 import React, { useState, useEffect, useMemo } from "react";
-import { axiosPost } from "../../api/standardAxios";
-import { inputHandler } from "../../utils/check/inputHandler";
+import { axiosPost } from "api/standardAxios";
+import { inputHandler } from "utils/check/inputHandler";
 
-import useDuplicateCheck from "../../hooks/duplicateCheck";
-import { useCSSLoader } from "../../hooks/useCSSLoader";
+import useDuplicateCheck from "hooks/duplicateCheck";
+import { useCSSLoader } from "hooks/useCSSLoader";
 
 // import "../../assets/css/register.css";
 

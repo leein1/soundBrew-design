@@ -12,3 +12,45 @@
     font-size: 80px;
 }
 
+/* 토스트 컨테이너: 오른쪽 위에 쌓이도록 */
+.toast-container {
+    position: fixed;
+    top: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    z-index: 1000;
+    align-items: center;
+  }
+  
+  /* 개별 토스트 */
+  .global-toast {
+    background: rgba(0, 0, 0, 0.8);
+    color: #fff;
+    padding: 12px 20px;
+    border-radius: 8px;
+    opacity: 0;
+    animation: fadeInOut 2s ease forwards;
+  }
+  
+  /* 애니메이션: 등장 → 유지 → 사라짐 */
+  @keyframes fadeInOut {
+    0% { opacity: 0; transform: translateY(-10px); }
+    10% { opacity: 1; transform: translateY(0); }
+    90% { opacity: 1; }
+    100% { opacity: 0; transform: translateY(-10px); }
+  }
+    
+/* 모든 a 태그의 기본 스타일 제거 */
+a {
+  text-decoration: none;  /* 밑줄 제거 */
+  color: inherit;         /* 부모의 글자색 상속 */
+}
+
+/* hover 시 스타일을 지정할 수도 있음 */
+a:hover {
+  text-decoration: none;  /* 밑줄 제거 */
+  color: #007bff;             /* 원하는 색 */
+}

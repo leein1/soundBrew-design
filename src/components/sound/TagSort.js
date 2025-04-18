@@ -1,6 +1,6 @@
 // src/components/TagSort.jsx
 import React from 'react';
-import icons from '../../assets/images/imageBarrel';
+import icons from 'assets/images/imageBarrel';
 
 const TagSort = ({
   data,

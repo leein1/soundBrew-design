@@ -1,25 +1,34 @@
-import React, { useMemo } from 'react';
-import { useNavigate } from 'react-router-dom'; // react-router-dom의 useNavigate 사용
-import { useCSSLoader } from '../../hooks/useCSSLoader';
-
-//현재는 subscriptionPlan 페이지에 고지가 되어있지만.
-//실제로는 subscriptionDB에 따른 값이 실제로 부여된다.
-// 정보를 GET해오던가, 아니면 늘 유의주시하던가. 일단 인지해둘것.
-const plans = [
-  { id: 4, name: 'Free', price: 0, credit: 0, description: null },
-  { id: 1, name: 'Basic', price: 10000, credit: 50, description: null },
-  { id: 2, name: 'Premium', price: 20000, credit: 100, description: null },
-  { id: 3, name: 'VIP', price: 30000, credit: 200, description: '무제한으로 사용하세요!' },
-];
+import React, { useEffect, useMemo, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
+import { useCSSLoader } from 'hooks/useCSSLoader';
+import { axiosGet } from 'api/standardAxios';
 
 const SubscriptionPlans = () => {
-  const cssFiles = useMemo(() => ["/assets/css/user/subscriptionPlan.css"], []);
-  useCSSLoader(cssFiles);
-  
+  useCSSLoader(useMemo(() => ['/assets/css/user/subscriptionPlan.css'], []));
+
+  // 초기값을 빈 배열로
+  const [plans, setPlans] = useState([]);
   const navigate = useNavigate();
 
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const response = await axiosGet({ endpoint: '/api/payment/plans' });
+        // dtoList가 배열인지 확인 후 state 설정
+        if (Array.isArray(response.dtoList)) {
+          setPlans(response.dtoList);
+        } else {
+          console.warn('Unexpected dtoList:', response.dtoList);
+        }
+      } catch (err) {
+        console.error('Failed to fetch plans:', err);
+      }
+    };
+    fetchData();
+  }, []);
+
   const handleSubscribe = (plan) => {
-    // 예: 결제페이지로 plan 정보를 state를 통해 전달
+    // plan 객체 그대로 전달
     navigate('/checkout', { state: { plan } });
   };
 
@@ -30,13 +39,12 @@ const SubscriptionPlans = () => {
         <div className="subscription-container">
           {plans.map((plan) => (
             <div
-              key={plan.name}
-              className={`subscription-card${plan.name === 'VIP' ? ' vip-card' : ''}`}
+              key={plan.subscriptionId}
+              className={`subscription-card${plan.subscriptionName === 'vip' ? ' vip-card' : ''}`}
             >
-              <h2>{plan.name}</h2>
-              <p>월 결제 금액: {plan.price.toLocaleString()}원</p>
-              {plan.credit !== null && <p>월 크레딧: {plan.credit}</p>}
-              {plan.description && <p>{plan.description}</p>}
+              <h2>{plan.subscriptionName}</h2>
+              <p>월 결제 금액: {plan.subscriptionPrice.toLocaleString()}원</p>
+              <p>월 크레딧: {plan.creditPerMonth}</p>
               <button
                 type="button"
                 className="subscribe-btn"

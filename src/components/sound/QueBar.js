@@ -1,9 +1,7 @@
 // src/pages/sound/QueBar.jsx
 import React, { useState, useRef, useEffect } from "react";
 import WaveSurfer from "https://cdn.jsdelivr.net/npm/wavesurfer.js@7/dist/wavesurfer.esm.js";
-import icons from "../../assets/images/imageBarrel";
-
-// import "../../assets/css/sound/player.css";
+import icons from "assets/images/imageBarrel";
 
 const QueBar = ({ playerSoundInfo }) => {
   const waveformRef = useRef(null);
@@ -138,6 +136,8 @@ const QueBar = ({ playerSoundInfo }) => {
                   ? `https://d1lq7t3sqkotey.cloudfront.net/${playerSoundInfo.albumArtPath}`
                   : icons.defaultSoundImg
               }
+              width={50}
+              height={50}
             />
             {playerSoundInfo &&
             <div className="player-play-btn" onClick={handlePlayPause}>

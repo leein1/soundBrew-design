@@ -1,9 +1,9 @@
 // MySubscription.jsx
 import React, { useEffect, useMemo, useState } from 'react';
-import { useCSSLoader } from '../../hooks/useCSSLoader';
-import { axiosGet,axiosDelete } from "../../api/standardAxios";
-import {useAuth,initializing} from "../../context/authContext";
-import {formatDate} from "../../utils/date/formatDate"
+import { useCSSLoader } from 'hooks/useCSSLoader';
+import { axiosGet,axiosDelete } from "api/standardAxios";
+import {useAuth,initializing} from "context/authContext";
+import {formatDate} from "utils/date/formatDate"
 import { useNavigate } from "react-router-dom";
 
 const MySubscription = () => {
@@ -18,10 +18,10 @@ const MySubscription = () => {
   const navigate = useNavigate();
 
   const subscriptionNames = {
-    1: "Basic",
-    2: "Premium",
-    3: "VIP",
-    4: "Free"
+    1: "Free",
+    2: "Basic",
+    3: "Premium",
+    4: "VIP"
   };
 
   useEffect(()=>{
@@ -40,14 +40,15 @@ const MySubscription = () => {
     fetchPaymentData();
   },[user]);
 
-  const handleChangeSubscription = () => {
-    alert("구독 변경 기능은 아직 구현되지 않았습니다.");
-  };
-
   const handleCancelSubscription = async() => {
     const confirmCancel = window.confirm("정말로 구독을 취소하시겠습니까?");
+    const handle ={
+      success:{
+        location:"/subscription"
+      }
+    }
     if (confirmCancel) {
-      await axiosDelete({endpoint:'/api/me/subscription'});
+      await axiosDelete({endpoint:'/api/me/subscription',handle:handle});
     }
   };
 

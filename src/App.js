@@ -7,13 +7,14 @@ import { GlobalStateProvider } from "./state/State";
 import { AuthProvider } from "./context/authContext"; 
 import { LoadingProvider, useLoading } from "./context/loadingContext";
 import { registerLoadingHandler } from "./api/standardAxios"; 
-import GlobalLoader from "./components/GlobalLoader";
-import AuthGlobalLoader from "./components/AuthGlobalLoader"; // ✅ 추가
+import GlobalLoader from "./components/Loader/GlobalLoader";
+import AuthGlobalLoader from "./components/Loader/AuthGlobalLoader";
 
 // 글로벌 css
 import "./assets/css/darkmode.css";
 import "./assets/css/layout.css";
 import "./assets/css/common.css";
+import "./assets/css/player.css";
 
 function AppWithNavigationSetter() {
   const { setIsLoading } = useLoading();

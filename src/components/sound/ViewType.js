@@ -2,7 +2,7 @@
 import React from "react";
 import { useNavigate, useLocation } from "react-router-dom";
 
-import icons from "../../assets/images/imageBarrel";
+import icons from "assets/images/imageBarrel";
 
 const ViewType = ({ mode, onChange }) => {
     const navigate = useNavigate();

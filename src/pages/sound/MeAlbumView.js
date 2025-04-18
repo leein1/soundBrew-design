@@ -1,19 +1,19 @@
 // src/pages/sound/MeAlbumView.jsx
 import React, { useState, useEffect, useMemo } from "react";
 import { useLocation } from "react-router-dom";
-import { axiosGet, axiosPatch } from "../../api/standardAxios";
-import { inputHandler } from "../../utils/check/inputHandler";
-import { formatDate } from "../../utils/date/formatDate";
-import { useEditableItem } from "../../hooks/useEditableItem";
-import InlineEditor from "../../components/InlineEditor";
-import SortableHeaderCell from "../../components/SortableHeaderCell";
-import { useCSSLoader } from "../../hooks/useCSSLoader";
-import { useAuth } from "../../context/authContext";
+import { axiosGet, axiosPatch } from "api/standardAxios";
+import { inputHandler } from "utils/check/inputHandler";
+import { formatDate } from "utils/date/formatDate";
+import { useEditableItem } from "hooks/useEditableItem";
+import InlineEditor from "components/editor/InlineEditor";
+import SortableHeaderCell from "components/global/SortableHeaderCell";
+import { useCSSLoader } from "hooks/useCSSLoader";
+import { useAuth } from "context/authContext";
 
-import Pagination from "../../components/Pagination";
+import Pagination from "components/global/Pagination";
 
 // 새로 만든 모달 컴포넌트를 import 합니다.
-import AlbumTracksModal from "./AlbumTracksModal";
+import AlbumTracksModal from "../../components/sound/AlbumTracksModal";
 
 
 const MeAlbumView = () => {

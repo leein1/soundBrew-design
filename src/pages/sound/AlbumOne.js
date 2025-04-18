@@ -1,10 +1,10 @@
 // src/pages/sound/AlbumOne.jsx
 import React, { useState, useEffect, useMemo } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
-import { axiosGet } from "../../api/standardAxios";
+import { axiosGet } from "api/standardAxios";
 
 import TrackList from "./TrackList";  // 재활용할 TrackList 컴포넌트
-import QueBar from "./QueBar";
+import QueBar from "../../components/sound/QueBar";
 
 import { copyTextToClipboard } from "../../utils/sound/copyTextToClipboard";
 import { useCSSLoader } from "../../hooks/useCSSLoader";
@@ -119,7 +119,7 @@ const AlbumOne = () => {
             </div>
             <div className="artist-name font-size-medium"></div>
             <div className="sound-info-reaction">
-              <button className="btn sound-btn">get..</button>
+              {/* <button className="btn sound-btn" >add cart</button> */}
               <button className="btn sound-btn share-album-btn" onClick={handleShareAlbum}>share album</button>
             </div>
           </div>
@@ -136,11 +136,11 @@ const AlbumOne = () => {
         </div>
       </div>
 
-      <hr style={{ border: "1px solid #eee", margin: "20px 0" }} />
+      <h2 style={{ marginTop: "20px", marginBottom: "20px" }}>이 앨범의 음원 목록</h2>
 
+        <hr style={{ border: "1px solid #eee"}} />
       {/* 앨범의 음원 목록 영역 - 부모에서 전체 responseDTO를 TrackList에 전달 */}
       <div className="album-track-list">
-        <h2>이 앨범의 음원 목록</h2>
         <TrackList onPlay={setPlayerSoundInfo}  data={albumData} />
         {/* Pagination은 TrackList 내부에서 렌더링됩니다. */}
 

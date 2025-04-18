@@ -1,15 +1,16 @@
 // src/components/Sidebar.jsx
 import React, { useState, useRef, useEffect, useCallback } from "react";
-import { useAuth } from "../context/authContext";
-import { Link } from "react-router-dom";
+import { useAuth } from "../../context/authContext";
+import { Link,useLocation } from "react-router-dom";
 
 // 아이콘 베럴 
-import icons from '../assets/images/imageBarrel'
+import icons from 'assets/images/imageBarrel'
 
 // 다크 모드 토글
-import DarkModeToggle from "./DarkModeToggle";
+import DarkModeToggle from "components/mode/DarkModeToggle";
 
 const Sidebar = ({ isExpanded, toggleSidebar, onProfileClick }) => {
+  const location = useLocation();    
   const { user, isAuthenticated, isAdmin } = useAuth();
   const [userInfoOpen, setUserInfoOpen] = useState(false);
   const [adminInfoOpen, setAdminInfoOpen] = useState(false);
@@ -47,6 +48,13 @@ const Sidebar = ({ isExpanded, toggleSidebar, onProfileClick }) => {
     return () => document.removeEventListener("click", handleDocumentClick);
   }, [handleDocumentClick]);
 
+  useEffect(() => {
+    if (isExpanded) {
+      toggleSidebar();
+      setUserInfoOpen(false);
+      setAdminInfoOpen(false);
+    }
+  }, [location.pathname]);  
   return (
     <div ref={sidebarRef} className={`sidebar ${isExpanded ? "expanded" : ""}`}>
       {/* Sidebar 자체의 메뉴 버튼: 화면 넓은 경우에도 사용 */}
@@ -112,7 +120,12 @@ const Sidebar = ({ isExpanded, toggleSidebar, onProfileClick }) => {
           ) : (
             <div className="user-view">
               <div className="profile">
-                <img src={`https://soundbrew.storage.s3.ap-northeast-2.amazonaws.com/${user.profileImagePath}`}
+                <img 
+                  src={
+                    !user.profileImagePath || user.profileImagePath === "default_profile_image.jpg"
+                      ? icons.defaultUserIcon
+                      : `https://soundbrew.storage.s3.ap-northeast-2.amazonaws.com/${user.profileImagePath}`
+                  }
                   alt="프로필"className="profile-image no-invert" />
                 <button id="profileModalBtn" className="primary-button none-display" 
                 onClick={onProfileClick}>프로필 사진 변경</button>

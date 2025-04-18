@@ -1,6 +1,6 @@
 // src/components/AdminUserSubscriptionModal.jsx
 import React from "react";
-import { formatDate } from "../../utils/date/formatDate";
+import { formatDate } from "utils/date/formatDate";
 
 const AdminUserSubscriptionModal = ({ userSubscriptionData, onClose }) => {
   // 구독 정보가 없거나, subscriptionId가 없으면 "구독을 안한 사람입니다." 출력

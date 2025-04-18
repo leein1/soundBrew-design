@@ -1,24 +1,23 @@
 import { useEffect, useMemo, useState } from "react";
-import { axiosDelete, axiosGet, axiosPost } from "../../api/standardAxios";
-import { useAuth } from "../../context/authContext";
-import { useCSSLoader } from "../../hooks/useCSSLoader";
+import { axiosDelete, axiosGet, axiosPost } from "api/standardAxios";
+import { useAuth } from "context/authContext";
+import { useCSSLoader } from "hooks/useCSSLoader";
+import handleDownload from "utils/sound/handleDownload";
 
 const Cart = () => {
   const cssFiles = useMemo(() => [
-      "/assets/css/sound/music.css",
-      "/assets/css/sound/admin-main.css",
-      "/assets/css/user/user-admin.css",
-  ],[]);
+    "/assets/css/sound/music.css",
+    "/assets/css/sound/admin-main.css",
+    "/assets/css/user/user-admin.css",
+  ], []);
   useCSSLoader(cssFiles);
 
-  // 응답 데이터 초기값은 dtoList 빈 배열
   const [responseData, setResponseData] = useState({ dtoList: [] });
-  // 선택된 음원의 musicId를 저장하는 state
   const [selectedMusicIds, setSelectedMusicIds] = useState([]);
-  const { user } = useAuth();
+  const { user, initializing } = useAuth();
 
   useEffect(() => {
-    if (!user) return; // user 정보가 없으면 API 호출을 진행하지 않음
+    if (initializing) return;
 
     const fetchCartData = async () => {
       const response = await axiosGet({ endpoint: `/api/cart/${user.userId}` });
@@ -26,17 +25,19 @@ const Cart = () => {
     };
 
     fetchCartData();
-  }, [user]);
+  }, [user, initializing]);
 
   // 단일 결제 처리
-  const applyCart = async (userId, musicId) => {
+  const applyCart = async (userId, musicId, filePath) => {
     try {
-      await axiosPost({
-        endpoint: `/api/cart/${userId}`,
-        body: [musicId],
-      });
-      alert("결제가 완료되었습니다!");
-      // 결제 후 필요한 UI 업데이트 로직을 추가
+      const response = await axiosPost({ endpoint: `/api/cart/transaction/${userId}`, body: [musicId] });
+      if (response.message.includes("결제가 완료되었습니다")) {
+        await handleDownload(filePath);
+        // 단일 결제 후 UI 갱신
+        setResponseData(prev => ({
+          dtoList: prev.dtoList.filter(item => item.musicId !== musicId)
+        }));
+      }
     } catch (error) {
       console.error("결제 중 오류:", error);
       alert("결제 실패");
@@ -50,48 +51,53 @@ const Cart = () => {
       alert("구매할 음원을 선택해주세요.");
       return;
     }
+
     try {
-      await axiosPost({
-        endpoint: `/api/cart/transactions/${user.userId}`,
-        body: selectedMusicIds,
-      });
-      alert("선택 음원 결제가 완료되었습니다!");
-      // 결제 후 선택된 음원 상태 초기화 및 UI 업데이트 로직 추가
-      setSelectedMusicIds([]);
+      // 결제 요청 및 파일 경로 배열 수신
+      const response = await axiosPost({endpoint: `/api/cart/transaction/${user.userId}`,body: selectedMusicIds,});
+      const filePaths = response.data.filePaths || [];
+
+      if (response.message.includes("결제가 완료되었습니다")) {
+        // 각 파일 다운로드
+        for (const path of filePaths) {
+          await handleDownload(path);
+        }
+  
+        // 다운로드 완료 후 UI 업데이트
+        setResponseData(prev => ({
+          dtoList: prev.dtoList.filter(item => !selectedMusicIds.includes(item.musicId))
+        }));
+        setSelectedMusicIds([]);
+      }
     } catch (error) {
       console.error("일괄 결제 중 오류:", error);
-      alert("결제 실패");
+      alert("일괄 결제 또는 다운로드에 실패했습니다.");
     }
   };
 
-  // 개별 삭제 처리
   const deleteCart = async (userId, musicId) => {
     try {
       await axiosDelete({ endpoint: `/api/cart/${userId}/${musicId}` });
-      // 삭제 후 UI 업데이트: 응답 데이터에서 해당 항목 제거
-      setResponseData((prev) => ({
-        dtoList: prev.dtoList.filter((item) => item.musicId !== musicId),
+      setResponseData(prev => ({
+        dtoList: prev.dtoList.filter(item => item.musicId !== musicId)
       }));
-      // 만약 삭제된 아이템이 선택되어 있다면 목록에서 제거
-      setSelectedMusicIds((prev) => prev.filter((id) => id !== musicId));
+      setSelectedMusicIds(prev => prev.filter(id => id !== musicId));
     } catch (error) {
       console.error("카트 삭제 중 오류:", error);
       alert("삭제 실패");
     }
   };
 
-  // 체크박스 선택 상태 토글 함수
   const toggleSelection = (musicId) => {
-    if (selectedMusicIds.includes(musicId)) {
-      setSelectedMusicIds(selectedMusicIds.filter((id) => id !== musicId));
-    } else {
-      setSelectedMusicIds([...selectedMusicIds, musicId]);
-    }
+    setSelectedMusicIds(prev =>
+      prev.includes(musicId)
+        ? prev.filter(id => id !== musicId)
+        : [...prev, musicId]
+    );
   };
 
   return (
     <div>
-      {/* 선택 음원 일괄 구매 버튼 */}
       <div style={{ marginBottom: "10px" }}>
         <button className="apply-button" onClick={applySelectButton}>
           선택 음원 일괄 구매
@@ -124,7 +130,7 @@ const Cart = () => {
                 <td>
                   <button
                     className="apply-button"
-                    onClick={() => applyCart(cart.userId, cart.musicId)}
+                    onClick={() => applyCart(cart.userId, cart.musicId, cart.filePath)}
                   >
                     결제
                   </button>

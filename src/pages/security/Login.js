@@ -1,7 +1,7 @@
 // src/pages/Login.js
 import { useMemo, useState } from "react";
-import { useAuth } from "../../context/authContext";
-import { useCSSLoader } from "../../hooks/useCSSLoader";
+import { useAuth } from "context/authContext";
+import { useCSSLoader } from "hooks/useCSSLoader";
 
 // import "../../assets/css/login.css";
 

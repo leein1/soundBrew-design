@@ -2,7 +2,7 @@
 import React, { createContext, useContext, useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
-import TokenUtil from "../utils/token/tokenUtil";
+import TokenUtil from "utils/token/tokenUtil";
 
 const AuthContext = createContext();
 
@@ -35,7 +35,9 @@ export const AuthProvider = ({ children }) => {
       setUser(null);
       console.log(error);
       if (error?.response?.data?.resetToken) {
+        alert("비밀번호 초기화를 진행하셨습니다. 비밀번호 변경 페이지로 이동합니다.")
         localStorage.setItem("resetToken", error.response.data.resetToken);
+        navigate("/help/reset-password");
       } else {
         alert(error?.response?.data?.message || "로그인 실패");
       }

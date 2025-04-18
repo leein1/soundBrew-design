@@ -1,6 +1,6 @@
 // src/hooks/useDuplicateCheck.js
 import { useState, useEffect } from 'react';
-import { axiosPost } from '../api/standardAxios';
+import { axiosPost } from 'api/standardAxios';
 
 const useDuplicateCheck = (value, endpoint) => {
   const [available, setAvailable] = useState(false);

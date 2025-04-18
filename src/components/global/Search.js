@@ -1,7 +1,7 @@
 // src/components/Search.jsx
 import React, { useEffect, useState } from "react";
 import { useNavigate, useLocation } from "react-router-dom";
-import icons from "../assets/images/imageBarrel";
+import icons from "assets/images/imageBarrel";
 
 const Search = ({ type, keyword, onTypeChange, onKeywordChange, onSearch }) => {
   const navigate = useNavigate();

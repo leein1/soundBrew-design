@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import icons from "../../assets/images/imageBarrel";
+import icons from "assets/images/imageBarrel";
 
 const ViewSort = ({ sortStyle, onChange }) => {
   const [open, setOpen] = useState(false);

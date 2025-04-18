@@ -1,4 +1,4 @@
-import {handleResponse}  from "../utils/response/handleResponse"
+import {handleResponse}  from "utils/response/handleResponse"
 import axios from "axios";
 
  const BASE_URL = "https://localhost:8443";

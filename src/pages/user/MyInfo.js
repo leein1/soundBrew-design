@@ -1,9 +1,9 @@
 import React, { useEffect, useMemo, useState } from 'react';
-import { axiosGet, axiosPost, axiosPatch } from '../../api/standardAxios';
-import { inputHandler } from '../../utils/check/inputHandler';
+import { axiosGet, axiosPost, axiosPatch } from 'api/standardAxios';
+import { inputHandler } from 'utils/check/inputHandler';
 
-import FieldWithEdit from '../../components/FieldWithEdit';
-import { useCSSLoader } from '../../hooks/useCSSLoader';
+import FieldWithEdit from 'components/editor/FieldWithEdit';
+import { useCSSLoader } from 'hooks/useCSSLoader';
 
 const MyInfo = () => {
   const cssFiles = useMemo(()=>[

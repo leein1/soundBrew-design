@@ -1,7 +1,8 @@
 import { useEffect, useMemo, useState } from "react";
-import { useCSSLoader } from "../../hooks/useCSSLoader";
-import { axiosGet } from "../../api/standardAxios";
-import { useAuth } from "../../context/authContext";
+import { useCSSLoader } from "hooks/useCSSLoader";
+import { axiosGet } from "api/standardAxios";
+import { useAuth } from "context/authContext";
+import handleDownload from "utils/sound/handleDownload";
 
 
 const Transaction =()=>{
@@ -20,7 +21,7 @@ const Transaction =()=>{
         if (!user) return; // user 정보가 없으면 API 호출을 진행하지 않음
 
         const fetchTransactionData = async () => {
-            const response = await axiosGet({ endpoint: `/api/cart/transactions/${user.userId}` });
+            const response = await axiosGet({ endpoint: `/api/cart/transaction/${user.userId}` });
             setResponseData(response);
         };
 
@@ -29,7 +30,7 @@ const Transaction =()=>{
     
     const applyDownload= async (filePath)=>{
         // 다운로드 로직
-        await axiosGet({endpoint:`/api/sounds/${filePath}`});
+        handleDownload(filePath);
     };
 
     return (

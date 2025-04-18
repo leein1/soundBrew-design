@@ -1,13 +1,13 @@
 // src/components/MeTagView.jsx
 import { useState, useEffect, useMemo } from "react";
 import { useLocation } from "react-router-dom";
-import { axiosGet, axiosPatch, axiosPost } from "../../api/standardAxios";
-import { formatDate } from "../../utils/date/formatDate";
-import SortableHeaderCell from "../../components/SortableHeaderCell";
-import { inputHandler } from "../../utils/check/inputHandler";
-import { useCSSLoader } from "../../hooks/useCSSLoader";
+import { axiosGet, axiosPatch, axiosPost } from "api/standardAxios";
+import { formatDate } from "utils/date/formatDate";
+import SortableHeaderCell from "components/global/SortableHeaderCell";
+import { inputHandler } from "utils/check/inputHandler";
+import { useCSSLoader } from "hooks/useCSSLoader";
 
-import Pagination from "../../components/Pagination";
+import Pagination from "../../components/global/Pagination";
 
 const MeTagView = () => {
   const cssFiles = useMemo(() => [

@@ -1,8 +1,8 @@
 import React, { useEffect, useMemo, useState } from "react";
-import { axiosGet, axiosPatch } from "../../api/standardAxios"; // 적절한 경로로 조정하세요
-import { useCSSLoader } from "../../hooks/useCSSLoader";
-import { inputHandler } from "../../utils/check/inputHandler";
-import NewTag from "../sound/NewTag"; // 파일 경로에 맞게 조정
+import { axiosGet, axiosPatch } from "api/standardAxios"; // 적절한 경로로 조정하세요
+import { useCSSLoader } from "hooks/useCSSLoader";
+import { inputHandler } from "utils/check/inputHandler";
+import NewTag from "components/sound/NewTag";
 
 const TagSpelling = () => {
   const cssFiles = useMemo(() => [

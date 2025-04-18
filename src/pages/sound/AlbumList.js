@@ -1,9 +1,9 @@
 import { useState, useEffect } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
-import { axiosGet } from "../../api/standardAxios";
+import { axiosGet } from "api/standardAxios";
 
-import Pagination from "../../components/Pagination";
-import icons from "../../assets/images/imageBarrel";
+import Pagination from "components/global/Pagination";
+import icons from "assets/images/imageBarrel";
 
 const AlbumList = ({ data: propData, onPlay })=>{
     const navigate = useNavigate();

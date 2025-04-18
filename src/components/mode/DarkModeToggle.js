@@ -1,9 +1,9 @@
 // src/components/DarkModeToggle.jsx
 import React from "react";
-import { useDarkMode } from "../hooks/useDarkMode";
+import { useDarkMode } from "hooks/useDarkMode";
 
-import lightModeIcon from "../assets/images/light_mode_24dp_5F6368_FILL0_wght400_GRAD0_opsz24.svg";
-import darkModeIcon from "../assets/images/dark_mode_24dp_5F6368_FILL0_wght400_GRAD0_opsz24.svg";
+import lightModeIcon from "assets/images/light_mode_24dp_5F6368_FILL0_wght400_GRAD0_opsz24.svg";
+import darkModeIcon from "assets/images/dark_mode_24dp_5F6368_FILL0_wght400_GRAD0_opsz24.svg";
 
 const DarkModeToggle = () => {
   const [darkMode, toggleDarkMode] = useDarkMode();

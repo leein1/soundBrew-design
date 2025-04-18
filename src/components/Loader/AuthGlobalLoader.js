@@ -1,7 +1,7 @@
 // src/components/AuthGlobalLoader.jsx
 import React from "react";
-import { useAuth } from "../context/authContext";
-import AuthLoadingSpinner from "./AuthLoadingSpinner";
+import { useAuth } from "context/authContext";
+import AuthLoadingSpinner from "components/spinner/AuthLoadingSpinner";
 
 const AuthGlobalLoader = () => {
     const { initializing } = useAuth();   
