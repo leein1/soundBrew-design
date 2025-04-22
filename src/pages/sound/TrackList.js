@@ -54,6 +54,10 @@ const TrackList = ({ onPlay, data }) => {
   };
 
   const handleCartAndTransaction = async (sound, userId)=>{
+    if(!userId){
+      alert("로그인을 먼저 진행해주세요");
+    }
+
     const body={
       musicId:sound.musicDTO.musicId,
       userId : userId, // 추가한 유저의 아이디
@@ -63,8 +67,9 @@ const TrackList = ({ onPlay, data }) => {
       credit:3,
       status:"DONE",
     }  
+
     const response = await axiosPost({endpoint:'/api/cart/transaction', body:body});
-    if (response.message.includes("결제가 완료되었습니다")) {
+    if (response?.message.includes("결제가 완료되었습니다")) {
       handleDownload(sound.musicDTO.filePath);
     }
   }
@@ -148,13 +153,13 @@ const TrackList = ({ onPlay, data }) => {
                 src={icons.cartIcon}
                 alt="장바구니"
                 className="cart-btn"
-                onClick={() => handleCart(sound, user.userId)}
+                onClick={() => handleCart(sound, user?.userId)}
               />
               <img
                 src={icons.downloadIcon}
                 className="download-btn"
                 alt="다운로드"
-                onClick={() => handleCartAndTransaction(sound, user.userId)}
+                onClick={() => handleCartAndTransaction(sound, user?.userId)}
               />
               <img
                 src={icons.linkIcon}

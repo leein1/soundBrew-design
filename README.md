@@ -68,3 +68,168 @@ This section has moved here: [https://facebook.github.io/create-react-app/docs/d
 ### `npm run build` fails to minify
 
 This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+
+```
+soundBrew-design
+├─ README.md
+├─ jsconfig.json
+├─ package-lock.json
+├─ package.json
+├─ public
+│  ├─ assets
+│  │  └─ css
+│  │     ├─ activation.css
+│  │     ├─ findpw.css
+│  │     ├─ login.css
+│  │     ├─ register.css
+│  │     ├─ resetpw.css
+│  │     ├─ sound
+│  │     │  ├─ admin-main.css
+│  │     │  ├─ album-list.css
+│  │     │  ├─ album.css
+│  │     │  ├─ manage-albums.css
+│  │     │  ├─ manage-main.css
+│  │     │  ├─ manage-tags.css
+│  │     │  ├─ music-upload.css
+│  │     │  ├─ music.css
+│  │     │  ├─ player.css
+│  │     │  └─ sound.css
+│  │     └─ user
+│  │        ├─ changepw.css
+│  │        ├─ myInfo.css
+│  │        ├─ mySubscription.css
+│  │        ├─ subscriptionPlan.css
+│  │        └─ user-admin.css
+│  ├─ favicon.ico
+│  ├─ index.html
+│  ├─ logo192.png
+│  ├─ logo512.png
+│  ├─ manifest.json
+│  └─ robots.txt
+└─ src
+   ├─ App.css
+   ├─ App.js
+   ├─ App.test.js
+   ├─ api
+   │  └─ standardAxios.js
+   ├─ assets
+   │  ├─ css
+   │  │  ├─ common.css
+   │  │  ├─ darkmode.css
+   │  │  ├─ layout.css
+   │  │  ├─ player.css
+   │  │  └─ toss.css
+   │  ├─ images
+   │  │  ├─ imageBarrel.js
+   │  │  └─ 프로젝트이미지들.svg
+   │  └─ loadingSpinner.css
+   ├─ components
+   │  ├─ Loader
+   │  │  ├─ AuthGlobalLoader.js
+   │  │  └─ GlobalLoader.js
+   │  ├─ auth
+   │  │  └─ ProtectedRoute.js
+   │  ├─ editor
+   │  │  ├─ FieldWithEdit.js
+   │  │  └─ InlineEditor.js
+   │  ├─ global
+   │  │  ├─ GlobalAlertToast.js
+   │  │  ├─ Pagination.js
+   │  │  ├─ Search.js
+   │  │  └─ SortableHeaderCell.js
+   │  ├─ layouts
+   │  │  ├─ Layout.js
+   │  │  ├─ Navigation.js
+   │  │  ├─ ProfileModal.js
+   │  │  └─ Sidebar.js
+   │  ├─ mode
+   │  │  └─ DarkModeToggle.js
+   │  ├─ sound
+   │  │  ├─ AlbumTracksModal.js
+   │  │  ├─ NewTag.js
+   │  │  ├─ QueBar.js
+   │  │  ├─ Sound.js
+   │  │  ├─ TagSort.js
+   │  │  ├─ ViewSort.js
+   │  │  └─ ViewType.js
+   │  ├─ spinner
+   │  │  ├─ AuthLoadingSpinner.js
+   │  │  └─ LoadingSpinner.js
+   │  └─ user
+   │     ├─ AdminUserInfoModal.js
+   │     ├─ AdminUserSubscriptionModal.js
+   │     └─ MeSoundManage.js
+   ├─ context
+   │  ├─ authContext.js
+   │  └─ loadingContext.js
+   ├─ hooks
+   │  ├─ duplicateCheck.js
+   │  ├─ useCSSLoader.js
+   │  ├─ useDarkMode.js
+   │  ├─ useEditableItem.js
+   │  ├─ useTagFilter.js
+   │  └─ useViewSort.js
+   ├─ index.css
+   ├─ index.js
+   ├─ logo.svg
+   ├─ pages
+   │  ├─ cart
+   │  │  ├─ Cart.js
+   │  │  └─ Transaction.js
+   │  ├─ payment
+   │  │  ├─ Checkout.jsx
+   │  │  ├─ Fail.jsx
+   │  │  └─ Success.jsx
+   │  ├─ security
+   │  │  └─ Login.js
+   │  ├─ sound
+   │  │  ├─ AlbumList.js
+   │  │  ├─ AlbumOne.js
+   │  │  ├─ MeAlbumView.js
+   │  │  ├─ MeTagView.js
+   │  │  ├─ MeTrackView.js
+   │  │  ├─ TagSpelling.js
+   │  │  ├─ TrackList.js
+   │  │  ├─ TrackOne.js
+   │  │  └─ Upload.js
+   │  └─ user
+   │     ├─ ActivationPage.js
+   │     ├─ AdminDashBoard.js
+   │     ├─ AdminUser.js
+   │     ├─ ChangePW.js
+   │     ├─ FindPWPage.js
+   │     ├─ MeDashboard.js
+   │     ├─ MyInfo.js
+   │     ├─ MySubscription.js
+   │     ├─ Register.js
+   │     ├─ ResetPWPage.js
+   │     └─ SubscriptionPlan.js
+   ├─ reportWebVitals.js
+   ├─ routes
+   │  └─ AppRouter.js
+   ├─ setupTests.js
+   ├─ state
+   │  └─ State.js
+   └─ utils
+      ├─ check
+      │  ├─ inputHandler.js
+      │  └─ inputRules.js
+      ├─ css
+      │  └─ CSSLoader.js
+      ├─ date
+      │  └─ formatDate.js
+      ├─ response
+      │  ├─ globalNavigate.js
+      │  └─ handleResponse.js
+      ├─ serialize
+      │  ├─ formToJson.js
+      │  └─ inputToJson.js
+      ├─ sound
+      │  ├─ copyTextToClipboard.js
+      │  ├─ handleCart.js
+      │  ├─ handleCartTransaction.js
+      │  └─ handleDownload.js
+      └─ token
+         └─ tokenUtil.js
+
+```

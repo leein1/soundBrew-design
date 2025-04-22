@@ -24,7 +24,7 @@ export const AuthProvider = ({ children }) => {
   const login = async (username, password) => {
     const userInput = { username, password };
     try {
-      const response = await axios.post("https://localhost:8443/generateToken", userInput);
+      const response = await axios.post("https://soundbrew.art/generateToken", userInput);
       const { accessToken, refreshToken, redirectUrl } = response.data;
       TokenUtil.setToken(accessToken, refreshToken);
       const userInfo = TokenUtil.getUserInfo(accessToken);
