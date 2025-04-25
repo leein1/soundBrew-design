@@ -98,7 +98,7 @@ const TrackOne = () => {
       <div className="content-header-info">
         <img
           className="sound-image"
-          src={`https://d1lq7t3sqkotey.cloudfront.net/${trackData.albumDTO.albumArtPath}`}
+          src={`https://api.soundbrew.art/${trackData.albumDTO.albumArtPath}`}
           alt="음원 이미지"
           onError={(e) => {
             e.target.src = "/images/album-default-image-01.jpeg";

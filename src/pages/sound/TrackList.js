@@ -86,7 +86,7 @@ const TrackList = ({ onPlay, data }) => {
             <img
               alt="앨범 이미지"
               className="music-album-img"
-              src={`https://d1lq7t3sqkotey.cloudfront.net/${sound.albumDTO.albumArtPath}`}
+              src={`https://api.soundbrew.art/${sound.albumDTO.albumArtPath}`}
               onError={(e) => { e.target.src = icons.defaultSoundImg; }}
             />
             <div

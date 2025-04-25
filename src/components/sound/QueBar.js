@@ -74,7 +74,7 @@ const QueBar = ({ playerSoundInfo }) => {
       playerSoundInfo.filePath !== loadedSoundId
     ) {
       setLoadedSoundId(playerSoundInfo.filePath);
-      wavesurfer.load(`https://localhost:8443/api/stream/${playerSoundInfo.filePath}`);
+      wavesurfer.load(`https://api.soundbrew.art/api/stream/${playerSoundInfo.filePath}`);
     }
   }, [playerSoundInfo, wavesurfer, loadedSoundId]);
 
@@ -133,7 +133,7 @@ const QueBar = ({ playerSoundInfo }) => {
               className="player-album-img"
               src={
                 playerSoundInfo && playerSoundInfo.albumArtPath
-                  ? `https://d1lq7t3sqkotey.cloudfront.net/${playerSoundInfo.albumArtPath}`
+                  ? `https://api.soundbrew.art/${playerSoundInfo.albumArtPath}`
                   : icons.defaultSoundImg
               }
               width={50}
