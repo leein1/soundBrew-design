@@ -51,6 +51,8 @@ const TagSort = ({
           const classes = ["tag-section"];
           if (state === "closing") classes.push("fade-out");
           if (state === "closed")  classes.push("hidden");
+          
+          if (!data?.dto) return null;
 
           return (
             <div
@@ -62,7 +64,7 @@ const TagSort = ({
                 }
               }}
             >
-              {data.dto[type].map(tag => renderTagItem(tag, type))}
+              {data?.dto[type]?.map(tag => renderTagItem(tag, type))}
             </div>
           );
         })}

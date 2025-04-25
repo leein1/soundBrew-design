@@ -3,7 +3,8 @@ import axios from "axios";
 
 //  const BASE_URL = "https://localhost:8443";
 // const BASE_URL = "http://Soundvbrew-env.eba-gpmigkef.ap-northeast-2.elasticbeanstalk.com";
- const BASE_URL = "https://soundbrew.art";
+
+ const BASE_URL = "https://api.soundbrew.art";
 
 // Axios 기본 설정
 const axiosInstance = axios.create({

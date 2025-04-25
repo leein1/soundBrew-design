@@ -43,8 +43,10 @@ const UserRoutes = () => (
 
 const AppRouter = () => (
   <Routes>
+    <Route path="/media/*" element={null} />
+
     <Route path="/" element={<Layout />}>      
-      <Route index element={<Navigate to="sounds/tracks" replace />} />
+      <Route index element={<Navigate to="/sounds/tracks" replace />} />
 
       {/* Admin-only Routes */}
       <Route element={<AdminRoutes />}>        
@@ -87,8 +89,8 @@ const AppRouter = () => (
       <Route path="sounds/albums/one" element={<AlbumOne />} />
 
 
+      <Route path="*" element={<Navigate to="/" />} />
     </Route>
-    <Route path="*" element={<Navigate to="/" />} />
   </Routes>
 );
 
