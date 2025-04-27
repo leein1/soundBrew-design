@@ -2,7 +2,9 @@ import { axiosGet } from "../../api/standardAxios";
 
 const handleDownload = async (filePath) => {
   try {
+    alert(filePath);
     const response = await axiosGet({endpoint: `/api/files/${filePath}`,useToken: true,responseType: "blob",});
+    console.log(response);
 
     const blobData = response.data ?? response;
 

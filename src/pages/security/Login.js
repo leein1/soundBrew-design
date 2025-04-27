@@ -3,14 +3,13 @@ import { useMemo, useState } from "react";
 import { useAuth } from "context/authContext";
 import { useCSSLoader } from "hooks/useCSSLoader";
 
-// import "../../assets/css/login.css";
-
 const Login = () => {
   const cssFiles = useMemo(()=>[
     "/assets/css/login.css",
   ], []);
 
-  useCSSLoader(cssFiles);
+  // CSS 로딩 상태 확인
+  const cssLoaded = useCSSLoader(cssFiles);
 
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
@@ -21,6 +20,10 @@ const Login = () => {
       await login(username, password);
       // 로그인 성공 시 navigate는 context 내부에서 처리됨.
   };
+
+  if(!cssLoaded){
+    return null;
+  }
 
   return (
     <div className="content-wrapper">

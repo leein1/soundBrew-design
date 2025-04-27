@@ -124,9 +124,10 @@ const AdminUser = () => {
 
   // 임시로 구독, 결제 옵션을 위한 매핑 (원래 JS 코드에서와 유사)
   const subscriptionMapping = {
-    "1": "basic",
-    "2": "premium",
-    "3": "vip",
+    "1": "free",
+    "2": "basic",
+    "3": "premium",
+    "4": "vip"
   };
 
   const roleMapping = {

@@ -71,7 +71,7 @@ const Sidebar = ({ isExpanded, toggleSidebar, onProfileClick }) => {
         <div className="guest-view">
           <div className="profile">
             <img src={icons.defaultUserIcon} alt="User" className="profile-image" />
-            {isExpanded && ( <button className="primary-button loginPage">로그인</button> )}
+            {isExpanded && ( <Link to="/login" className="primary-button loginPage">로그인</Link> )}
           </div>
         </div>
       )}
@@ -195,10 +195,10 @@ const Sidebar = ({ isExpanded, toggleSidebar, onProfileClick }) => {
         <span className="sidebar-text">구독제</span>
       </Link>
       <hr className="divider" />
-      <Link to="" className="sidebar-item" onClick={()=>alert("문의하기를 클릭하셨습니다.")}>
+      {/* <Link to="" className="sidebar-item" onClick={()=>alert("문의하기를 클릭하셨습니다.")}>
         <img className="sidebar-icon" src={icons.qnaIcon} alt="문의" />
         <span className="sidebar-text">문의</span>
-      </Link>
+      </Link> */}
 
       {/* 다크모드 토글 */}
       <DarkModeToggle />

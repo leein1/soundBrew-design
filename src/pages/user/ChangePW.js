@@ -70,17 +70,17 @@ const ChangePW = () => {
   }
 
   return(
-    <div class="changepw-content-body">
+    <div className="changepw-content-body">
       <h2 className="myInfo-content-header">비밀번호 변경</h2>
 
       <form className="changepw-form" id="changepw-form" onSubmit={handleSubmit}>
-        <div class="input-group">
-          <label for="password">비밀번호 8글자 이상 숫자,특수문자,대문자 1개 이상</label>
+        <div className="input-group">
+          <label htmlFor="password">비밀번호 8글자 이상 숫자,특수문자,대문자 1개 이상</label>
           <input type="password" id="password" name="password"
                 value={password} onChange={(e) => setPassword(e.target.value)}  required />
         </div>
-        <div class="input-group">
-          <label for="password-check">비밀번호 확인</label>
+        <div className="input-group">
+          <label htmlFor="password-check">비밀번호 확인</label>
           <input type="password" id="password-check" name="password-check"
                 value={passwordCheck} onChange={(e) => setPasswordCheck(e.target.value)} ref={pwCheckRef} required />
         </div>
