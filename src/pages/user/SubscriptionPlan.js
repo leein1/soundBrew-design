@@ -14,7 +14,7 @@ const SubscriptionPlans = () => {
     const fetchData = async () => {
       try {
         const response = await axiosGet({ endpoint: '/api/payment/plans' });
-        // dtoList가 배열인지 확인 후 state 설정
+
         if (Array.isArray(response.dtoList)) {
           setPlans(response.dtoList);
         } else {

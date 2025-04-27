@@ -133,7 +133,7 @@ const QueBar = ({ playerSoundInfo }) => {
               className="player-album-img"
               src={
                 playerSoundInfo && playerSoundInfo.albumArtPath
-                  ? `https://api.soundbrew.art/${playerSoundInfo.albumArtPath}`
+                  ? `https://soundbrew.art/${playerSoundInfo.albumArtPath}`
                   : icons.defaultSoundImg
               }
               width={50}

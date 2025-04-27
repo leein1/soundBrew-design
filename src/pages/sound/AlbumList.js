@@ -53,7 +53,7 @@ const AlbumList = ({ data: propData, onPlay })=>{
                 >
                     <img
                         className="list-album-image"
-                        src={`https://api.soundbrew.art/${album.albumDTO.albumArtPath}`}
+                        src={`https://soundbrew.art/${album.albumDTO.albumArtPath}`}
                         alt="Album-Image"
                         onError={(e) => {
                             e.target.src = icons.defaultSoundImg;

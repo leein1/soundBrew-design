@@ -81,7 +81,7 @@ export function SuccessPage() {
       paymentKey: searchParams.get("paymentKey"),
     };
 
-    const response = await fetch("https://localhost:8443/confirm", {
+    const response = await fetch("https://api.soundbrew.art/confirm", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(requestData),

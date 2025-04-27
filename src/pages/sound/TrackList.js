@@ -39,6 +39,21 @@ const TrackList = ({ onPlay, data }) => {
     fetchTracks();
   }, [location.search, data]);
 
+  const handleCartClick = (sound) => {
+    if (!user) {
+      alert("로그인을 먼저 진행해주세요");
+      return;
+    }
+    handleCart(sound, user.userId);
+  };
+  const handleDownloadClick = (sound) => {
+    if (!user) {
+      alert("로그인을 먼저 진행해주세요");
+      return;
+    }
+    handleCartAndTransaction(sound, user.userId);
+  };
+
   const handleShare = async (sound) => {
     const url = window.location.origin;
     const shareText = `${url}/sounds/tracks/one?nickname=${encodeURIComponent(
@@ -86,7 +101,7 @@ const TrackList = ({ onPlay, data }) => {
             <img
               alt="앨범 이미지"
               className="music-album-img"
-              src={`https://api.soundbrew.art/${sound.albumDTO.albumArtPath}`}
+              src={`https://soundbrew.art/${sound.albumDTO.albumArtPath}`}
               onError={(e) => { e.target.src = icons.defaultSoundImg; }}
             />
             <div
@@ -149,17 +164,17 @@ const TrackList = ({ onPlay, data }) => {
 
           <div className="music-item-right">
             <div className="music-actions">
-              <img
+            <img
                 src={icons.cartIcon}
                 alt="장바구니"
                 className="cart-btn"
-                onClick={() => handleCart(sound, user?.userId)}
+                onClick={() => handleCartClick(sound)}
               />
               <img
                 src={icons.downloadIcon}
                 className="download-btn"
                 alt="다운로드"
-                onClick={() => handleCartAndTransaction(sound, user?.userId)}
+                onClick={() => handleDownloadClick(sound)}
               />
               <img
                 src={icons.linkIcon}

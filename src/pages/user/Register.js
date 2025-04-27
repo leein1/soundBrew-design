@@ -101,6 +101,9 @@ const Register = () => {
     };
 
     try {
+      console.log(processedData);
+
+      alert("!!");
       await axiosPost({ endpoint: "/api/users", body: processedData, handle: handleOption });
     } catch (err) {
       console.error("Error:", err);

@@ -88,7 +88,7 @@ const Sidebar = ({ isExpanded, toggleSidebar, onProfileClick }) => {
                   }}
                   alt="User Profile"
                   className="profile-image no-invert"
-                  src={`https://api.soundbrew.art/${user.profileImagePath}`}
+                  src={`https://soundbrew.art/${user.profileImagePath}`}
                 />
               </div>
               <div className="info1">
@@ -124,7 +124,7 @@ const Sidebar = ({ isExpanded, toggleSidebar, onProfileClick }) => {
                   src={
                     !user.profileImagePath || user.profileImagePath === "default_profile_image.jpg"
                       ? icons.defaultUserIcon
-                      : `https://api.soundbrew.art/${user.profileImagePath}`
+                      : `https://soundbrew.art/${user.profileImagePath}`
                   }
                   alt="프로필"className="profile-image no-invert" />
                 <button id="profileModalBtn" className="primary-button none-display" 
