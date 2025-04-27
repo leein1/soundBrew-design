@@ -13,7 +13,7 @@ const Register = () => {
     "/assets/css/register.css",
   ], [])
 
-  useCSSLoader(cssFiles);
+  const cssLoaded = useCSSLoader(cssFiles);
 
   // 각 입력 필드 상태
   const [email, setEmail] = useState("");
@@ -110,6 +110,10 @@ const Register = () => {
       setSubmitting(false);
     }
   };
+
+  if (!cssLoaded) {
+    return null; 
+  }
 
   return (
     <div className="content-body">
